@@ -68,8 +68,8 @@
 		0867D691FE84028FC02AAC07 /* Nutron */ = {
 			isa = PBXGroup;
 			children = (
-				08FB77AEFE84172EC02AAC07 /* Classes */,
-				32C88DFF0371C24200C91783 /* Other Sources */,
+				08FB77AEFE84172EC02AAC07 /* Shared */,
+				4FD1A5B6124B27EE00285544 /* Console */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
@@ -95,21 +95,16 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		08FB77AEFE84172EC02AAC07 /* Classes */ = {
+		08FB77AEFE84172EC02AAC07 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				32DBCF5E0370ADEE00C91783 /* Nutron_Prefix.pch */,
 				4FD1A588124B239400285544 /* Nutron.h */,
 				4FD1A589124B239400285544 /* Nutron.m */,
 				4FD1A590124B239400285544 /* NutronExtensions.h */,
 				4FD1A591124B239400285544 /* NutronExtensions.m */,
-				4FD1A58A124B239400285544 /* NutronConsoleView.h */,
-				4FD1A58B124B239400285544 /* NutronConsoleView.m */,
-				4FD1A58C124B239400285544 /* NutronConsoleViewController.h */,
-				4FD1A58D124B239400285544 /* NutronConsoleViewController.m */,
-				4FD1A58E124B239400285544 /* NutronConsoleWindowController.h */,
-				4FD1A58F124B239400285544 /* NutronConsoleWindowController.m */,
 			);
-			name = Classes;
+			name = Shared;
 			sourceTree = "<group>";
 		};
 		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
@@ -131,12 +126,17 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		32C88DFF0371C24200C91783 /* Other Sources */ = {
+		4FD1A5B6124B27EE00285544 /* Console */ = {
 			isa = PBXGroup;
 			children = (
-				32DBCF5E0370ADEE00C91783 /* Nutron_Prefix.pch */,
+				4FD1A58A124B239400285544 /* NutronConsoleView.h */,
+				4FD1A58B124B239400285544 /* NutronConsoleView.m */,
+				4FD1A58C124B239400285544 /* NutronConsoleViewController.h */,
+				4FD1A58D124B239400285544 /* NutronConsoleViewController.m */,
+				4FD1A58E124B239400285544 /* NutronConsoleWindowController.h */,
+				4FD1A58F124B239400285544 /* NutronConsoleWindowController.m */,
 			);
-			name = "Other Sources";
+			name = Console;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
