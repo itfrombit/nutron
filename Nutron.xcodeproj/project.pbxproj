@@ -18,6 +18,8 @@
 		4FD1A599124B239400285544 /* NutronConsoleWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD1A58F124B239400285544 /* NutronConsoleWindowController.m */; };
 		4FD1A59A124B239400285544 /* NutronExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FD1A590124B239400285544 /* NutronExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FD1A59B124B239400285544 /* NutronExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD1A591124B239400285544 /* NutronExtensions.m */; };
+		4FD1A6AF124BF91A00285544 /* NutronViewSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FD1A6AD124BF91A00285544 /* NutronViewSelector.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4FD1A6B0124BF91A00285544 /* NutronViewSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD1A6AE124BF91A00285544 /* NutronViewSelector.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -39,6 +41,8 @@
 		4FD1A58F124B239400285544 /* NutronConsoleWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronConsoleWindowController.m; path = src/NutronConsoleWindowController.m; sourceTree = "<group>"; };
 		4FD1A590124B239400285544 /* NutronExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NutronExtensions.h; path = src/NutronExtensions.h; sourceTree = "<group>"; };
 		4FD1A591124B239400285544 /* NutronExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronExtensions.m; path = src/NutronExtensions.m; sourceTree = "<group>"; };
+		4FD1A6AD124BF91A00285544 /* NutronViewSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NutronViewSelector.h; path = src/NutronViewSelector.h; sourceTree = "<group>"; };
+		4FD1A6AE124BF91A00285544 /* NutronViewSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronViewSelector.m; path = src/NutronViewSelector.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* Nutron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nutron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -69,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				08FB77AEFE84172EC02AAC07 /* Shared */,
+				4FD1A618124BC77E00285544 /* ViewSelecctor */,
 				4FD1A5B6124B27EE00285544 /* Console */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
@@ -139,6 +144,15 @@
 			name = Console;
 			sourceTree = "<group>";
 		};
+		4FD1A618124BC77E00285544 /* ViewSelecctor */ = {
+			isa = PBXGroup;
+			children = (
+				4FD1A6AD124BF91A00285544 /* NutronViewSelector.h */,
+				4FD1A6AE124BF91A00285544 /* NutronViewSelector.m */,
+			);
+			name = ViewSelecctor;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -151,6 +165,7 @@
 				4FD1A596124B239400285544 /* NutronConsoleViewController.h in Headers */,
 				4FD1A598124B239400285544 /* NutronConsoleWindowController.h in Headers */,
 				4FD1A59A124B239400285544 /* NutronExtensions.h in Headers */,
+				4FD1A6AF124BF91A00285544 /* NutronViewSelector.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +237,7 @@
 				4FD1A597124B239400285544 /* NutronConsoleViewController.m in Sources */,
 				4FD1A599124B239400285544 /* NutronConsoleWindowController.m in Sources */,
 				4FD1A59B124B239400285544 /* NutronExtensions.m in Sources */,
+				4FD1A6B0124BF91A00285544 /* NutronViewSelector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

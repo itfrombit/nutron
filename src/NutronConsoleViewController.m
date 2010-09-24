@@ -43,7 +43,7 @@
 		[_textView setAutoresizingMask:(NSViewHeightSizable | NSViewWidthSizable)];
 		[_textView setBackgroundColor:[NSColor colorWithDeviceRed:0.8 green:0.8 blue:1.0 alpha:0.9]];
 		[_textView setTextColor:[NSColor blackColor]];
-		[_textView setInsertionPointColor:[NSColor orangeColor]];
+		[_textView setInsertionPointColor:[NSColor blackColor]];
 		[_textView setDelegate:self];
 
 		_scrollView = [[NSScrollView alloc] initWithFrame:frame];

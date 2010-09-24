@@ -17,6 +17,7 @@
 @interface Nutron : NSObject
 
 + (NutronConsoleWindowController*)console;
++ (id)selectView;
 
 @end
 
