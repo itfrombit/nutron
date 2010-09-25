@@ -8,6 +8,8 @@
 
 #import "Nutron.h"
 #import "NutronConsoleWindowController.h"
+#import "NutronObjectViewWindowController.h"
+
 #import "NutronViewSelector.h"
 
 @implementation Nutron
@@ -15,6 +17,11 @@
 + (NutronConsoleWindowController*)console
 {
 	return [[[NutronConsoleWindowController alloc] init] autorelease];
+}
+
++ (NutronObjectViewWindowController*)viewObject:(id)object
+{
+	return [[[NutronObjectViewWindowController alloc] initWithRootObject:object] autorelease];
 }
 
 + (id)selectView

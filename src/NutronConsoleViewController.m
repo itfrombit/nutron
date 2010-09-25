@@ -46,13 +46,7 @@
 		[_textView setInsertionPointColor:[NSColor blackColor]];
 		[_textView setDelegate:self];
 
-		_scrollView = [[NSScrollView alloc] initWithFrame:frame];
-		[_scrollView setAutoresizingMask:18];
-		[_scrollView setHasHorizontalScroller:YES];
-		[_scrollView setHasVerticalScroller:YES];
-		[_scrollView setBorderType:2];
-		
-		[_scrollView setDocumentView:_textView];
+		_scrollView = [[NSScrollView scrollViewWrappedAroundView:_textView withFrame:frame] retain];
 		
 		_startOfInput = 0;
 		_insertionPoint = 0;

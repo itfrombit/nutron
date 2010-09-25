@@ -13,10 +13,13 @@
 #import "NutronExtensions.h"
 
 @class NutronConsoleWindowController;
+@class NutronObjectViewWindowController;
 
 @interface Nutron : NSObject
 
 + (NutronConsoleWindowController*)console;
++ (NutronObjectViewWindowController*)viewObject:(id)object;
+
 + (id)selectView;
 
 @end

@@ -10,6 +10,23 @@
 #import "NutronExtensions.h"
 
 
+@implementation NSScrollView (NutronExtensions)
+
++ (NSScrollView*)scrollViewWrappedAroundView:(NSView*)view withFrame:(NSRect)frame
+{
+	NSScrollView* sv = [[NSScrollView alloc] initWithFrame:frame];
+	[sv setAutoresizingMask:(NSViewHeightSizable | NSViewWidthSizable)];
+	[sv setHasHorizontalScroller:YES];
+	[sv setHasVerticalScroller:YES];
+	[sv setBorderType:NSBezelBorder];
+	[sv setDocumentView:view];
+	
+	return [sv autorelease];
+}
+
+@end
+
+
 @implementation NSTextStorage (NutronExtensions)
 
 - (int)findOpeningParenForParenAt:(int)position backTo:(int)startOfInput

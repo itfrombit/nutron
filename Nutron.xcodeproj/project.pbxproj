@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		4F9E006B124A8BEC0041B849 /* Nu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9E006A124A8BEC0041B849 /* Nu.framework */; };
+		4FCBFABD124D30D600986254 /* NutronObjectViewWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FCBFABB124D30D600986254 /* NutronObjectViewWindowController.h */; };
+		4FCBFABE124D30D600986254 /* NutronObjectViewWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBFABC124D30D600986254 /* NutronObjectViewWindowController.m */; };
+		4FCBFAC5124D396800986254 /* NutronObjectView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FCBFAC1124D396800986254 /* NutronObjectView.h */; };
+		4FCBFAC6124D396800986254 /* NutronObjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBFAC2124D396800986254 /* NutronObjectView.m */; };
+		4FCBFAC7124D396800986254 /* NutronObjectViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FCBFAC3124D396800986254 /* NutronObjectViewController.h */; };
+		4FCBFAC8124D396800986254 /* NutronObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBFAC4124D396800986254 /* NutronObjectViewController.m */; };
 		4FD1A592124B239400285544 /* Nutron.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FD1A588124B239400285544 /* Nutron.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FD1A593124B239400285544 /* Nutron.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD1A589124B239400285544 /* Nutron.m */; };
 		4FD1A594124B239400285544 /* NutronConsoleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FD1A58A124B239400285544 /* NutronConsoleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -31,6 +37,12 @@
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCF5E0370ADEE00C91783 /* Nutron_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nutron_Prefix.pch; sourceTree = "<group>"; };
 		4F9E006A124A8BEC0041B849 /* Nu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nu.framework; path = Library/Frameworks/Nu.framework; sourceTree = SDKROOT; };
+		4FCBFABB124D30D600986254 /* NutronObjectViewWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NutronObjectViewWindowController.h; path = src/NutronObjectViewWindowController.h; sourceTree = "<group>"; };
+		4FCBFABC124D30D600986254 /* NutronObjectViewWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronObjectViewWindowController.m; path = src/NutronObjectViewWindowController.m; sourceTree = "<group>"; };
+		4FCBFAC1124D396800986254 /* NutronObjectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NutronObjectView.h; path = src/NutronObjectView.h; sourceTree = "<group>"; };
+		4FCBFAC2124D396800986254 /* NutronObjectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronObjectView.m; path = src/NutronObjectView.m; sourceTree = "<group>"; };
+		4FCBFAC3124D396800986254 /* NutronObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NutronObjectViewController.h; path = src/NutronObjectViewController.h; sourceTree = "<group>"; };
+		4FCBFAC4124D396800986254 /* NutronObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronObjectViewController.m; path = src/NutronObjectViewController.m; sourceTree = "<group>"; };
 		4FD1A588124B239400285544 /* Nutron.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Nutron.h; path = src/Nutron.h; sourceTree = "<group>"; };
 		4FD1A589124B239400285544 /* Nutron.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Nutron.m; path = src/Nutron.m; sourceTree = "<group>"; };
 		4FD1A58A124B239400285544 /* NutronConsoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NutronConsoleView.h; path = src/NutronConsoleView.h; sourceTree = "<group>"; };
@@ -74,6 +86,7 @@
 			children = (
 				08FB77AEFE84172EC02AAC07 /* Shared */,
 				4FD1A618124BC77E00285544 /* ViewSelecctor */,
+				4FCBFAB1124D2AFA00986254 /* ObjectViewer */,
 				4FD1A5B6124B27EE00285544 /* Console */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
@@ -131,6 +144,19 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
+		4FCBFAB1124D2AFA00986254 /* ObjectViewer */ = {
+			isa = PBXGroup;
+			children = (
+				4FCBFAC1124D396800986254 /* NutronObjectView.h */,
+				4FCBFAC2124D396800986254 /* NutronObjectView.m */,
+				4FCBFAC3124D396800986254 /* NutronObjectViewController.h */,
+				4FCBFAC4124D396800986254 /* NutronObjectViewController.m */,
+				4FCBFABB124D30D600986254 /* NutronObjectViewWindowController.h */,
+				4FCBFABC124D30D600986254 /* NutronObjectViewWindowController.m */,
+			);
+			name = ObjectViewer;
+			sourceTree = "<group>";
+		};
 		4FD1A5B6124B27EE00285544 /* Console */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +192,9 @@
 				4FD1A598124B239400285544 /* NutronConsoleWindowController.h in Headers */,
 				4FD1A59A124B239400285544 /* NutronExtensions.h in Headers */,
 				4FD1A6AF124BF91A00285544 /* NutronViewSelector.h in Headers */,
+				4FCBFABD124D30D600986254 /* NutronObjectViewWindowController.h in Headers */,
+				4FCBFAC5124D396800986254 /* NutronObjectView.h in Headers */,
+				4FCBFAC7124D396800986254 /* NutronObjectViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +267,9 @@
 				4FD1A599124B239400285544 /* NutronConsoleWindowController.m in Sources */,
 				4FD1A59B124B239400285544 /* NutronExtensions.m in Sources */,
 				4FD1A6B0124BF91A00285544 /* NutronViewSelector.m in Sources */,
+				4FCBFABE124D30D600986254 /* NutronObjectViewWindowController.m in Sources */,
+				4FCBFAC6124D396800986254 /* NutronObjectView.m in Sources */,
+				4FCBFAC8124D396800986254 /* NutronObjectViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +297,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -273,6 +306,7 @@
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
 				PRODUCT_NAME = Nutron;
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -285,6 +319,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Nutron_Prefix.pch;
@@ -292,6 +327,7 @@
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
 				PRODUCT_NAME = Nutron;
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;

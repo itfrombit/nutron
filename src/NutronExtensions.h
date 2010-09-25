@@ -9,6 +9,13 @@
 #import <Cocoa/Cocoa.h>
 
 
+@interface NSScrollView (NutronExtensions)
+
++ (NSScrollView*)scrollViewWrappedAroundView:(NSView*)view withFrame:(NSRect)frame;
+
+@end
+
+
 @interface NSTextStorage (NutronExtensions)
 
 - (int)findOpeningParenForParenAt:(int)position backTo:(int)startOfInput;
