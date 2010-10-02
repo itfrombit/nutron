@@ -19,7 +19,7 @@
 	return [[[NutronConsoleWindowController alloc] init] autorelease];
 }
 
-+ (NutronObjectViewWindowController*)viewObject:(id)object
++ (NutronObjectViewWindowController*)inspect:(id)object
 {
 	return [[[NutronObjectViewWindowController alloc] initWithRootObject:object] autorelease];
 }

@@ -5,6 +5,8 @@
 //  Created by Jeff Buck on 9/22/10.
 //  Copyright 2010 Jeff Buck. All rights reserved.
 //
+//  Ported from Nu's console.nu
+//
 
 #import "Nu/Nu.h"
 #import "Nutron.h"
@@ -177,7 +179,7 @@
 
 
 - (BOOL)textView:(NSTextView*)textView shouldChangeTextInRange:(NSRange)range replacementString:(NSString*)replacement
-{
+{ 
 	NSLayoutManager* layoutManager = [_textView layoutManager];
 	int textLength = [self lengthOfTextView];
 	int replacementLength = [replacement length];

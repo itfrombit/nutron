@@ -12,13 +12,21 @@
 
 #import "NutronExtensions.h"
 
+//#define NUTRON_DEBUG	1
+
+#ifdef NUTRON_DEBUG
+#define NutronDebug(arg...) NSLog(arg)
+#else
+#define NutronDebug(arg...)
+#endif
+
 @class NutronConsoleWindowController;
 @class NutronObjectViewWindowController;
 
 @interface Nutron : NSObject
 
 + (NutronConsoleWindowController*)console;
-+ (NutronObjectViewWindowController*)viewObject:(id)object;
++ (NutronObjectViewWindowController*)inspect:(id)object;
 
 + (id)selectView;
 

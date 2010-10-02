@@ -16,7 +16,7 @@
 - (id)initWithRootObject:(id)object
 {
 	self = [super initWithWindow:[[NSPanel alloc]
-								  initWithContentRect:NSMakeRect(0, 0, 600, 400)
+								  initWithContentRect:NSMakeRect(0, 0, 700, 400)
 											styleMask:NSTitledWindowMask
 														| NSClosableWindowMask
 														| NSResizableWindowMask
