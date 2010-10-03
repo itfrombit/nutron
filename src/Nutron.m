@@ -9,6 +9,8 @@
 #import "Nutron.h"
 #import "NutronConsoleWindowController.h"
 #import "NutronObjectViewWindowController.h"
+#import "NutronClassTextViewWindowController.h"
+#import "NutronClassOutlineViewWindowController.h"
 
 #import "NutronViewSelector.h"
 
@@ -22,6 +24,22 @@
 + (NutronObjectViewWindowController*)inspect:(id)object
 {
 	return [[[NutronObjectViewWindowController alloc] initWithRootObject:object] autorelease];
+}
+
++ (NutronClassTextViewWindowController*)viewClass:(NSString*)className
+{
+	NutronClassTextViewWindowController* c = 
+	[[[NutronClassTextViewWindowController alloc] initWithClassName:className] autorelease];
+
+	return c;
+}
+
++ (NutronClassOutlineViewWindowController*)outlineClass:(NSString*)className
+{
+	NutronClassOutlineViewWindowController* c = 
+	[[[NutronClassOutlineViewWindowController alloc] initWithClassName:className] autorelease];
+	
+	return c;
 }
 
 + (id)selectView

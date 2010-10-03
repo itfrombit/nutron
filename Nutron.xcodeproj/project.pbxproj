@@ -28,6 +28,20 @@
 		4FD1A6B0124BF91A00285544 /* NutronViewSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD1A6AE124BF91A00285544 /* NutronViewSelector.m */; };
 		4FE07E031256F9D100CD12FA /* NutronRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE07E011256F9D100CD12FA /* NutronRuntime.h */; };
 		4FE07E041256F9D100CD12FA /* NutronRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE07E021256F9D100CD12FA /* NutronRuntime.m */; };
+		4FE07E371257821000CD12FA /* NutronClassOutlineView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE07E351257820F00CD12FA /* NutronClassOutlineView.h */; };
+		4FE07E381257821000CD12FA /* NutronClassOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE07E361257820F00CD12FA /* NutronClassOutlineView.m */; };
+		4FE07E3B1257822C00CD12FA /* NutronClassTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE07E391257822C00CD12FA /* NutronClassTextView.h */; };
+		4FE07E3C1257822C00CD12FA /* NutronClassTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE07E3A1257822C00CD12FA /* NutronClassTextView.m */; };
+		4FE07E43125782C300CD12FA /* NutronClassOutlineViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE07E41125782C300CD12FA /* NutronClassOutlineViewController.h */; };
+		4FE07E44125782C300CD12FA /* NutronClassOutlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE07E42125782C300CD12FA /* NutronClassOutlineViewController.m */; };
+		4FE07E47125782FA00CD12FA /* NutronClassOutlineViewWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE07E45125782FA00CD12FA /* NutronClassOutlineViewWindowController.h */; };
+		4FE07E48125782FA00CD12FA /* NutronClassOutlineViewWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE07E46125782FA00CD12FA /* NutronClassOutlineViewWindowController.m */; };
+		4FE07E5A1257834600CD12FA /* NutronClassTextViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE07E581257834600CD12FA /* NutronClassTextViewController.h */; };
+		4FE07E5B1257834600CD12FA /* NutronClassTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE07E591257834600CD12FA /* NutronClassTextViewController.m */; };
+		4FE07E5E1257836900CD12FA /* NutronClassTextViewWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE07E5C1257836900CD12FA /* NutronClassTextViewWindowController.h */; };
+		4FE07E5F1257836900CD12FA /* NutronClassTextViewWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE07E5D1257836900CD12FA /* NutronClassTextViewWindowController.m */; };
+		4FE07F9F1257C34800CD12FA /* NutronCachedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE07F9D1257C34800CD12FA /* NutronCachedObject.h */; };
+		4FE07FA01257C34800CD12FA /* NutronCachedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE07F9E1257C34800CD12FA /* NutronCachedObject.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -59,6 +73,20 @@
 		4FD1A6AE124BF91A00285544 /* NutronViewSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronViewSelector.m; path = src/NutronViewSelector.m; sourceTree = "<group>"; };
 		4FE07E011256F9D100CD12FA /* NutronRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NutronRuntime.h; path = src/NutronRuntime.h; sourceTree = "<group>"; };
 		4FE07E021256F9D100CD12FA /* NutronRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronRuntime.m; path = src/NutronRuntime.m; sourceTree = "<group>"; };
+		4FE07E351257820F00CD12FA /* NutronClassOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NutronClassOutlineView.h; path = src/NutronClassOutlineView.h; sourceTree = "<group>"; };
+		4FE07E361257820F00CD12FA /* NutronClassOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronClassOutlineView.m; path = src/NutronClassOutlineView.m; sourceTree = "<group>"; };
+		4FE07E391257822C00CD12FA /* NutronClassTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NutronClassTextView.h; path = src/NutronClassTextView.h; sourceTree = "<group>"; };
+		4FE07E3A1257822C00CD12FA /* NutronClassTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronClassTextView.m; path = src/NutronClassTextView.m; sourceTree = "<group>"; };
+		4FE07E41125782C300CD12FA /* NutronClassOutlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NutronClassOutlineViewController.h; path = src/NutronClassOutlineViewController.h; sourceTree = "<group>"; };
+		4FE07E42125782C300CD12FA /* NutronClassOutlineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronClassOutlineViewController.m; path = src/NutronClassOutlineViewController.m; sourceTree = "<group>"; };
+		4FE07E45125782FA00CD12FA /* NutronClassOutlineViewWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NutronClassOutlineViewWindowController.h; path = src/NutronClassOutlineViewWindowController.h; sourceTree = "<group>"; };
+		4FE07E46125782FA00CD12FA /* NutronClassOutlineViewWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronClassOutlineViewWindowController.m; path = src/NutronClassOutlineViewWindowController.m; sourceTree = "<group>"; };
+		4FE07E581257834600CD12FA /* NutronClassTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NutronClassTextViewController.h; path = src/NutronClassTextViewController.h; sourceTree = "<group>"; };
+		4FE07E591257834600CD12FA /* NutronClassTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronClassTextViewController.m; path = src/NutronClassTextViewController.m; sourceTree = "<group>"; };
+		4FE07E5C1257836900CD12FA /* NutronClassTextViewWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NutronClassTextViewWindowController.h; path = src/NutronClassTextViewWindowController.h; sourceTree = "<group>"; };
+		4FE07E5D1257836900CD12FA /* NutronClassTextViewWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronClassTextViewWindowController.m; path = src/NutronClassTextViewWindowController.m; sourceTree = "<group>"; };
+		4FE07F9D1257C34800CD12FA /* NutronCachedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NutronCachedObject.h; path = src/NutronCachedObject.h; sourceTree = "<group>"; };
+		4FE07F9E1257C34800CD12FA /* NutronCachedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronCachedObject.m; path = src/NutronCachedObject.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* Nutron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nutron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -90,6 +118,7 @@
 			children = (
 				08FB77AEFE84172EC02AAC07 /* Shared */,
 				4FD1A618124BC77E00285544 /* ViewSelector */,
+				4FE07E3412577E9A00CD12FA /* ClassViewer */,
 				4FCBFAB1124D2AFA00986254 /* ObjectViewer */,
 				4FD1A5B6124B27EE00285544 /* Console */,
 				089C1665FE841158C02AAC07 /* Resources */,
@@ -127,6 +156,8 @@
 				4FD1A591124B239400285544 /* NutronExtensions.m */,
 				4FE07E011256F9D100CD12FA /* NutronRuntime.h */,
 				4FE07E021256F9D100CD12FA /* NutronRuntime.m */,
+				4FE07F9D1257C34800CD12FA /* NutronCachedObject.h */,
+				4FE07F9E1257C34800CD12FA /* NutronCachedObject.m */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -185,6 +216,25 @@
 			name = ViewSelector;
 			sourceTree = "<group>";
 		};
+		4FE07E3412577E9A00CD12FA /* ClassViewer */ = {
+			isa = PBXGroup;
+			children = (
+				4FE07E351257820F00CD12FA /* NutronClassOutlineView.h */,
+				4FE07E361257820F00CD12FA /* NutronClassOutlineView.m */,
+				4FE07E41125782C300CD12FA /* NutronClassOutlineViewController.h */,
+				4FE07E42125782C300CD12FA /* NutronClassOutlineViewController.m */,
+				4FE07E45125782FA00CD12FA /* NutronClassOutlineViewWindowController.h */,
+				4FE07E46125782FA00CD12FA /* NutronClassOutlineViewWindowController.m */,
+				4FE07E391257822C00CD12FA /* NutronClassTextView.h */,
+				4FE07E3A1257822C00CD12FA /* NutronClassTextView.m */,
+				4FE07E581257834600CD12FA /* NutronClassTextViewController.h */,
+				4FE07E591257834600CD12FA /* NutronClassTextViewController.m */,
+				4FE07E5C1257836900CD12FA /* NutronClassTextViewWindowController.h */,
+				4FE07E5D1257836900CD12FA /* NutronClassTextViewWindowController.m */,
+			);
+			name = ClassViewer;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -202,6 +252,13 @@
 				4FCBFAC5124D396800986254 /* NutronObjectView.h in Headers */,
 				4FCBFAC7124D396800986254 /* NutronObjectViewController.h in Headers */,
 				4FE07E031256F9D100CD12FA /* NutronRuntime.h in Headers */,
+				4FE07E371257821000CD12FA /* NutronClassOutlineView.h in Headers */,
+				4FE07E3B1257822C00CD12FA /* NutronClassTextView.h in Headers */,
+				4FE07E43125782C300CD12FA /* NutronClassOutlineViewController.h in Headers */,
+				4FE07E47125782FA00CD12FA /* NutronClassOutlineViewWindowController.h in Headers */,
+				4FE07E5A1257834600CD12FA /* NutronClassTextViewController.h in Headers */,
+				4FE07E5E1257836900CD12FA /* NutronClassTextViewWindowController.h in Headers */,
+				4FE07F9F1257C34800CD12FA /* NutronCachedObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +335,13 @@
 				4FCBFAC6124D396800986254 /* NutronObjectView.m in Sources */,
 				4FCBFAC8124D396800986254 /* NutronObjectViewController.m in Sources */,
 				4FE07E041256F9D100CD12FA /* NutronRuntime.m in Sources */,
+				4FE07E381257821000CD12FA /* NutronClassOutlineView.m in Sources */,
+				4FE07E3C1257822C00CD12FA /* NutronClassTextView.m in Sources */,
+				4FE07E44125782C300CD12FA /* NutronClassOutlineViewController.m in Sources */,
+				4FE07E48125782FA00CD12FA /* NutronClassOutlineViewWindowController.m in Sources */,
+				4FE07E5B1257834600CD12FA /* NutronClassTextViewController.m in Sources */,
+				4FE07E5F1257836900CD12FA /* NutronClassTextViewWindowController.m in Sources */,
+				4FE07FA01257C34800CD12FA /* NutronCachedObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

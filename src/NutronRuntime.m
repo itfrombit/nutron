@@ -117,13 +117,22 @@
 			range = [encoding rangeOfString:@"=" 
 									options:NSLiteralSearch
 									  range:NSMakeRange(1, [encoding length] - 1)];
-			tag = [encoding substringWithRange:NSMakeRange(1, range.location - 1)];
-			
+			if (range.location == NSNotFound)
+			{
+				// There may not be an =
+				tag = [encoding substringWithRange:NSMakeRange(1, [encoding length] - 2)];
+			}
+			else
+			{
+				// This needs more parsing work...
+				tag = [encoding substringWithRange:NSMakeRange(1, range.location - 1)];
+			}
+
 			if (c == '{')
 				objcType = [NSString stringWithFormat:@"struct %@", tag];
 			else
 				objcType = [NSString stringWithFormat:@"union %@", tag];
-			
+
 			break;
 
 		default:
@@ -320,7 +329,7 @@
 
 - (NSString*) objcDeclaration
 {
-	NSMutableString* d = [[[NSMutableString alloc] init] autorelease];
+	NSMutableString* d = [NSMutableString string];
 
 	[d appendFormat:@"%@ %@", [_type objcEncoding], _name];
 
@@ -337,7 +346,7 @@
 
 - (NSString*) nuDeclaration
 {
-	NSMutableString* d = [[[NSMutableString alloc] init] autorelease];
+	NSMutableString* d = [NSMutableString string];
 
 	[d appendFormat:@"(%@) %@", [_type objcEncoding], _name];
 
@@ -437,7 +446,7 @@
 
 - (NSString*) objcDeclarationRoot
 {
-	NSMutableString* d = [[[NSMutableString alloc] init] autorelease];
+	NSMutableString* d = [NSMutableString string];
 	
 	if (_methodType == NutronRuntimeMethodType_Instance)
 		[d appendString:@"- "];
@@ -503,7 +512,7 @@
 
 - (NSString*) nuDeclarationRoot
 {
-	NSMutableString* d = [[[NSMutableString alloc] init] autorelease];
+	NSMutableString* d = [NSMutableString string];
 	
 	if (_methodType == NutronRuntimeMethodType_Instance)
 		[d appendString:@"(- "];
@@ -569,7 +578,7 @@
 
 - (NSString*) nuImplementation
 {
-	NSMutableString* d = [[[NSMutableString alloc] init] autorelease];
+	NSMutableString* d = [NSMutableString string];
 
 	[d appendString:[self nuDeclarationRoot]];
 
@@ -591,7 +600,7 @@
 
 - (NSString*) description
 {
-	NSMutableString* d = [[[NSMutableString alloc] init] autorelease];
+	NSMutableString* d = [NSMutableString string];
 	
 	[d appendFormat:@"  (%@) %@", [_returnType objcEncoding], _name];
 	

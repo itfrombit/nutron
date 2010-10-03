@@ -178,6 +178,7 @@ typedef enum tagNutronRuntimeMethodType
 - (NutronRuntimeProtocol*) protocolLookup:(NSString*) protocolName;
 
 - (NSString*) objcDeclaration;
+- (NSString*) nuDeclaration;
 
 - (void) writeToPlist:(NSString*)filename;
 - (void) writeToJSON:(NSString*)filename;

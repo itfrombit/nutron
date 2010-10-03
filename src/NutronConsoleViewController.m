@@ -76,6 +76,7 @@
 	[_parser release];
 	[_history release];
 	[_textView release];
+	[_scrollView release];
 	
 	[super dealloc];
 }

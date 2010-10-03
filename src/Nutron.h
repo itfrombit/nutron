@@ -22,11 +22,15 @@
 
 @class NutronConsoleWindowController;
 @class NutronObjectViewWindowController;
+@class NutronClassTextViewWindowController;
+@class NutronClassOutlineViewWindowController;
 
 @interface Nutron : NSObject
 
 + (NutronConsoleWindowController*)console;
 + (NutronObjectViewWindowController*)inspect:(id)object;
++ (NutronClassTextViewWindowController*)viewClass:(NSString*)className;
++ (NutronClassOutlineViewWindowController*)outlineClass:(NSString*)className;
 
 + (id)selectView;
 
