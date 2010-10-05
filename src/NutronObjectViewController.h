@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSScrollView* scrollView;
 @property (nonatomic, retain) id rootObject;
 
-- (id)initWithFrame:(NSRect)frame rootObject:(id)object;
+- (id)initWithFrame:(NSRect)frame rootObject:(id)object name:(NSString*)name;
+- (void)refresh;
 
 @end

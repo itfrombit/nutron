@@ -20,7 +20,7 @@
 @synthesize scrollView = _scrollView;
 @synthesize rootObject = _rootObject;
 
-- (id)initWithFrame:(NSRect)frame rootObject:(id)object
+- (id)initWithFrame:(NSRect)frame rootObject:(id)object name:(NSString*)name
 {
 	self = [super init];
 
@@ -28,7 +28,7 @@
 	{
 		_rootObject = [[NutronCachedObject nutronCachedObjectForObject:object
 															withParent:nil
-																   key:nil
+																   key:name
 																 index:-1] retain];
 		
 		_outlineView = [[NutronObjectView alloc] initWithFrame:NSMakeRect(0,
@@ -65,6 +65,7 @@
 		[tc release];
 		
 		[_outlineView reloadData];
+		[_outlineView expandItem:_rootObject];
 	}
 
 	return self;
@@ -80,6 +81,22 @@
 }
 
 
+- (void)refresh
+{
+	id object = [_rootObject object];
+	NSString* name = [_rootObject key];
+	
+	[_rootObject release];
+	
+	_rootObject = [[NutronCachedObject nutronCachedObjectForObject:object
+														withParent:nil
+															   key:name
+															 index:-1] retain];
+	
+	[_outlineView reloadData];
+	[_outlineView expandItem:_rootObject];
+}
+
 
 #pragma mark -
 #pragma mark NSOutlineViewDataSource methods
@@ -89,8 +106,11 @@
 	NutronCachedObject* object = (NutronCachedObject*)item;
 	
 	if (object == nil)
-		object = _rootObject;
-
+	{
+		return YES;
+		//object = _rootObject;
+	}
+	
 	NutronDebug(@"isItemExpandable %@", [object description]);
 	return [object isExpandable];
 }
@@ -100,7 +120,10 @@
 	NutronCachedObject* object = (NutronCachedObject*)item;
 	
 	if (object == nil)
-		object = _rootObject;
+	{
+		//object = _rootObject;
+		return 1;
+	}
 
 	NutronDebug(@"# of children: item %@", object);
 	return [object numberOfChildren];
@@ -111,7 +134,10 @@
 	NutronCachedObject* object = (NutronCachedObject*)item;
 
 	if (object == nil)
-		object = _rootObject;
+	{
+		return _rootObject;
+		//object = _rootObject;
+	}
 	
 	NutronDebug(@"child:%d ofItem:%@", index, object);
 	return [object childAtIndex:index];
@@ -155,7 +181,6 @@
 
 - (BOOL)outlineView:(NSOutlineView*)ov shouldSelectItem:(id)item
 {
-	// Disable selection of headers (ivars, global, etc.)
 	return YES;
 }
 

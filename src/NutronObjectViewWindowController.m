@@ -13,7 +13,7 @@
 
 @synthesize objectViewer = _objectViewer;
 
-- (id)initWithRootObject:(id)object
+- (id)initWithRootObject:(id)object name:(NSString*)name
 {
 	self = [super initWithWindow:[[NSPanel alloc]
 								  initWithContentRect:NSMakeRect(0, 0, 700, 400)
@@ -31,7 +31,9 @@
 	NSRect frame = [w frame];
 	
 	_objectViewer = [[NutronObjectViewController alloc]
-					 initWithFrame:frame rootObject:object];
+					 initWithFrame:frame 
+						rootObject:object
+							  name:name];
 	
 	[w setContentView:[_objectViewer scrollView]];
 
@@ -53,5 +55,10 @@
 	[_objectViewer release];
 	
 	[super dealloc];
+}
+
+- (void)refresh
+{
+	[_objectViewer refresh];
 }
 @end

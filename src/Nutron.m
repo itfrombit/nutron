@@ -16,14 +16,25 @@
 
 @implementation Nutron
 
++ (void)load
+{
+	static int initialized = 0;
+	if (!initialized)
+	{
+		initialized = 1;
+		[Nu loadNuFile:@"nutron" fromBundleWithIdentifier:@"nu.programming.nutron" withContext:nil];
+	}
+}
+
+
 + (NutronConsoleWindowController*)console
 {
 	return [[[NutronConsoleWindowController alloc] init] autorelease];
 }
 
-+ (NutronObjectViewWindowController*)inspect:(id)object
++ (NutronObjectViewWindowController*)inspect:(id)object withName:(NSString*)name
 {
-	return [[[NutronObjectViewWindowController alloc] initWithRootObject:object] autorelease];
+	return [[[NutronObjectViewWindowController alloc] initWithRootObject:object name:name] autorelease];
 }
 
 + (NutronClassTextViewWindowController*)viewClass:(NSString*)className

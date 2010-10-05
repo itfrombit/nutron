@@ -28,7 +28,7 @@
 @interface Nutron : NSObject
 
 + (NutronConsoleWindowController*)console;
-+ (NutronObjectViewWindowController*)inspect:(id)object;
++ (NutronObjectViewWindowController*)inspect:(id)object withName:(NSString*)name;
 + (NutronClassTextViewWindowController*)viewClass:(NSString*)className;
 + (NutronClassOutlineViewWindowController*)outlineClass:(NSString*)className;
 

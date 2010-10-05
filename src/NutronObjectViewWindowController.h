@@ -18,6 +18,6 @@
 
 @property (nonatomic, retain) NutronObjectViewController* objectViewer;
 
-- (id)initWithRootObject:(id)object;
-
+- (id)initWithRootObject:(id)object name:(NSString*)name;
+- (void)refresh;
 @end

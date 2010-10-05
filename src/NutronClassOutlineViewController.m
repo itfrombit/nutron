@@ -48,14 +48,7 @@
 		[_outlineView setUsesAlternatingRowBackgroundColors:YES];
 
 		NSTableColumn* tc;
-/*
-		tc = [[NSTableColumn alloc] initWithIdentifier:@"Key"];
-		[[tc headerCell] setStringValue:@"Key"];
-		[tc setWidth:200.0];
-		[_outlineView addTableColumn:tc];
-		[_outlineView setOutlineTableColumn:tc];
-		[tc release];
-*/
+
 		tc = [[NSTableColumn alloc] initWithIdentifier:@"Type"];
 		[[tc headerCell] setStringValue:@"Type"];
 		[tc setWidth:200.0];
@@ -70,6 +63,7 @@
 		[tc release];
 
 		[_outlineView reloadData];
+		[_outlineView expandItem:_rootObject];
 	}
 
 	return self;
@@ -92,23 +86,29 @@
 - (BOOL)outlineView:(NSOutlineView*)ov isItemExpandable:(id)item
 {
 	NutronCachedObject* object = (NutronCachedObject*)item;
-	
+
 	if (object == nil)
-		object = _rootObject;
-		
-		NutronDebug(@"isItemExpandable %@", [object description]);
-		return [object isExpandable];
+	{
+		return YES;
+		//object = _rootObject;
+	}
+
+	NutronDebug(@"isItemExpandable %@", [object description]);
+	return [object isExpandable];
 }
 
 - (NSInteger)outlineView:(NSOutlineView*)ov numberOfChildrenOfItem:(id)item
 {
 	NutronCachedObject* object = (NutronCachedObject*)item;
-	
+
 	if (object == nil)
-		object = _rootObject;
+	{
+		return 1;
+		//object = _rootObject;
+	}
 		
-		NutronDebug(@"# of children: item %@", object);
-		return [object numberOfChildren];
+	NutronDebug(@"# of children: item %@", object);
+	return [object numberOfChildren];
 }
 
 - (id)outlineView:(NSOutlineView *)ov child:(NSInteger)index ofItem:(id)item
@@ -116,10 +116,13 @@
 	NutronCachedObject* object = (NutronCachedObject*)item;
 	
 	if (object == nil)
-		object = _rootObject;
-		
-		NutronDebug(@"child:%d ofItem:%@", index, object);
-		return [object childAtIndex:index];
+	{
+		return _rootObject;
+		//object = _rootObject;
+	}
+
+	NutronDebug(@"child:%d ofItem:%@", index, object);
+	return [object childAtIndex:index];
 }
 
 - (id)outlineView:(NSOutlineView *)ov objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
@@ -131,27 +134,27 @@
 	if (object == nil)
 		object = _rootObject;
 		
-		NSString* columnName = [[tableColumn headerCell] stringValue];
+	NSString* columnName = [[tableColumn headerCell] stringValue];
 		
-		if ([columnName compare:@"Name"] == NSOrderedSame)
-		{
-			return [object name];
-		}
-		else if ([columnName compare:@"Type"] == NSOrderedSame)
-		{
-			return [object type];
-		}
+	if ([columnName compare:@"Name"] == NSOrderedSame)
+	{
+		return [object name];
+	}
+	else if ([columnName compare:@"Type"] == NSOrderedSame)
+	{
+		return [object type];
+	}
+	else
+	{
+		id value = [object value];
+		
+		if ([value respondsToSelector:@selector(description)])
+			return [value description];
+		else if ([value respondsToSelector:@selector(stringValue)])
+			return [value stringValue];
 		else
-		{
-			id value = [object value];
-			
-			if ([value respondsToSelector:@selector(description)])
-				return [value description];
-			else if ([value respondsToSelector:@selector(stringValue)])
-				return [value stringValue];
-			else
-				return @"Unknown CachedObject Value";
-		}
+			return @"Unknown CachedObject Value";
+	}
 }
 
 

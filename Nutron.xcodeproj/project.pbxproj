@@ -42,6 +42,7 @@
 		4FE07E5F1257836900CD12FA /* NutronClassTextViewWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE07E5D1257836900CD12FA /* NutronClassTextViewWindowController.m */; };
 		4FE07F9F1257C34800CD12FA /* NutronCachedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE07F9D1257C34800CD12FA /* NutronCachedObject.h */; };
 		4FE07FA01257C34800CD12FA /* NutronCachedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE07F9E1257C34800CD12FA /* NutronCachedObject.m */; };
+		4FE58045125A50280036E2BB /* nutron.nu in Resources */ = {isa = PBXBuildFile; fileRef = 4FE58042125A4FE00036E2BB /* nutron.nu */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -87,6 +88,7 @@
 		4FE07E5D1257836900CD12FA /* NutronClassTextViewWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronClassTextViewWindowController.m; path = src/NutronClassTextViewWindowController.m; sourceTree = "<group>"; };
 		4FE07F9D1257C34800CD12FA /* NutronCachedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NutronCachedObject.h; path = src/NutronCachedObject.h; sourceTree = "<group>"; };
 		4FE07F9E1257C34800CD12FA /* NutronCachedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NutronCachedObject.m; path = src/NutronCachedObject.m; sourceTree = "<group>"; };
+		4FE58042125A4FE00036E2BB /* nutron.nu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nutron.nu; path = nu/nutron.nu; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* Nutron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nutron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -142,6 +144,7 @@
 			children = (
 				8DC2EF5A0486A6940098B216 /* Info.plist */,
 				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
+				4FE58042125A4FE00036E2BB /* nutron.nu */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FE58045125A50280036E2BB /* nutron.nu in Resources */,
 				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

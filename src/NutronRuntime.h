@@ -26,6 +26,7 @@ typedef enum tagNutronRuntimeMethodType
 //- (NSString*) mapObjcEncodingToTypeEncoding:(NSString*)encoding withSuffix:(NSString*)suffix; 
 
 - (id) initWithTypeEncoding:(NSString*)encoding;
+- (NSString*) className;
 
 @property(copy) NSString* name;
 @property(copy) NSString* typeEncoding;

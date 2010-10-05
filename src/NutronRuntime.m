@@ -146,38 +146,37 @@
 		self.objcEncoding = @"";
 
 	self.objcEncodingSuffix = [NSString stringWithString:objcTypeSuffix];
-//	[properties setValue:objcEncoding forKey:@"objcEncoding"];
-//	[properties setValue:[NSString stringWithString:objcTypeSuffix] forKey:@"objcEncodingSuffix"];
 
 	return self.objcEncoding;
 }
-
-//- (NSString*) objcEncoding
-//{
-//	[properties valueForKey:@"objcEncoding"];
-//}
-//
-//- (NSString*) objcEncodingSuffix
-//{
-//	[properties valueForKey:@"objcEncodingSuffix"];
-//}
-//
-//- (NSString*) typeEncoding
-//{
-//	[properties valueForKey:@"typeEncoding"];
-//}
 
 
 - (id) initWithTypeEncoding:(NSString*)encoding
 {
 	self = [super init];
-//	properties = [[NSMutableDictionary alloc] init];
 
-//	name = @"";
 	self.typeEncoding = [encoding copy];
 	[self mapTypeEncodingToObjcEncoding:encoding];
 
 	return self;
+}
+
+- (NSString*) className
+{
+	NSString* typecode = [self typeEncoding];
+	
+	if ([typecode characterAtIndex:0] == '@')
+	{
+		if ([typecode length] == 1)
+			return @"id";
+		else
+			return [typecode substringWithRange:NSMakeRange(2,[typecode length] - 3)];
+	}
+	else
+	{
+		return nil;
+	}
+	
 }
 
 - (void) dealloc
@@ -568,7 +567,7 @@
 
 - (NSString*) nuDeclaration
 {
-	NSMutableString* d = [[[NSMutableString alloc] init] autorelease];
+	NSMutableString* d = [NSMutableString string];
 
 	[d appendString:[self nuDeclarationRoot]];
 	[d appendString:@" is nil)"];
@@ -935,6 +934,7 @@
 		method.selector = method_getName(methodList[i]);
 		method.methodType = methodType;
 		
+		char* szTypeEncoding = method_getTypeEncoding(methodList[i]);
 		char* szReturnType = method_copyReturnType(methodList[i]);
 		method.returnType = [[[NutronRuntimeType alloc] initWithTypeEncoding:
 							 [NSString stringWithCString:szReturnType encoding:NSUTF8StringEncoding]] autorelease];
@@ -1011,7 +1011,7 @@
 {
 	int i;
 	
-	[super init];
+	self = [super init];
 
 	self.name = aName;
 
