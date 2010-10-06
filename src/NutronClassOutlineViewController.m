@@ -134,26 +134,19 @@
 	if (object == nil)
 		object = _rootObject;
 		
-	NSString* columnName = [[tableColumn headerCell] stringValue];
+	NSString* columnIdentifier = [tableColumn identifier];
 		
-	if ([columnName compare:@"Name"] == NSOrderedSame)
+	if ([columnIdentifier compare:@"Name"] == NSOrderedSame)
 	{
 		return [object name];
 	}
-	else if ([columnName compare:@"Type"] == NSOrderedSame)
+	else if ([columnIdentifier compare:@"Type"] == NSOrderedSame)
 	{
 		return [object type];
 	}
 	else
 	{
-		id value = [object value];
-		
-		if ([value respondsToSelector:@selector(description)])
-			return [value description];
-		else if ([value respondsToSelector:@selector(stringValue)])
-			return [value stringValue];
-		else
-			return @"Unknown CachedObject Value";
+		return [NSString stringWithFormat:@"Unknown Column: %@", columnIdentifier];
 	}
 }
 

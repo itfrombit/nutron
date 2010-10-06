@@ -538,8 +538,10 @@
 {
 	return (   [_object isKindOfClass:[NutronRuntimeClass class]]
 			|| [[_parent object] isKindOfClass:[NutronRuntimeClass class]]
-			|| ([_object isKindOfClass:[NutronRuntimeIvar class]] && ![self isAtomicTypeEncoding:[_object typeEncoding]])
-			|| ([_object isKindOfClass:[NutronRuntimeProperty class]] && ![self isAtomicTypeEncoding:[[_object type] typeEncoding]]));
+			|| (   [_object isKindOfClass:[NutronRuntimeIvar class]] 
+				&& ![self isAtomicTypeEncoding:[_object typeEncoding]])
+			|| (   [_object isKindOfClass:[NutronRuntimeProperty class]] 
+				&& ![self isAtomicTypeEncoding:[(NutronRuntimeType*)[_object type] typeEncoding]]));
 	
 	//	return (_object != nil) || ((_object == nil) && (_key != nil));
 }
@@ -548,7 +550,7 @@
 {
 	if ([_key isEqualToString:@"object"])
 	{
-		return [[self children] count]; // 5;
+		return [[self children] count];
 	}
 	else if ([_key isEqualToString:@"ivars"])
 	{

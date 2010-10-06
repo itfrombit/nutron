@@ -152,13 +152,13 @@
 	if (object == nil)
 		object = _rootObject;
 
-	NSString* columnName = [[tableColumn headerCell] stringValue];
+	NSString* columnIdentifier = [tableColumn identifier];
 
-	if ([columnName compare:@"Key"] == NSOrderedSame)
+	if ([columnIdentifier compare:@"Key"] == NSOrderedSame)
 	{
 		return [object name];
 	}
-	else if ([columnName compare:@"Type"] == NSOrderedSame)
+	else if ([columnIdentifier compare:@"Type"] == NSOrderedSame)
 	{
 		return [object type];
 	}
