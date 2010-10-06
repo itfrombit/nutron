@@ -119,6 +119,10 @@
 			return [[_ivar type]
 					mapTypeEncodingToObjcEncoding:[_ivar typeEncoding]];
 		}
+		else if ([_key isEqualToString:@"isa"])
+		{
+			return [_object name];
+		}
 		else
 		{
 			return className;
@@ -136,7 +140,14 @@
 
 - (id)value
 {
-	return [_object stringValue];
+	if ([_key isEqualToString:@"isa"])
+	{
+		return @"";
+	}
+	else
+	{
+		return [_object stringValue];
+	}
 }
 
 - (BOOL)isAtomicTypeEncoding:(NSString*)typeEncoding
@@ -188,11 +199,9 @@
 	
 	if (_object == nil)
 	{
-		// Can have a null object at this node
-		// If so, it's a leaf
 		return nil;
 	}
-	
+
 	if (   _ivar
 		&& ([self isAtomicTypeEncoding:[_ivar typeEncoding]]))
 	{
@@ -204,13 +213,67 @@
 		// We're an object. Return ivars by default
 		_children = [[NSMutableArray alloc] init];
 		
-		NutronRuntimeClass* objectClass = [[[NutronRuntimeClass alloc]
-											initWithName:[_object className]]
-										   autorelease];
+		NutronRuntimeClass* objectClass = nil;
+
+		if (   [_object isKindOfClass:[NutronRuntimeClass class]]
+			&& [_key isEqualToString:@"isa"])
+		{
+			objectClass = [[[NutronRuntimeClass alloc] initWithName:[_object name]] autorelease];
+		}
+		else
+		{
+			objectClass = [[[NutronRuntimeClass alloc] initWithName:[_object className]] autorelease];
+		}
+		
+		NSArray* ivarArray = nil;
+
 		if (objectClass)
 		{
-			NSArray* ivarArray = [objectClass ivars];
+			NSString* superclassName = [objectClass superclassName];
+	
+			// If we have a super class, insert an isa object for superclass' ivars
+			if (   superclassName
+				&& ![superclassName isEqualToString:@""]
+				&& ![superclassName isEqualToString:@"nil"])
+			{
+				NutronRuntimeClass* superclass = [[[NutronRuntimeClass alloc]
+												   initWithName:superclassName]
+												  autorelease];
+
+				NutronCachedObject* isaChild = [NutronCachedObject nutronCachedObjectForObject:superclass
+																					  withParent:self
+																							 key:@"isa"
+																						   index:-1];
+				[_children addObject:isaChild];
+			}
 			
+			// Insert our ivars
+			id objectWithIvars = nil;
+			id ivarParent = nil;
+
+			if ([_key isEqualToString:@"isa"])
+			{
+				// We're getting superclass ivars.
+				// Link to the parent object, as it is the one
+				// we will query for ivar values.
+				ivarArray = [_object ivars];
+				
+				// Walk up the isa hierarchy until we find our root object
+				id ancestor = _parent;
+				while ([[ancestor key] isEqualToString:@"isa"])
+					ancestor = [ancestor parent];
+				
+				objectWithIvars = [ancestor object];
+				ivarParent = _parent;
+			}
+			else
+			{
+				// We're getting the immediate ivars (not those of a superclass).
+				ivarArray = [objectClass ivars];
+				objectWithIvars = _object;
+				ivarParent = self;
+			}
+
 			int ivarCount = [ivarArray count];
 			
 			for (int i = 0; i < ivarCount; i++)
@@ -226,12 +289,11 @@
 				}
 				else
 				{
-					ivarValue = [_object valueForIvar:[nutronIvar name]];
+					ivarValue = [objectWithIvars valueForIvar:[nutronIvar name]];
 				}
 
-				
 				NutronCachedObject* child = [NutronCachedObject nutronCachedObjectForObject:ivarValue 
-																				 withParent:self
+																				 withParent:ivarParent
 																						key:[nutronIvar name]
 																					  index:i];
 				child.ivar = nutronIvar;
