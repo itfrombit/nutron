@@ -18,7 +18,8 @@
 
 @synthesize outlineView = _outlineView;
 @synthesize scrollView = _scrollView;
-@synthesize rootObject = _rootObject;
+@synthesize delegate = _delegate;
+@dynamic rootObject;
 
 - (id)initWithFrame:(NSRect)frame rootObject:(id)object name:(NSString*)name
 {
@@ -42,6 +43,12 @@
 		[_outlineView setDelegate:self];
 		[_outlineView setDataSource:self];
 		[_outlineView setUsesAlternatingRowBackgroundColors:YES];
+
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(selectionDidChange:)
+													 name:NSOutlineViewSelectionDidChangeNotification
+												   object:_outlineView];
+
 		
 		NSTableColumn* tc;
 		
@@ -73,6 +80,7 @@
 
 - (void)dealloc
 {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[_scrollView release];
 	[_outlineView release];
 	[_rootObject release];
@@ -84,19 +92,33 @@
 - (void)refresh
 {
 	id object = [_rootObject object];
-	NSString* name = [_rootObject key];
+	id key = [_rootObject key];
 	
 	[_rootObject release];
 	
 	_rootObject = [[NutronCachedObject nutronCachedObjectForObject:object
 														withParent:nil
-															   key:name
+															   key:key
 															 index:-1] retain];
 	
 	[_outlineView reloadData];
 	[_outlineView expandItem:_rootObject];
 }
 
+- (id)rootObject
+{
+	return _rootObject;
+}
+
+- (void)setRootObject:(id)newRoot withKey:(id)newKey
+{
+	if (newRoot == [_rootObject object])
+		return;
+	
+	[_rootObject setObject:newRoot];
+	[_rootObject setKey:newKey];
+	[self refresh];
+}
 
 #pragma mark -
 #pragma mark NSOutlineViewDataSource methods
@@ -178,6 +200,16 @@
 
 #pragma mark -
 #pragma mark NSOutlineViewDelegate methods
+
+- (void)selectionDidChange:(NSNotification*)notification
+{
+	NutronCachedObject* item = [_outlineView itemAtRow:[_outlineView selectedRow]];
+
+	if (_delegate)
+	{
+		[_delegate itemSelectedWithKey:[item key] type:[item type] value:[item value]];
+	}
+}
 
 - (BOOL)outlineView:(NSOutlineView*)ov shouldSelectItem:(id)item
 {

@@ -19,7 +19,30 @@
 @synthesize outlineView = _outlineView;
 @synthesize scrollView = _scrollView;
 @synthesize rootObject = _rootObject;
-@synthesize className = _className;
+@dynamic className;
+
+
+- (NSString*)className
+{
+	return _className;
+}
+
+- (void)setClassName:(NSString *)newClassName
+{
+	if ([newClassName isEqualToString:[[_rootObject object] name]])
+	{
+		return;
+	}
+	
+	[_rootObject release];
+	
+	NutronRuntimeClass* nrc = [[[NutronRuntimeClass alloc] initWithName:newClassName] autorelease];
+	
+	_rootObject = [[[NutronCachedRuntimeObject alloc] initWithObject:nrc
+															  parent:nil
+																 key:@"object"
+															   index:-1] retain];
+}
 
 - (id)initWithFrame:(NSRect)frame className:(NSString*)aClassName
 {
@@ -78,6 +101,12 @@
 	[super dealloc];
 }
 
+
+- (void)refresh
+{
+	[_outlineView reloadData];
+	[_outlineView expandItem:_rootObject];
+}
 
 
 #pragma mark -

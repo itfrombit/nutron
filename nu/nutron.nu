@@ -18,3 +18,7 @@
 (global console
 	(function nutron-console ()
 		(Nutron console)))
+
+(global nutron
+	(macro nutron-nutron ()
+		`(Nutron nutronWithObject:(context) andName:"(context)")))

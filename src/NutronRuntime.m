@@ -934,7 +934,6 @@
 		method.selector = method_getName(methodList[i]);
 		method.methodType = methodType;
 		
-		char* szTypeEncoding = method_getTypeEncoding(methodList[i]);
 		char* szReturnType = method_copyReturnType(methodList[i]);
 		method.returnType = [[[NutronRuntimeType alloc] initWithTypeEncoding:
 							 [NSString stringWithCString:szReturnType encoding:NSUTF8StringEncoding]] autorelease];

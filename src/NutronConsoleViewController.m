@@ -31,6 +31,7 @@
 @synthesize index = _index;
 @synthesize count = _count;
 @synthesize chunk = _chunk;
+@synthesize delegate = _delegate;
 
 - (id)initWithFrame:(NSRect)frame
 {
@@ -294,6 +295,12 @@
 
 					[self write:displayString];
 					[self write:@"\n"];
+					
+					if (_delegate)
+					{
+						[_delegate commandProcessed:[stringToEvaluate substringToIndex:(stringToEvaluateLength - 1)]
+										 withResult:result];
+					}
 				}
 			}
 			@catch (NSException* e)

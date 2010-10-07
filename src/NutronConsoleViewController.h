@@ -10,23 +10,30 @@
 #import "Nu/Nu.h"
 #import "NutronConsoleView.h"
 
+@protocol NutronConsoleViewControllerDelegate
+
+- (void)commandProcessed:(NSString*)commandString withResult:(id)value;
+
+@end
+
 @interface NutronConsoleViewController : NSObject <NutronConsoleViewDelegate,
 												   NSTextViewDelegate>
 {
-	NSTextView*			_textView;
-	NSScrollView*		_scrollView;
+	NSTextView*								_textView;
+	NSScrollView*							_scrollView;
 
-	NuParser*			_parser;
-	NSMutableArray*		_history;
+	NuParser*								_parser;
+	NSMutableArray*							_history;
 
-	int					_startOfInput;
-	int					_insertionPoint;
+	int										_startOfInput;
+	int										_insertionPoint;
 
-	int					_index;
-	int					_count;
-	int					_chunk;
+	int										_index;
+	int										_count;
+	int										_chunk;
 	
-	int					_promptCounter;
+	int										_promptCounter;
+	id<NutronConsoleViewControllerDelegate>	_delegate;
 }
 
 @property (nonatomic, retain) NSTextView* textView;
@@ -39,6 +46,8 @@
 @property (nonatomic, assign) int index;
 @property (nonatomic, assign) int count;
 @property (nonatomic, assign) int chunk;
+
+@property (nonatomic, retain) id<NutronConsoleViewControllerDelegate> delegate;
 
 - (void)setFonts;
 - (id)loadFile:(NSString*)file;

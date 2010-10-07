@@ -119,7 +119,8 @@
 			return [[_ivar type]
 					mapTypeEncodingToObjcEncoding:[_ivar typeEncoding]];
 		}
-		else if ([_key isEqualToString:@"isa"])
+		else if (   [_key isKindOfClass:[NSString class]]
+				 && [_key isEqualToString:@"isa"])
 		{
 			return [_object name];
 		}
@@ -140,7 +141,8 @@
 
 - (id)value
 {
-	if ([_key isEqualToString:@"isa"])
+	if (   [_key isKindOfClass:[NSString class]]
+		&& [_key isEqualToString:@"isa"])
 	{
 		return @"";
 	}
@@ -216,6 +218,7 @@
 		NutronRuntimeClass* objectClass = nil;
 
 		if (   [_object isKindOfClass:[NutronRuntimeClass class]]
+			&& [_key isKindOfClass:[NSString class]]
 			&& [_key isEqualToString:@"isa"])
 		{
 			objectClass = [[[NutronRuntimeClass alloc] initWithName:[_object name]] autorelease];
@@ -251,7 +254,8 @@
 			id objectWithIvars = nil;
 			id ivarParent = nil;
 
-			if ([_key isEqualToString:@"isa"])
+			if (   [_key isKindOfClass:[NSString class]]
+				&& [_key isEqualToString:@"isa"])
 			{
 				// We're getting superclass ivars.
 				// Link to the parent object, as it is the one
@@ -260,8 +264,11 @@
 				
 				// Walk up the isa hierarchy until we find our root object
 				id ancestor = _parent;
-				while ([[ancestor key] isEqualToString:@"isa"])
+				while (   [[ancestor key] isKindOfClass:[NSString class]]
+					   && [[ancestor key] isEqualToString:@"isa"])
+				{
 					ancestor = [ancestor parent];
+				}
 				
 				objectWithIvars = [ancestor object];
 				ivarParent = _parent;

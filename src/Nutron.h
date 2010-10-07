@@ -24,6 +24,7 @@
 @class NutronObjectViewWindowController;
 @class NutronClassTextViewWindowController;
 @class NutronClassOutlineViewWindowController;
+@class NutronWindowController;
 
 @interface Nutron : NSObject
 
@@ -31,7 +32,8 @@
 + (NutronObjectViewWindowController*)inspect:(id)object withName:(NSString*)name;
 + (NutronClassTextViewWindowController*)viewClass:(NSString*)className;
 + (NutronClassOutlineViewWindowController*)outlineClass:(NSString*)className;
-
++ (NutronWindowController*)nutronWithObject:(id)object andName:(NSString*)name;
++ (NutronWindowController*)nutron;
 + (id)selectView;
 
 @end

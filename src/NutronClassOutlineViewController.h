@@ -25,5 +25,5 @@
 @property (nonatomic, retain) NSString* className;
 
 - (id)initWithFrame:(NSRect)frame className:(NSString*)aClassName;
-
+- (void)refresh;
 @end
