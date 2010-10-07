@@ -91,6 +91,14 @@
 	return self;
 }
 
+- (id)initWithParser:(id)parser
+{
+	[self initWithObject:[parser context] andName:@"parser context"];
+	[_consoleViewer setParser:parser];
+	
+	return self;
+}
+
 - (void)dealloc
 {
 	[_object release];

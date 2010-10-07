@@ -82,6 +82,20 @@
 	[super dealloc];
 }
 
+- (void)setParser:(NuParser*)newParser
+{
+	if (newParser == _parser)
+		return;
+	
+	[_parser release];
+	
+	_parser = [newParser retain];
+
+	// Add the magic $$console symbole. print and puts depend on it being there
+	NuSymbolTable* symbolTable = [[_parser context] objectForKey:SYMBOLS_KEY];
+	[[symbolTable symbolWithString:@"$$console"] setValue:self];
+}
+
 - (id)loadFile:(id)file
 {
 	return [[_parser parse:[NSString stringWithContentsOfFile:[file stringByResolvingSymlinksInPath]

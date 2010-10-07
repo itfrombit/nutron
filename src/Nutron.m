@@ -60,6 +60,12 @@
 	return c;
 }
 
++ (NutronWindowController*)nutronWithParser:(id)parser
+{
+	NutronWindowController* c = [[[NutronWindowController alloc] initWithParser:parser] autorelease];
+	return c;
+}
+
 + (NutronWindowController*)nutron
 {
 	return [Nutron nutronWithObject:nil andName:nil];

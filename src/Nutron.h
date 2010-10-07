@@ -33,6 +33,7 @@
 + (NutronClassTextViewWindowController*)viewClass:(NSString*)className;
 + (NutronClassOutlineViewWindowController*)outlineClass:(NSString*)className;
 + (NutronWindowController*)nutronWithObject:(id)object andName:(NSString*)name;
++ (NutronWindowController*)nutronWithParser:(id)parser;
 + (NutronWindowController*)nutron;
 + (id)selectView;
 

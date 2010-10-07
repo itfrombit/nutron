@@ -31,5 +31,6 @@
 }
 
 - (id)initWithObject:(id)object andName:(NSString*)name;
+- (id)initWithParser:(id)parser;
 
 @end

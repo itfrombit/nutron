@@ -20,5 +20,9 @@
 		(Nutron console)))
 
 (global nutron
-	(macro nutron-nutron ()
-		`(Nutron nutronWithObject:(context) andName:"(context)")))
+	(function nutron-nutron ()
+		(Nutron nutronWithObject:nil andName:nil)))
+
+(global nutron-with-parser
+	(function nutron-nutron-with-parser (parser)
+		(Nutron nutronWithParser:parser)))
