@@ -19,7 +19,7 @@
 - (id)initWithObject:(id)object andName:(NSString*)name;
 {
 	self = [super initWithWindow:[[NSPanel alloc] 
-								  initWithContentRect:NSMakeRect(0, 0, 1200, 600)
+								  initWithContentRect:NSMakeRect(0, 0, 1000, 600)
 								  styleMask:NSTitledWindowMask
 								  | NSClosableWindowMask
 								  | NSMiniaturizableWindowMask
