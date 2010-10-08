@@ -340,7 +340,7 @@
 	if (self == nil)
 		return nil;
 	
-	_cachedObject = [[symbolTable all] retain];
+	_cachedObject = [[[symbolTable all] sort] retain];
 	
 	return self;
 }
@@ -404,7 +404,9 @@
 	if (self == nil)
 		return nil;
 	
-	_cachedObject = [[dictionary allKeys] retain];
+	_cachedObject = [[[dictionary allKeys] sortedArrayUsingComparator:^(id a, id b) {
+						return [[a stringValue] compare:[b stringValue]];
+					} ] retain];
 	
 	return self;
 }

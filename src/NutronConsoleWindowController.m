@@ -35,18 +35,6 @@
 	_console = [[NutronConsoleViewController alloc] 
 				initWithFrame:frame];
 
-/*
-	NSScrollView* sv = [[NSScrollView alloc] initWithFrame:frame];
-	[sv setAutoresizingMask:18];
-	[sv setHasHorizontalScroller:YES];
-	[sv setHasVerticalScroller:YES];
-	//[sv setAutohidesScrollers:YES];
-	[sv setBorderType:2];
-
-	[sv setDocumentView:[_console textView]];
-	[w setContentView:sv];
- */
-
 	[w setContentView:[_console scrollView]];
 
 	[w center];

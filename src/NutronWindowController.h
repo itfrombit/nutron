@@ -7,27 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "NutronConsoleViewController.h"
-#import "NutronObjectViewController.h"
+#import "Nutron.h"
+#import "NutronViewController.h"
 
-@class NutronConsoleViewController;
-@class NutronObjectViewController;
-@class NutronClassOutlineViewController;
-
-@interface NutronWindowController : NSWindowController <NSWindowDelegate,
-														NSSplitViewDelegate,
-														NutronConsoleViewControllerDelegate,
-														NutronObjectViewControllerDelegate>
+@interface NutronWindowController : NSWindowController <NSWindowDelegate>
 {
-	id									_object;
-	NSString*							_objectName;
-
-	NSSplitView*						_lrSplitView;
-	NSSplitView*						_tbSplitView;
-	
-	NutronConsoleViewController*		_consoleViewer;
-	NutronObjectViewController*			_objectViewer;
-	NutronClassOutlineViewController*	_classViewer;
+	NutronViewController*	_viewController;
 }
 
 - (id)initWithObject:(id)object andName:(NSString*)name;

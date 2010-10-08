@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'Nutronic' target in the 'Nutronic' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
