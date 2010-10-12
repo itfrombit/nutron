@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* NutronicAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* NutronicAppDelegate.m */; };
+		4FDFD3E012645B20009B69DE /* Nutron.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4FDFD3DF12645B20009B69DE /* Nutron.icns */; };
 		4FE5860C125E67EA0036E2BB /* Nu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE5860B125E67EA0036E2BB /* Nu.framework */; };
 		4FE5860E125E68160036E2BB /* Nutron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE5860D125E68160036E2BB /* Nutron.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -27,6 +28,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4FDFD3DF12645B20009B69DE /* Nutron.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Nutron.icns; sourceTree = "<group>"; };
 		4FE5860B125E67EA0036E2BB /* Nu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nu.framework; path = Library/Frameworks/Nu.framework; sourceTree = SDKROOT; };
 		4FE5860D125E68160036E2BB /* Nutron.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nutron.framework; path = Library/Frameworks/Nutron.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Nutronic-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Nutronic-Info.plist"; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4FDFD3DF12645B20009B69DE /* Nutron.icns */,
 				8D1107310486CEB800E47090 /* Nutronic-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -176,6 +179,7 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+				4FDFD3E012645B20009B69DE /* Nutron.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
