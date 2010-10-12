@@ -7,15 +7,19 @@
     <title>Nutron</title>
     <link href="http://github.com/stylesheets/bundle_common.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="http://github.com/stylesheets/bundle_github.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="/stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="./stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
   </head>
   <body>
 
-	<p><a href="http://github.com/itfrombit/Nutron"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a></p>
+	<p><a href="http://github.com/itfrombit/nutron"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a></p>
 	
     <div id="main">
-      <div id="header" class="basic" style="margin-bottom:20px">
-		<h1>Nutron</h1>
+      <div id="header" class="basic" style="margin-bottom:20px;">
+		<div class="site">
+			<img style="position: absolute; top: 15px; left: 20px; border: 0;" src="./img/nutron_icon_72.png">
+			<h1>Nutron</h1>
+			<p>An Objective-C and <a href="http://programming.nu">Nu</a> runtime browser. And then some.</p>
+		</div>
       </div>
 
       <div id="content" class="site">
@@ -23,8 +27,6 @@
         {{ content }}
 
       </div>
-
-      <div class="push"></div>
     </div>
 
     <div id="footer">
@@ -38,7 +40,7 @@
           <div class="company">
            &copy;
             {{ site.time | date: "%Y" }}
-            Jeff Buck
+            Jeff Buck.
             All rights reserved.
           </div>
         </div>
