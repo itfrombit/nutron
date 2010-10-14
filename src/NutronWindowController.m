@@ -100,7 +100,7 @@
 {
 	_nutronMenuItem = [[NSMenuItem alloc] initWithTitle:@"Toggle Nutron Window"
 												 action:@selector(toggleNutronWindow:)
-										  keyEquivalent:@"u"];
+										  keyEquivalent:@"U"];
 	[_nutronMenuItem setTarget:self];
 	[_nutronMenuItem setTitle:@"Hide Nutron Window"];
 
