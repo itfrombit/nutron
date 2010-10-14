@@ -12,10 +12,14 @@
 
 @interface NutronWindowController : NSWindowController <NSWindowDelegate>
 {
+	NSMenuItem*				_nutronMenuItem;
 	NutronViewController*	_viewController;
+	BOOL					_isShowing;
 }
 
 - (id)initWithObject:(id)object andName:(NSString*)name;
 - (id)initWithParser:(id)parser;
+
+- (void)refresh;
 
 @end

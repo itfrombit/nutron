@@ -31,6 +31,9 @@
 }
 
 @property(nonatomic, retain) NutronView* view;
+@property(nonatomic, retain) NutronConsoleViewController* consoleViewer;
+@property(nonatomic, retain) NutronObjectViewController* objectViewer;
+@property(nonatomic, retain) NutronClassOutlineViewController* classViewer;
 
 - (id)initWithFrame:(NSRect)frame object:(id)object name:(NSString *)name;
 - (void)postInitSetup;

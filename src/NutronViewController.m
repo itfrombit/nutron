@@ -14,6 +14,9 @@ const float kNutronSplitViewDividerThickness = 9.0;
 @implementation NutronViewController
 
 @synthesize view = _view;
+@synthesize consoleViewer = _consoleViewer;
+@synthesize objectViewer = _objectViewer;
+@synthesize classViewer = _classViewer;
 
 - (id)initWithFrame:(NSRect)frame object:(id)object name:(NSString*)name
 {
