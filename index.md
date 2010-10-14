@@ -6,9 +6,25 @@ layout: wikistyle
 What is Nutron?
 ===============
 
-Nutron is a framework of user interface components that help you inspect, browse and debug your Objective-C runtime environment.  Nutron uses Nu as its scripting language.
+Nutron is a framework of user interface components that help you inspect, browse and debug your Objective-C and Nu runtime environments.  Nutron uses Nu as its scripting language.
 
 Nutron also comes with an application named *Nutronic*. Nutronic bundles an integrated set of Nutron components together into a standalone application that can be used as an enhanced Nu shell.
+
+
+Installation
+============
+The Nutron repository is at [http://github.com/itfrombit/nutron](http://github.com/itfrombit/nutron).
+
+Nutron comes with both an Xcode project and a Nukefile.  Developing and debugging Nutron are best done in Xcode.
+
+If you just want to use Nutron,
+
+	nuke
+	nuke install
+	
+is the quickest way to build and install the Nutron framework.  The Nukefile builds a universal binary that supports both `i386` and `x86_64` architectures.
+
+There is a separate Xcode project in the Nutronic directory that builds the Nutronic application.
 
 
 Components
@@ -114,9 +130,10 @@ This will launch Nutron's Object Inspector with the view that you selected:
 ![Directly inspecting a selected view](./img/nutron_inspect_select_view.png "Directly inspecting a selected view")
 
 
-### Nutron
+Nutron
+------
 
-In addition to being the name of the framework, Nutron is also the name of a component that wires together a console, object inspector and class viewer to provide an integrated debugging and browsing tool.
+In addition to being the name of the framework, Nutron is also the name of the main component that wires together a console, object inspector and class viewer to provide an integrated debugging and browsing tool.
 
 	(Nutron nutron)
 
@@ -136,31 +153,94 @@ If you select an Objective-C object in the object viewer, the corresponding clas
 
 
 Standalone Application
-----------------------
-The Nutronic application that is part of the Nutron distribution provides a standalone executable that can be used for general Nu programming.
+======================
 
+The Nutronic application that is part of the Nutron distribution provides a standalone executable that can be used for general Nu programming.  Nutronic doesn't yet support opening files from the File menu, but you can load a file via the Nutron Console as you would in `nush`.
+
+	(load "~/dev/nu/pythagoras.nu")
+	
+When you load a file, all symbols defined in that file will show up in the object browser.
+
+
+The Xcode project for Nutronic is in the `Nutronic` subdirectory of the root Nutron folder.
+
+
+Embedding Nutron in Objective-C
+===============================
+
+If you want to embed Nutron in your Objective-C application:
+
+1. Link with the Nu and Nutron frameworks.
+
+![Linking with Nutron](./img/nutron_xcode_linked_frameworks.png "Linking with Nutron")
+2. Add an instance variable of type `NutronWindowController*` to your AppDelegate class (or something similar).
+3. In your AppDelegate's `applicationDidFinishLaunching:` method, add 
+
+	`nutron = [[Nutron nutron] retain]; // nutron is the name of your instance variable`
+	
+4. In your AppDelegate's `dealloc` method, `release` the `NutronWindowController*` instance variable.
+
+
+Command Summary
+===============
+
+The Objective-C interface to Nutron's functions is through a set of class methods in the `Nutron` class:
+
+	// The Nutron console
+	+ (NutronConsoleWindowController*)console;
+	
+	// The Object Inspector. Pass in an object to inspect and a description.
+	+ (NutronObjectViewWindowController*)inspect:(id)object withName:(NSString*)name;
+	
+	// The class viewer. Shows the Objective-C interface definition of the class.
+	+ (NutronClassTextViewWindowController*)viewClass:(NSString*)className;
+	
+	// The class outline viewer. Shows the class definition in an outline view.
+	+ (NutronClassOutlineViewWindowController*)outlineClass:(NSString*)className;
+
+	// The graphical view selector
+	+ (id)selectView;
+
+	// The integrated environment pane
+	+ (NutronWindowController*)nutron;
+
+	// Alternate ways of launching a Nutron instance:
+	// Instead of browsing the current context, browse `object` as the root item.
+	+ (NutronWindowController*)nutronWithObject:(id)object andName:(NSString*)name;
+	
+	// Instead of creating a new parser context, use an existing one.
+	+ (NutronWindowController*)nutronWithParser:(id)parser;
+
+While the above functions can be called from a Nu or Nutron console, a set of Nu convenience functions is also provided:
+
+	(nutron-console)
+	(nutron-inspect someObject)
+	(nutron-view-class "NSString")
+	(nutron-outline-class "NSString")
+	(nutron-select-view)
+	(nutron)                            ;; the integrated browser
+	(nutron-with-parser _parser)        ;; using an existing parser
 
 
 Bugs and Limitations
---------------------
+====================
 
-<span style='color: #a00;'>Nutron can crash the hosting application if it tries to display details of a deallocated object!</span>
-You are playing with a live runtime, so be careful.  Better signal handling is planned for the future.
+<p><span style='color: #a00;'>Nutron can crash the hosting application if it tries to display details of a deallocated object!</span>  You are playing with a live runtime, so be careful.  Some better signal handling is in the works to handle this condition, but caveat programmer.</p>
 
-Nutron currently does not parse or interpret C structs, but support for some well-known structs (such as `NSRect`, `NSPoint`, etc.) is in the works.
+Nutron currently does not parse or interpret C structs, but some well-known structs (such as `CGRect`, `CGPoint`, `CGSize`) are supported.
 
 Other known bugs and planned features are listed in the [Issues](http://github.com/itfrombit/nutron/issues) page of the [github repository](http://github.com/itfrombit/nutron).
 
 
 Acknowledgements
-----------------
+================
 - Nutron's select-view function uses a modified version of the view selector code from F-Script.  F-Script is a great set of developer tools that provides interactive introspection, manipulation and scripting of Cocoa objects.  F-Script is written by Philippe Mougin and can be found at [http://www.fscript.org](http://www.fscript.org).  A copy of F-Script's license is provided in the Nutron distribution.
 
 - The Nutron Console is adapted from the NuConsole code that ships with Nu.
 
 
 Author
-------
+======
 Nutron was written by Jeff Buck.
 
 
