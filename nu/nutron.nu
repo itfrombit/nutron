@@ -1,28 +1,28 @@
 
-(global inspect
-	(macro _nutroninspect (item)
+(global nutron-inspect
+	(macro _nutron-inspect (item)
 		`(Nutron inspect:,item withName:,(item stringValue))))
 		
-(global select-view
-	(function nutron-select-view ()
+(global nutron-select-view
+	(function _nutron-select-view ()
 		(Nutron selectView)))
 		
-(global inspect-class
-	(function nutron-inspect-class (name)
+(global nutron-inspect-class
+	(function _nutron-inspect-class (name)
 		(Nutron viewClass:name)))
 		
-(global outline-class
-	(function nutron-outline-class (name)
+(global nutron-outline-class
+	(function _nutron-outline-class (name)
 		(Nutron outlineClass:name)))
 
-(global console
-	(function nutron-console ()
+(global nutron-console
+	(function _nutron-console ()
 		(Nutron console)))
 
 (global nutron
-	(function nutron-nutron ()
+	(function _nutron ()
 		(Nutron nutronWithObject:nil andName:nil)))
 
 (global nutron-with-parser
-	(function nutron-nutron-with-parser (parser)
+	(function _nutron-with-parser (parser)
 		(Nutron nutronWithParser:parser)))
