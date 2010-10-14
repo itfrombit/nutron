@@ -13,16 +13,19 @@ Nutron also comes with an application named *Nutronic*. Nutronic bundles an inte
 
 Installation
 ============
+
 The Nutron repository is at [http://github.com/itfrombit/nutron](http://github.com/itfrombit/nutron).
 
-Nutron comes with both an Xcode project and a Nukefile.  Developing and debugging Nutron are best done in Xcode.
+Nutron depends on [Nu](http://programming.nu).  The Nu repository is at [http://github.com/timburks/nu](http://github.com/timburks/nu).  You need a version of Nu that is from 2010-10-02 or later.
 
-If you just want to use Nutron,
+The quickest way to build and install the Nutron framework is to use nuke:
 
 	nuke
 	nuke install
 	
-is the quickest way to build and install the Nutron framework.  The Nukefile builds a universal binary that supports both `i386` and `x86_64` architectures.
+The Nukefile builds a universal binary that supports both `i386` and `x86_64` architectures.
+
+Nutron also comes with an Xcode project.  Developing and debugging the Nutron framework is best done in Xcode.
 
 There is a separate Xcode project in the Nutronic directory that builds the Nutronic application.
 
@@ -152,15 +155,16 @@ This also provides you the option of sharing a single parser and context among m
 If you select an Objective-C object in the object viewer, the corresponding class definition is shown in the class viewer.
 
 
-Standalone Application
-======================
+Nutronic
+========
 
 The Nutronic application that is part of the Nutron distribution provides a standalone executable that can be used for general Nu programming.  Nutronic doesn't yet support opening files from the File menu, but you can load a file via the Nutron Console as you would in `nush`.
 
-	(load "~/dev/nu/pythagoras.nu")
+	(load "~/dev/nu/callcc/callcc.nu")
 	
 When you load a file, all symbols defined in that file will show up in the object browser.
 
+![Nutronic](./img/nutronic.png "Nutronic")
 
 The Xcode project for Nutronic is in the `Nutronic` subdirectory of the root Nutron folder.
 
