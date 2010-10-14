@@ -8,7 +8,8 @@
 
 //  The selectView method is adapted from F-Script:
 //  FSObjectBrowserView.m Copyright (c) 2001-2009 Philippe Mougin.
-//  F-Script is open source. See the license.
+//  See the F-Script license in the F-Script.license.txt file in
+//  the Nutron distribution.
 
 
 #import "Nutron.h"
