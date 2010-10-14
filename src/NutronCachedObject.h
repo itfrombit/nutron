@@ -50,6 +50,15 @@
 @end
 
 
+@interface NutronCachedConcreteValue : NutronCachedObject
+{
+}
+
+- (id)initWithObject:(id)o parent:(id)p key:(NSString*)k index:(int)i;
+
+@end
+
+
 @interface NutronCachedSymbolTable : NutronCachedObject
 {
 }

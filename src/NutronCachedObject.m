@@ -21,6 +21,7 @@
 @synthesize key = _key;
 @synthesize index = _index;
 
+@class NSConcreteValue;
 
 + (NutronCachedObject*)nutronCachedObjectForObject:(id)item withParent:(id)p key:(NSString*)k index:(int)i
 {
@@ -39,6 +40,10 @@
 	else if ([item isKindOfClass:[NuSymbolTable class]])
 	{
 		object = [[[NutronCachedSymbolTable alloc] initWithObject:item parent:p key:k index:i] autorelease];
+	}
+	else if ([item isKindOfClass:NSClassFromString(@"NSConcreteValue")])
+	{
+		object = [[[NutronCachedConcreteValue alloc] initWithObject:item parent:p key:k index:i] autorelease];
 	}
 	else if ([item isKindOfClass:[NSObject class]])
 	{
@@ -131,6 +136,7 @@
 	}
 	else if (_ivar)
 	{
+		// It's an ivar, but is nil, so use the static pointer type
 		return [_ivar typeEncoding];
 	}
 	else
@@ -275,24 +281,36 @@
 			}
 			else
 			{
-				// We're getting the immediate ivars (not those of a superclass).
+				// We're getting the immediate ivars (not those of a superclass),
+				// so we're the parent object.
 				ivarArray = [objectClass ivars];
 				objectWithIvars = _object;
 				ivarParent = self;
 			}
 
 			int ivarCount = [ivarArray count];
-			
+
 			for (int i = 0; i < ivarCount; i++)
 			{
 				NutronRuntimeIvar* nutronIvar = [ivarArray objectAtIndex:i];
 				
 				id ivarValue;
 
-				if ([[nutronIvar typeEncoding] characterAtIndex:0] == '{')
+				NSString* ivarTypeEncoding = [nutronIvar typeEncoding];
+				if ([ivarTypeEncoding characterAtIndex:0] == '{')
 				{
-					// It's a struct. We don't map those yet
-					ivarValue = [NSNull null];
+					if (   ([[ivarTypeEncoding substringToIndex:7] isEqualToString:@"{CGRect"])
+					    || ([[ivarTypeEncoding substringToIndex:8] isEqualToString:@"{CGPoint"])
+						|| ([[ivarTypeEncoding substringToIndex:7] isEqualToString:@"{CGSize"]))
+					{
+						// Let the NSConcreteValue fall through.
+						ivarValue = [objectWithIvars valueForKey:[nutronIvar name]];
+					}
+					else
+					{
+						// Otherwise, we have a struct that we don't map yet.
+						ivarValue = [NSNull null];						
+					}
 				}
 				else
 				{
@@ -326,6 +344,41 @@
 - (id)childAtIndex:(int)i
 {
 	return [[self children] objectAtIndex:i];
+}
+
+@end
+
+
+@implementation NutronCachedConcreteValue
+
+- (id)initWithObject:(id)o parent:(id)p key:(NSString*)k index:(int)i
+{
+	self = [super initWithObject:o parent:p key:k index:i];
+	
+	if (self == nil)
+		return nil;
+	
+	return self;
+}
+
+- (void)dealloc
+{
+	[super dealloc];
+}
+
+- (BOOL)isExpandable
+{
+	return NO;
+}
+
+- (id)type
+{
+	return [[_ivar type] mapTypeEncodingToObjcEncoding:[_ivar typeEncoding]];
+}
+
+- (id)value
+{
+	return [_object description];
 }
 
 @end
