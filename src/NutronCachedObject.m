@@ -20,6 +20,7 @@
 @synthesize ivar = _ivar;
 @synthesize key = _key;
 @synthesize index = _index;
+@synthesize isExpanded = _isExpanded;
 
 @class NSConcreteValue;
 

@@ -49,7 +49,16 @@
 													 name:NSOutlineViewSelectionDidChangeNotification
 												   object:_outlineView];
 
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(outlineViewItemDidExpand:)
+													 name:NSOutlineViewItemDidExpandNotification
+												   object:_outlineView];
 		
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(outlineViewItemDidCollapse:)
+													 name:NSOutlineViewItemDidCollapseNotification
+												   object:_outlineView];
+
 		NSTableColumn* tc;
 		
 		tc = [[NSTableColumn alloc] initWithIdentifier:@"Key"];
@@ -88,8 +97,7 @@
 	[super dealloc];
 }
 
-
-- (void)refresh
+- (void)refreshNoExpand
 {
 	id object = [_rootObject object];
 	id key = [_rootObject key];
@@ -101,8 +109,67 @@
 															   key:key
 															 index:-1] retain];
 	
-	[_outlineView reloadData];
-	[_outlineView expandItem:_rootObject];
+	[_outlineView reloadData];	
+}
+
+- (NutronCachedObject*)searchArray:(NSArray*)array forKey:(id)key
+{
+	int count = [array count];
+	int i = 0;
+	
+	while (i < count)
+	{
+		NutronCachedObject* item = [array objectAtIndex:i];
+		
+		if ([[item key] isEqualTo:key])
+			return item;
+		++i;
+	}
+	
+	return nil;
+}
+
+- (void)expandNode:(NutronCachedObject*)node withReferenceNode:(NutronCachedObject*)refNode
+{
+	if (![refNode isExpanded])
+	{
+		return;
+	}
+	else
+	{
+		// Expand this node
+		[_outlineView expandItem:node];
+		
+		NSArray* nodeChildren = [node children];
+
+		// Expand each of the children
+		for (NutronCachedObject* refChild in [refNode children])
+		{
+			if ([refChild isExpanded])
+			{
+				// Find the matching child in the node
+				NutronCachedObject* nodeChild = [self searchArray:nodeChildren forKey:[refChild key]];
+				if (nodeChild)
+				{
+					[self expandNode:nodeChild withReferenceNode:refChild];
+				}
+			}
+		}
+	}
+
+}
+
+
+- (void)refresh
+{
+	NutronCachedObject* oldRoot = [_rootObject retain];
+	
+	[self refreshNoExpand];
+	
+	// Restore the expansion state of the outline view
+	[self expandNode:_rootObject withReferenceNode:oldRoot];
+	
+	[oldRoot release];
 }
 
 - (id)rootObject
@@ -117,7 +184,10 @@
 	
 	[_rootObject setObject:newRoot];
 	[_rootObject setKey:newKey];
-	[self refresh];
+	
+	[self refreshNoExpand];
+
+	[_outlineView expandItem:_rootObject];
 }
 
 #pragma mark -
@@ -200,6 +270,20 @@
 
 #pragma mark -
 #pragma mark NSOutlineViewDelegate methods
+
+- (void)outlineViewItemDidExpand:(NSNotification *)notification
+{
+	NutronCachedObject* item = [[notification userInfo] valueForKey:@"NSObject"];
+	[item setIsExpanded:YES];
+}
+
+
+- (void)outlineViewItemDidCollapse:(NSNotification *)notification
+{
+	NutronCachedObject* item = [[notification userInfo] valueForKey:@"NSObject"];
+	[item setIsExpanded:NO];
+}
+
 
 - (void)selectionDidChange:(NSNotification*)notification
 {

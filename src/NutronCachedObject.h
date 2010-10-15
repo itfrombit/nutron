@@ -25,6 +25,8 @@
 	NSString*			_name;
 	NSString*			_type;
 	id					_value;
+	
+	BOOL				_isExpanded;
 }
 
 @property (nonatomic, retain) id parent;
@@ -33,6 +35,7 @@
 @property (nonatomic, retain) NutronRuntimeIvar* ivar;
 @property (nonatomic, copy) NSString* key;
 @property (nonatomic, assign) int index;
+@property (nonatomic, assign) BOOL isExpanded;
 
 + (NutronCachedObject*)nutronCachedObjectForObject:(id)item withParent:(id)p key:(NSString*)k index:(int)i;
 
@@ -45,6 +48,7 @@
 - (BOOL)isExpandable;
 
 - (int)numberOfChildren;
+- (NSArray*)children;
 - (id)childAtIndex:(int)i;
 
 @end
