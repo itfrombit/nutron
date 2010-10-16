@@ -129,11 +129,20 @@
 	return nil;
 }
 
-- (void)expandNode:(NutronCachedObject*)node withReferenceNode:(NutronCachedObject*)refNode
+- (NutronCachedObject*)expandNode:(NutronCachedObject*)node
+				withReferenceNode:(NutronCachedObject*)refNode
+					 selectedItem:(NutronCachedObject*)selectedItem
 {
+	NutronCachedObject* itemToSelect = nil;
+	
+	if (refNode == selectedItem)
+	{
+		itemToSelect = node;
+	}
+	
 	if (![refNode isExpanded])
 	{
-		return;
+		return itemToSelect;
 	}
 	else
 	{
@@ -145,30 +154,50 @@
 		// Expand each of the children
 		for (NutronCachedObject* refChild in [refNode children])
 		{
-			if ([refChild isExpanded])
+			// Find the matching child in the node
+			NutronCachedObject* nodeChild = [self searchArray:nodeChildren forKey:[refChild key]];
+			if (nodeChild)
 			{
-				// Find the matching child in the node
-				NutronCachedObject* nodeChild = [self searchArray:nodeChildren forKey:[refChild key]];
-				if (nodeChild)
+				if ([refChild isExpanded])
 				{
-					[self expandNode:nodeChild withReferenceNode:refChild];
+					NutronCachedObject* returnItem = 
+						[self expandNode:nodeChild withReferenceNode:refChild selectedItem:selectedItem];
+					
+					if (returnItem)
+					{
+							itemToSelect = returnItem;
+					}
+				}
+				else if (refChild == selectedItem)
+				{
+						itemToSelect = nodeChild;
 				}
 			}
 		}
 	}
 
+	return itemToSelect;
 }
 
 
 - (void)refresh
 {
 	NutronCachedObject* oldRoot = [_rootObject retain];
-	
+	NutronCachedObject* selectedItem = [_outlineView itemAtRow:[_outlineView selectedRow]];
+
 	[self refreshNoExpand];
 	
 	// Restore the expansion state of the outline view
-	[self expandNode:_rootObject withReferenceNode:oldRoot];
-	
+	NutronCachedObject* itemToSelect = [self expandNode:_rootObject 
+									  withReferenceNode:oldRoot 
+										   selectedItem:selectedItem];
+
+	if (itemToSelect)
+	{
+		[_outlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:[_outlineView rowForItem:itemToSelect]]
+				  byExtendingSelection:NO];
+	}
+
 	[oldRoot release];
 }
 

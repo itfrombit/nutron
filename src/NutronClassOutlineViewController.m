@@ -36,12 +36,20 @@
 	
 	[_rootObject release];
 	
-	NutronRuntimeClass* nrc = [[[NutronRuntimeClass alloc] initWithName:newClassName] autorelease];
+	if (newClassName)
+	{		
+		NutronRuntimeClass* nrc = [[[NutronRuntimeClass alloc] initWithName:newClassName] autorelease];
 	
-	_rootObject = [[[NutronCachedRuntimeObject alloc] initWithObject:nrc
-															  parent:nil
-																 key:@"object"
-															   index:-1] retain];
+		_rootObject = [[[NutronCachedRuntimeObject alloc] initWithObject:nrc
+																  parent:nil
+																	 key:@"object"
+																   index:-1] retain];
+	}
+	else
+	{
+		_rootObject = nil;
+	}
+
 }
 
 - (id)initWithFrame:(NSRect)frame className:(NSString*)aClassName
@@ -50,12 +58,19 @@
 	
 	if (self)
 	{
-		NutronRuntimeClass* nrc = [[[NutronRuntimeClass alloc] initWithName:aClassName] autorelease];
+		if (aClassName)
+		{
+			NutronRuntimeClass* nrc = [[[NutronRuntimeClass alloc] initWithName:aClassName] autorelease];
 
-		_rootObject = [[[NutronCachedRuntimeObject alloc] initWithObject:nrc
-																  parent:nil
-																	 key:@"object"
-																   index:-1] retain];
+			_rootObject = [[[NutronCachedRuntimeObject alloc] initWithObject:nrc
+																	  parent:nil
+																		 key:@"object"
+																	   index:-1] retain];
+		}
+		else 
+		{
+			_rootObject = nil;
+		}
 
 		_outlineView = [[NutronClassOutlineView alloc] 
 						initWithFrame:NSMakeRect(0,
