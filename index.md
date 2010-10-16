@@ -254,8 +254,6 @@ Bugs and Limitations
 
 <p><span style='color: #a00;'>Nutron can crash the hosting application if it tries to display details of a deallocated object!</span>  You are playing with a live runtime, so be careful.  Some better signal handling is in the works to handle this condition, but caveat programmer.</p>
 
-Nutron does not currently remember the state of expansion of the object inspector outline view when refreshed.  This is at the top of the planned features list.
-
 Nutron currently does not parse or interpret C structs, but some well-known structs (such as `CGRect`, `CGPoint`, `CGSize`) are supported.
 
 Other known bugs and planned features are listed in the [Issues](http://github.com/itfrombit/nutron/issues) page of the [github repository](http://github.com/itfrombit/nutron).
