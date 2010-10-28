@@ -126,7 +126,7 @@
 					mapTypeEncodingToObjcEncoding:[_ivar typeEncoding]];
 		}
 		else if (   [_key isKindOfClass:[NSString class]]
-				 && [_key isEqualToString:@"isa"])
+				 && [_key isEqualToString:kNutronCachedObjectKeyIsa])
 		{
 			return [_object name];
 		}
@@ -149,7 +149,7 @@
 - (id)value
 {
 	if (   [_key isKindOfClass:[NSString class]]
-		&& [_key isEqualToString:@"isa"])
+		&& [_key isEqualToString:kNutronCachedObjectKeyIsa])
 	{
 		return @"";
 	}
@@ -226,7 +226,7 @@
 
 		if (   [_object isKindOfClass:[NutronRuntimeClass class]]
 			&& [_key isKindOfClass:[NSString class]]
-			&& [_key isEqualToString:@"isa"])
+			&& [_key isEqualToString:kNutronCachedObjectKeyIsa])
 		{
 			objectClass = [[[NutronRuntimeClass alloc] initWithName:[_object name]] autorelease];
 		}
@@ -250,10 +250,11 @@
 												   initWithName:superclassName]
 												  autorelease];
 
-				NutronCachedObject* isaChild = [NutronCachedObject nutronCachedObjectForObject:superclass
-																					  withParent:self
-																							 key:@"isa"
-																						   index:-1];
+				NutronCachedObject* isaChild = 
+                [NutronCachedObject nutronCachedObjectForObject:superclass
+                                                     withParent:self
+                                                            key:kNutronCachedObjectKeyIsa
+                                                          index:-1];
 				[_children addObject:isaChild];
 			}
 			
@@ -262,7 +263,7 @@
 			id ivarParent = nil;
 
 			if (   [_key isKindOfClass:[NSString class]]
-				&& [_key isEqualToString:@"isa"])
+				&& [_key isEqualToString:kNutronCachedObjectKeyIsa])
 			{
 				// We're getting superclass ivars.
 				// Link to the parent object, as it is the one
@@ -272,7 +273,7 @@
 				// Walk up the isa hierarchy until we find our root object
 				id ancestor = _parent;
 				while (   [[ancestor key] isKindOfClass:[NSString class]]
-					   && [[ancestor key] isEqualToString:@"isa"])
+					   && [[ancestor key] isEqualToString:kNutronCachedObjectKeyIsa])
 				{
 					ancestor = [ancestor parent];
 				}
@@ -673,27 +674,27 @@
 
 - (int)numberOfChildren
 {
-	if ([_key isEqualToString:@"object"])
+	if ([_key isEqualToString:kNutronCachedObjectKeyObject])
 	{
 		return [[self children] count];
 	}
-	else if ([_key isEqualToString:@"ivars"])
+	else if ([_key isEqualToString:kNutronCachedObjectKeyIvars])
 	{
 		return [[[_parent object] ivars] count];
 	}
-	else if ([_key isEqualToString:@"properties"])
+	else if ([_key isEqualToString:kNutronCachedObjectKeyProperties])
 	{
 		return [[[_parent object] properties] count];
 	}
-	else if ([_key isEqualToString:@"class methods"])
+	else if ([_key isEqualToString:kNutronCachedObjectKeyClassMethods])
 	{
 		return [[[_parent object] classMethods] count];
 	}
-	else if ([_key isEqualToString:@"instance methods"])
+	else if ([_key isEqualToString:kNutronCachedObjectKeyInstanceMethods])
 	{
 		return [[[_parent object] instanceMethods] count];
 	}
-	else if ([_key isEqualToString:@"protocols"])
+	else if ([_key isEqualToString:kNutronCachedObjectKeyProtocols])
 	{
 		return [[[_parent object] protocols] count];
 	}
@@ -718,7 +719,7 @@
 		
 		NSString* childKey;
 
-		if ([_key isEqualToString:@"protocols"])
+		if ([_key isEqualToString:kNutronCachedObjectKeyProtocols])
 		{
 			childKey = [childObject name];
 		}
@@ -763,7 +764,10 @@
 		{
 			objectClassName = [[_object type] className];
 			NutronRuntimeClass* nrc = [[[NutronRuntimeClass alloc] initWithName:objectClassName] autorelease];
-			parentObject = [[[NutronCachedRuntimeObject alloc] initWithObject:nrc parent:self key:@"object" index:-1] autorelease];
+			parentObject = [[[NutronCachedRuntimeObject alloc] initWithObject:nrc 
+                                                                       parent:self
+                                                                          key:kNutronCachedObjectKeyObject
+                                                                        index:-1] autorelease];
 		}
 		
 		// If this class has a superclass, add it as an 'isa'-type item
@@ -778,59 +782,60 @@
 				NSString* superclassName = [NSString stringWithCString:szSuperclassName
 															  encoding:NSUTF8StringEncoding];
 				NutronRuntimeClass* pnrc = [[[NutronRuntimeClass alloc] initWithName:superclassName] autorelease];
-				child = [[[NutronCachedRuntimeObject alloc] initWithObject:pnrc parent:self key:@"object" index:-1] autorelease];
+				child = [[[NutronCachedRuntimeObject alloc] initWithObject:pnrc
+                                                                    parent:self
+                                                                       key:kNutronCachedObjectKeyObject
+                                                                     index:-1] autorelease];
 				[_children addObject:child];
 			}
 		}
 		
-		child = [[[NutronCachedRuntimeObject alloc] initWithObject:childObject parent:parentObject key:@"ivars" index:-1] autorelease];
+		child = [[[NutronCachedRuntimeObject alloc] initWithObject:childObject 
+                                                            parent:parentObject
+                                                               key:kNutronCachedObjectKeyIvars
+                                                             index:-1] autorelease];
 		[_children addObject:child];
-		child = [[[NutronCachedRuntimeObject alloc] initWithObject:childObject parent:parentObject key:@"properties" index:-1] autorelease];
+		child = [[[NutronCachedRuntimeObject alloc] initWithObject:childObject 
+                                                            parent:parentObject
+                                                               key:kNutronCachedObjectKeyProperties
+                                                             index:-1] autorelease];
 		[_children addObject:child];
-		child = [[[NutronCachedRuntimeObject alloc] initWithObject:childObject parent:parentObject key:@"class methods" index:-1] autorelease];
+		child = [[[NutronCachedRuntimeObject alloc] initWithObject:childObject
+                                                            parent:parentObject
+                                                               key:kNutronCachedObjectKeyClassMethods
+                                                             index:-1] autorelease];
 		[_children addObject:child];
-		child = [[[NutronCachedRuntimeObject alloc] initWithObject:childObject parent:parentObject key:@"instance methods" index:-1] autorelease];
+		child = [[[NutronCachedRuntimeObject alloc] initWithObject:childObject
+                                                            parent:parentObject
+                                                               key:kNutronCachedObjectKeyInstanceMethods
+                                                             index:-1] autorelease];
 		[_children addObject:child];
-		child = [[[NutronCachedRuntimeObject alloc] initWithObject:childObject parent:parentObject key:@"protocols" index:-1] autorelease];
+		child = [[[NutronCachedRuntimeObject alloc] initWithObject:childObject
+                                                            parent:parentObject
+                                                               key:kNutronCachedObjectKeyProtocols
+                                                             index:-1] autorelease];
 		[_children addObject:child];
 	}
-	else if ([_key isEqualToString:@"ivars"])
+	else if ([_key isEqualToString:kNutronCachedObjectKeyIvars])
 	{
 		_children = [[self childrenArrayForObjects:[[_parent object] ivars]] retain];
 	}
-	else if ([_key isEqualToString:@"properties"])
+	else if ([_key isEqualToString:kNutronCachedObjectKeyProperties])
 	{
 		_children = [[self childrenArrayForObjects:(NSArray*)[[_parent object] properties]] retain];
 	}
-	else if ([_key isEqualToString:@"class methods"])
+	else if ([_key isEqualToString:kNutronCachedObjectKeyClassMethods])
 	{
 		_children = [[self childrenArrayForObjects:[[_parent object] classMethods]] retain];
 	}
-	else if ([_key isEqualToString:@"instance methods"])
+	else if ([_key isEqualToString:kNutronCachedObjectKeyInstanceMethods])
 	{
 		_children = [[self childrenArrayForObjects:[[_parent object] instanceMethods]] retain];
 	}
-	else if ([_key isEqualToString:@"protocols"])
+	else if ([_key isEqualToString:kNutronCachedObjectKeyProtocols])
 	{
 		_children = [[self childrenArrayForObjects:[[_parent object] protocols]] retain];
 	}	
-	else if ([_object isKindOfClass:[NutronRuntimeIvar class]])
-	{
-
-	}
-	else if ([_object isKindOfClass:[NutronRuntimeProperty class]])
-	{
-
-	}
-	else if ([_object isKindOfClass:[NutronRuntimeMethod class]])
-	{
-
-	}
-	else if ([_object isKindOfClass:[NutronRuntimeProtocol class]])
-	{
-
-	}
-
 
 	return _children;
 }

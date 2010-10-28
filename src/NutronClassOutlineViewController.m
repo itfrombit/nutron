@@ -42,7 +42,7 @@
 	
 		_rootObject = [[[NutronCachedRuntimeObject alloc] initWithObject:nrc
 																  parent:nil
-																	 key:@"object"
+																	 key:kNutronCachedObjectKeyObject
 																   index:-1] retain];
 	}
 	else
@@ -64,7 +64,7 @@
 
 			_rootObject = [[[NutronCachedRuntimeObject alloc] initWithObject:nrc
 																	  parent:nil
-																		 key:@"object"
+																		 key:kNutronCachedObjectKeyObject
 																	   index:-1] retain];
 		}
 		else 
@@ -100,8 +100,7 @@
 		[_outlineView addTableColumn:tc];
 		[tc release];
 
-		[_outlineView reloadData];
-		[_outlineView expandItem:_rootObject];
+        [self refresh];
 	}
 
 	return self;
@@ -121,6 +120,17 @@
 {
 	[_outlineView reloadData];
 	[_outlineView expandItem:_rootObject];
+    
+    NSArray* children = [_rootObject children];
+    
+    for (NutronCachedObject* item in children)
+    {
+        NSLog(@"refresh item key: %@", [item key]);
+        if (![[item key] isEqualToString:kNutronCachedObjectKeyObject])
+        {
+            [_outlineView expandItem:item];
+        }
+    }
 }
 
 

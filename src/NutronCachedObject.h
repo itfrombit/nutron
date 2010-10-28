@@ -8,6 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
+#define kNutronCachedObjectKeyIsa               @"isa"
+
+#define kNutronCachedObjectKeyObject            @"object"
+#define kNutronCachedObjectKeyIvars             @"ivars"
+#define kNutronCachedObjectKeyProperties        @"properties"
+#define kNutronCachedObjectKeyClassMethods      @"class methods"
+#define kNutronCachedObjectKeyInstanceMethods   @"instanceMethods"
+#define kNutronCachedObjectKeyProtocols         @"protocols"
+
 
 @class NutronRuntimeIvar;
 
