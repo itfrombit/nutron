@@ -1,6 +1,7 @@
 .DS_Store
 *.swp
 *~.nib
+*.framework
 
 build/
 _site/

@@ -125,7 +125,6 @@
     
     for (NutronCachedObject* item in children)
     {
-        NSLog(@"refresh item key: %@", [item key]);
         if (![[item key] isEqualToString:kNutronCachedObjectKeyObject])
         {
             [_outlineView expandItem:item];
