@@ -19,6 +19,8 @@
 (set @framework_identifier		"nu.programming.nutron")
 (set @framework_creator_code	"????")
 
+(set @public_headers (filelist "^src/.*\.h$"))
+
 (compilation-tasks)
 (framework-tasks)
 
