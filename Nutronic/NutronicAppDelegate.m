@@ -31,4 +31,19 @@
 	return YES;
 }
 
+- (void)openDocument:(id)sender
+{
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    panel.allowedFileTypes = [NSArray arrayWithObjects:@"nu", nil];
+
+    [panel beginSheetModalForWindow:_window completionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            [_nutronViewController.consoleViewer loadFile:panel.filename];
+            [_nutronViewController.objectViewer refresh];
+            [_nutronViewController.classViewer refresh];
+        }
+    }];
+}
+
+
 @end
