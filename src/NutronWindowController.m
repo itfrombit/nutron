@@ -67,7 +67,7 @@
 
 - (id)initWithParser:(id)parser
 {
-	[self initWithObject:[parser context] andName:@"parser context"];
+	self = [self initWithObject:[parser context] andName:@"parser context"];
 	[_viewController setParser:parser];
 	
 	return self;

@@ -155,7 +155,7 @@
 {
 	self = [super init];
 
-	self.typeEncoding = [encoding copy];
+	self.typeEncoding = encoding; //[encoding copy];
 	[self mapTypeEncodingToObjcEncoding:encoding];
 
 	return self;
@@ -246,7 +246,7 @@
 
 - (id) initWithName:(NSString*)aName typeEncoding:(NSString*)aTypeEncoding offset:(long)anOffset
 {
-	[super init];
+	self = [super init];
 //	properties = [[NSMutableDictionary alloc] init];
 	
 //	[properties setValue:name forKey:@"name"];
@@ -260,7 +260,7 @@
 	self.typeEncoding = aTypeEncoding;
 	self.offset = anOffset;
 
-	self.type = [[NutronRuntimeType alloc] initWithTypeEncoding:aTypeEncoding];
+	self.type = [[[NutronRuntimeType alloc] initWithTypeEncoding:aTypeEncoding] autorelease];
 
 	return self;
 }
@@ -372,7 +372,7 @@
 
 - (id) init
 {
-	[super init];
+	self = [super init];
 
 	_args = [[NSMutableArray alloc] init];
 	
@@ -399,7 +399,7 @@
 
 - (id)initWithCoder:(NSCoder *)coder
 {
-	[super init];
+	self = [super init];
 
 	self.name = [coder decodeObjectForKey:@"name"];
 //  selector = [coder decodeObjectForKey:@"selector"];
@@ -426,12 +426,14 @@
 
 - (id) initWithPlist:(NSMutableDictionary*) plist
 {
+    self = [super init];
+
 	self.name = [plist objectForKey:@"name"];
 
 //  selector = [plist objectForKey:@"selector"];
-	self.returnType = [[NutronRuntimeType alloc] initWithPlist:[plist objectForKey:@"returnType"]];
+	self.returnType = [[[NutronRuntimeType alloc] initWithPlist:[plist objectForKey:@"returnType"]] autorelease];
 	self.methodType = [[plist objectForKey:@"methodType"] intValue];
-	self.args = [[NSMutableArray alloc] initWithPlist:@"args"];
+	self.args = [[[NSMutableArray alloc] initWithPlist:@"args"] autorelease];
 
 	return self;
 }
@@ -635,7 +637,7 @@
 
 - (id) init
 {
-	[super init];
+	self = [super init];
 		
 	_isDynamic = YES;
 
@@ -688,7 +690,7 @@
 
 - (id) initWithName:(NSString*)aName attributes:(NSString*)theAttributes
 {
-	[self init];
+	self = [self init];
 	
 
 	int idx = 0;
@@ -720,7 +722,7 @@
 		switch (attribute) 
 		{
 			case 'T':
-				self.type = [[NutronRuntimeType alloc] initWithTypeEncoding:rest];
+				self.type = [[[NutronRuntimeType alloc] initWithTypeEncoding:rest] autorelease];
 				break;
 
 			case 'R':
@@ -853,7 +855,7 @@
 
 - (id)initWithName:(NSString*)theName
 {
-	[super init];
+	self = [super init];
 	self.name = theName;
 	
 	return self;
@@ -871,7 +873,7 @@
 
 - (id)initWithCoder:(NSCoder *)coder
 {
-	[super init];
+	self = [super init];
 
 	self.name = [coder decodeObjectForKey:@"name"];
 
@@ -972,7 +974,7 @@
 
 - (id)initWithCoder:(NSCoder *)coder
 {
-	[super init];
+	self = [super init];
 
 	self.name = [coder decodeObjectForKey:@"name"];
 	self.superclassName = [coder decodeObjectForKey:@"superclassName"];
@@ -1257,32 +1259,32 @@
 	NSLog(@"  Class:         %@", _name);
 	NSLog(@"  Super class:   %@", _superclassName);
 
-	NSLog(@"  %d Ivars:", [_ivars count]);
+	NSLog(@"  %lu Ivars:", [_ivars count]);
 	for (NutronRuntimeIvar* ivar in _ivars)
 	{
 		NSLog(@"    %@", [ivar description]);
 	}
 	
-	NSLog(@"  %d Class Methods:", [_classMethods count]);
+	NSLog(@"  %lu Class Methods:", [_classMethods count]);
 	for (NutronRuntimeMethod* method in _classMethods)
 	{
 		NSLog(@"    %@", [method description]);
 	}
 
-	NSLog(@"  %d Instance Methods:", [_instanceMethods count]);
+	NSLog(@"  %lu Instance Methods:", [_instanceMethods count]);
 	for (NutronRuntimeMethod* method in _instanceMethods)
 	{
 		NSLog(@"    %@", [method description]);
 	}
 	
-	NSLog(@"  %d Properties:", [_properties count]);
+	NSLog(@"  %lu Properties:", [_properties count]);
 	for (NutronRuntimeProperty* property in _properties)
 	{
 		NSLog(@"    %@", [property objcDeclaration]);
 		NSLog(@"      %@", [property objcImplementation]);
 	}
 	
-	NSLog(@"  %d Protocols:", [_protocols count]);
+	NSLog(@"  %lu Protocols:", [_protocols count]);
 	for (NutronRuntimeProtocol* protocol in _protocols)
 	{
 		NSLog(@"    %@", [protocol description]);
