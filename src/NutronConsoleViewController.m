@@ -41,7 +41,7 @@
 	{
 		_textView = [[NutronConsoleView alloc] initWithFrame:NSMakeRect(0,
 																		0,
-																		frame.size.width - 17,
+																		frame.size.width - [NSScrollView scrollerWidth],
 																		frame.size.height)];
 		[_textView setAutoresizingMask:(NSViewHeightSizable | NSViewWidthSizable)];
 		[_textView setBackgroundColor:[NSColor colorWithDeviceRed:0.8 green:0.8 blue:1.0 alpha:0.9]];

@@ -13,6 +13,8 @@
 
 + (NSScrollView*)scrollViewWrappedAroundView:(NSView*)view withFrame:(NSRect)frame;
 
++ (int)scrollerWidth;
+
 @end
 
 

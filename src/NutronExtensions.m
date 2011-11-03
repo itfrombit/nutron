@@ -15,15 +15,32 @@
 + (NSScrollView*)scrollViewWrappedAroundView:(NSView*)view withFrame:(NSRect)frame
 {
 	NSScrollView* sv = [[NSScrollView alloc] initWithFrame:frame];
-	[sv setAutoresizingMask:(NSViewHeightSizable | NSViewWidthSizable)];
 	[sv setHasHorizontalScroller:YES];
 	[sv setHasVerticalScroller:YES];
-	[sv setBorderType:NSBezelBorder];
+	//[sv setBorderType:NSBezelBorder];
+	[sv setWantsLayer:YES];
+	[sv setBorderType:NSNoBorder];
+	[sv setAutoresizingMask:(NSViewHeightSizable | NSViewWidthSizable)];
+	[sv setAutohidesScrollers:YES];
 	[sv setDocumentView:view];
 	
 	return [sv autorelease];
 }
 
++ (int)scrollerWidth
+{
+	// We'll use overlays in Lion
+	SInt32 major = 0;
+	(void)Gestalt(gestaltSystemVersionMajor, &major);
+	
+	SInt32 minor = 0;
+	(void)Gestalt(gestaltSystemVersionMinor, &minor);
+	
+	if ((major == 10) && (minor >= 7))
+		return 0;
+	else
+		return 17;
+}
 @end
 
 

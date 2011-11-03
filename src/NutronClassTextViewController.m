@@ -30,7 +30,7 @@
 	{
 		_textView = [[NutronClassTextView alloc] initWithFrame:NSMakeRect(0,
 																		  0,
-																		  frame.size.width - 17,
+																		  frame.size.width - [NSScrollView scrollerWidth],
 																		  frame.size.height)];
 		[_textView setAutoresizingMask:(NSViewHeightSizable | NSViewWidthSizable)];
 		[_textView setBackgroundColor:[NSColor colorWithDeviceRed:0.9 green:0.8 blue:0.8 alpha:0.9]];
