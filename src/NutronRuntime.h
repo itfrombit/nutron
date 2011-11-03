@@ -82,7 +82,7 @@ typedef enum tagNutronRuntimeMethodType
 @property(assign)	SEL							selector;
 @property(retain)	NutronRuntimeType*			returnType;
 @property(assign)	NutronRuntimeMethodType		methodType;
-@property(assign)	NSMutableArray*				args;
+@property(retain)	NSMutableArray*				args;
 @property(assign)	Method						method;
 
 - (void) addArgument:(NutronRuntimeType*)anArg;
