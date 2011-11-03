@@ -12,6 +12,12 @@
 
 #import "NutronExtensions.h"
 
+#ifndef SYMBOLS_KEY
+// Hack to get the unexposed Nu symbol table
+#define SYMBOLS_KEY @"symbols"
+#endif
+
+
 //#define NUTRON_DEBUG	1
 
 #ifdef NUTRON_DEBUG

@@ -122,7 +122,7 @@
 			    || ([className isEqualToString:@"NSNull"])))
 		{
 			// We can be more precise
-			return [[_ivar type]
+			return [[_ivar runtimeType]
 					mapTypeEncodingToObjcEncoding:[_ivar typeEncoding]];
 		}
 		else if (   [_key isKindOfClass:[NSString class]]
@@ -183,11 +183,11 @@
 	}
 	else if (_ivar)
 	{
-		NSString* typeEncoding = [[_ivar type] typeEncoding];
+		NSString* typeEncoding = [[_ivar runtimeType] typeEncoding];
 		NutronDebug(@"  cachedIvar: %@  typeEncoding: %@  type: %@",
 					[_ivar name],
 					typeEncoding,
-					[_ivar type]);
+					[_ivar runtimeType]);
 		
 		return ![self isAtomicTypeEncoding:typeEncoding];
 	}
@@ -375,7 +375,7 @@
 
 - (id)type
 {
-	return [[_ivar type] mapTypeEncodingToObjcEncoding:[_ivar typeEncoding]];
+	return [[_ivar runtimeType] mapTypeEncodingToObjcEncoding:[_ivar typeEncoding]];
 }
 
 - (id)value
@@ -629,11 +629,11 @@
 	{
 		if ([_object isKindOfClass:[NutronRuntimeIvar class]])
 		{
-			return [[(NutronRuntimeIvar*)_object type] objcEncoding];
+			return [[(NutronRuntimeIvar*)_object runtimeType] objcEncoding];
 		}
 		else if ([_object isKindOfClass:[NutronRuntimeProperty class]])
 		{
-			return [[(NutronRuntimeProperty*)_object type] objcEncoding];
+			return [[(NutronRuntimeProperty*)_object runtimeType] objcEncoding];
 		}
 		else if ([_object isKindOfClass:[NutronRuntimeMethod class]])
 		{
@@ -667,7 +667,7 @@
 			|| (   [_object isKindOfClass:[NutronRuntimeIvar class]] 
 				&& ![self isAtomicTypeEncoding:[_object typeEncoding]])
 			|| (   [_object isKindOfClass:[NutronRuntimeProperty class]] 
-				&& ![self isAtomicTypeEncoding:[(NutronRuntimeType*)[_object type] typeEncoding]]));
+				&& ![self isAtomicTypeEncoding:[(NutronRuntimeType*)[_object runtimeType] typeEncoding]]));
 	
 	//	return (_object != nil) || ((_object == nil) && (_key != nil));
 }
@@ -762,7 +762,7 @@
 		}
 		else
 		{
-			objectClassName = [[_object type] className];
+			objectClassName = [[_object runtimeType] className];
 			NutronRuntimeClass* nrc = [[[NutronRuntimeClass alloc] initWithName:objectClassName] autorelease];
 			parentObject = [[[NutronCachedRuntimeObject alloc] initWithObject:nrc 
                                                                        parent:self

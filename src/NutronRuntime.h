@@ -5,6 +5,11 @@
 //  Created by Jeff Buck on 4/16/08.
 //  Copyright 2008 Jeff Buck. All rights reserved.
 
+#ifndef SYMBOLS_KEY
+// Hack to get the unexposed Nu symbol table
+#define SYMBOLS_KEY @"symbols"
+#endif
+
 ///////////////////////////////////////////////////////////////
 typedef enum tagNutronRuntimeMethodType
 {
@@ -44,14 +49,14 @@ typedef enum tagNutronRuntimeMethodType
 	NSString*			_name;
 	NSString*			_typeEncoding;
 	int					_offset;
-	NutronRuntimeType*	_type;
+	NutronRuntimeType*	_runtimeType;
 
 //	NSMutableDictionary*	properties;
 }
 
 @property(copy)		NSString*			name;
 @property(copy)		NSString*			typeEncoding;
-@property(retain)	NutronRuntimeType*	type;
+@property(retain)	NutronRuntimeType*	runtimeType;
 @property(assign)	int					offset;
 
 //@property(retain)	NSMutableDictionary*	properties;
@@ -92,7 +97,7 @@ typedef enum tagNutronRuntimeMethodType
 	NSString*			_attributes;
 	
 	NSString*			_typeEncoding;
-	NutronRuntimeType*	_type;
+	NutronRuntimeType*	_runtimeType;
 	
 	NSString*			_getter;
 	NSString*			_setter;
@@ -113,7 +118,7 @@ typedef enum tagNutronRuntimeMethodType
 
 @property(copy)		NSString*		name;
 @property(copy)		NSString*		attributes;
-@property(retain)	NutronRuntimeType*	type;
+@property(retain)	NutronRuntimeType*	runtimeType;
 @property(copy)		NSString*		getter;
 @property(copy)		NSString*		setter;
 @property(assign)	BOOL			isReadOnly;

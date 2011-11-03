@@ -325,7 +325,10 @@
 				}
 				else
 				{
-					displayString = [e dump];
+					if ([e respondsToSelector:@selector(dump)])
+					{
+						displayString = [e performSelector:@selector(dump)];
+					}
 				}
 
 				[self write:displayString];

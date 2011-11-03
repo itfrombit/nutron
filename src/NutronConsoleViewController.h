@@ -49,6 +49,8 @@
 
 @property (nonatomic, retain) id<NutronConsoleViewControllerDelegate> delegate;
 
+- (id)initWithFrame:(NSRect)frame;
+
 - (void)setFonts;
 - (id)loadFile:(NSString*)file;
 

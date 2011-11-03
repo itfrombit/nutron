@@ -84,6 +84,9 @@
 		case '@':
 			if ([encoding length] == 1)
 				objcType = @"id";
+			else if ([encoding isEqualToString:@"@?"])
+				// Likely a block
+				objcType = @"_block";
 			else
 				objcType = [NSString stringWithFormat:@"%@*",
 					[encoding substringWithRange:NSMakeRange(2,[encoding length] - 3)]];
@@ -153,8 +156,11 @@
 
 - (id) initWithTypeEncoding:(NSString*)encoding
 {
-	self = [super init];
-
+    self = [super init];
+	
+	if (self == nil)
+		return nil;
+	
 	self.typeEncoding = encoding; //[encoding copy];
 	[self mapTypeEncodingToObjcEncoding:encoding];
 
@@ -192,6 +198,11 @@
 
 - (id)initWithCoder:(NSCoder *)coder
 {
+    self = [super init];
+	
+	if (self == nil)
+		return nil;
+
 	NSString* encoding = [coder decodeObjectForKey:@"typeEncoding"];
 	return [self initWithTypeEncoding:encoding];
 }
@@ -208,6 +219,11 @@
 
 - (id) initWithPlist:(NSMutableDictionary*) plist
 {
+    self = [super init];
+	
+	if (self == nil)
+		return nil;
+
 	NSString* encoding = [plist objectForKey:@"typeEncoding"];
 	return [self initWithTypeEncoding:encoding];
 }
@@ -239,14 +255,18 @@
 
 @synthesize	name = _name;
 @synthesize	typeEncoding = _typeEncoding;
-@synthesize	type = _type;
+@synthesize	runtimeType = _runtimeType;
 @synthesize	offset = _offset;
 
 //@synthesize properties;
 
 - (id) initWithName:(NSString*)aName typeEncoding:(NSString*)aTypeEncoding offset:(long)anOffset
 {
-	self = [super init];
+    self = [super init];
+	
+	if (self == nil)
+		return nil;
+
 //	properties = [[NSMutableDictionary alloc] init];
 	
 //	[properties setValue:name forKey:@"name"];
@@ -260,7 +280,7 @@
 	self.typeEncoding = aTypeEncoding;
 	self.offset = anOffset;
 
-	self.type = [[[NutronRuntimeType alloc] initWithTypeEncoding:aTypeEncoding] autorelease];
+	self.runtimeType = [[[NutronRuntimeType alloc] initWithTypeEncoding:aTypeEncoding] autorelease];
 
 	return self;
 }
@@ -268,7 +288,7 @@
 
 - (void) dealloc
 {
-	[_type release];
+	[_runtimeType release];
 //	[properties release];
 	[super dealloc];
 }
@@ -283,6 +303,11 @@
 
 - (id)initWithCoder:(NSCoder *)coder
 {
+    self = [super init];
+	
+	if (self == nil)
+		return nil;
+
 	NSString* cName = [coder decodeObjectForKey:@"name"];
 	NSString* cTypeEncoding = [coder decodeObjectForKey:@"typeEncoding"];
 	int cOffset = [coder decodeIntForKey:@"offset"];
@@ -304,6 +329,11 @@
 
 - (id) initWithPlist:(NSMutableDictionary*) plist
 {
+    self = [super init];
+	
+	if (self == nil)
+		return nil;
+
 	NSString* cName = [plist objectForKey:@"name"];
 	NSString* cTypeEncoding = [plist objectForKey:@"typeEncoding"];
 	int cOffset = [[plist objectForKey:@"offset"] intValue];
@@ -317,7 +347,7 @@
 	return [NSString stringWithFormat:@"  %@  %@  %@  %d", 
 		_name,
 		_typeEncoding,
-		[_type description],
+		[_runtimeType description],
 		_offset];
 //		[properties valueForKey:@"name"], 
 //		[properties valueForKey:@"typeEncoding"],
@@ -330,11 +360,11 @@
 {
 	NSMutableString* d = [NSMutableString string];
 
-	[d appendFormat:@"%@ %@", [_type objcEncoding], _name];
+	[d appendFormat:@"%@ %@", [_runtimeType objcEncoding], _name];
 
-	if ([[_type objcEncodingSuffix] length] > 0)
+	if ([[_runtimeType objcEncodingSuffix] length] > 0)
 	{
-		[d appendString:[_type objcEncodingSuffix]];
+		[d appendString:[_runtimeType objcEncodingSuffix]];
 	}
 	
 	[d appendString:@";"];
@@ -347,11 +377,11 @@
 {
 	NSMutableString* d = [NSMutableString string];
 
-	[d appendFormat:@"(%@) %@", [_type objcEncoding], _name];
+	[d appendFormat:@"(%@) %@", [_runtimeType objcEncoding], _name];
 
-	if ([[_type objcEncodingSuffix] length] > 0)
+	if ([[_runtimeType objcEncodingSuffix] length] > 0)
 	{
-		[d appendString:[_type objcEncodingSuffix]];
+		[d appendString:[_runtimeType objcEncodingSuffix]];
 	}
 	
 	return d;	
@@ -372,7 +402,10 @@
 
 - (id) init
 {
-	self = [super init];
+    self = [super init];
+	
+	if (self == nil)
+		return nil;
 
 	_args = [[NSMutableArray alloc] init];
 	
@@ -399,8 +432,11 @@
 
 - (id)initWithCoder:(NSCoder *)coder
 {
-	self = [super init];
-
+    self = [super init];
+	
+	if (self == nil)
+		return nil;
+	
 	self.name = [coder decodeObjectForKey:@"name"];
 //  selector = [coder decodeObjectForKey:@"selector"];
 	self.returnType = [coder decodeObjectForKey:@"returnType"];
@@ -427,13 +463,16 @@
 - (id) initWithPlist:(NSMutableDictionary*) plist
 {
     self = [super init];
+	
+	if (self == nil)
+		return nil;
 
 	self.name = [plist objectForKey:@"name"];
 
 //  selector = [plist objectForKey:@"selector"];
 	self.returnType = [[[NutronRuntimeType alloc] initWithPlist:[plist objectForKey:@"returnType"]] autorelease];
 	self.methodType = [[plist objectForKey:@"methodType"] intValue];
-	self.args = [[[NSMutableArray alloc] initWithPlist:@"args"] autorelease];
+	//self.args = [[[NSMutableArray alloc] initWithPlist:[plist objectForKey:@"args"]] autorelease];
 
 	return self;
 }
@@ -622,7 +661,7 @@
 
 @synthesize			name = _name;
 @synthesize			attributes = _attributes;
-@synthesize			type = _type;
+@synthesize			runtimeType = _runtimeType;
 @synthesize			getter = _getter;
 @synthesize			setter = _setter;
 @synthesize			isReadOnly = _isReadOnly;
@@ -637,8 +676,11 @@
 
 - (id) init
 {
-	self = [super init];
-		
+    self = [super init];
+	
+	if (self == nil)
+		return nil;
+
 	_isDynamic = YES;
 
 	return self;
@@ -646,7 +688,7 @@
 
 - (void) dealloc
 {
-	[_type release];
+	[_runtimeType release];
 
 	[super dealloc];
 }
@@ -660,6 +702,11 @@
 
 - (id)initWithCoder:(NSCoder *)coder
 {
+    self = [super init];
+	
+	if (self == nil)
+		return nil;
+
 	NSString* theName = [coder decodeObjectForKey:@"name"];
 	NSString* theAttributes = [coder decodeObjectForKey:@"attributes"];
 
@@ -680,6 +727,11 @@
 
 - (id) initWithPlist:(NSMutableDictionary*) plist
 {
+    self = [super init];
+
+	if (self == nil)
+		return nil;
+
 	NSString* theName = [plist objectForKey:@"name"];
 	NSString* theAttributes = [plist objectForKey:@"attributes"];
 
@@ -690,8 +742,10 @@
 
 - (id) initWithName:(NSString*)aName attributes:(NSString*)theAttributes
 {
-	self = [self init];
+    self = [super init];
 	
+	if (self == nil)
+		return nil;
 
 	int idx = 0;
 	int attrLength = [theAttributes length];
@@ -722,7 +776,7 @@
 		switch (attribute) 
 		{
 			case 'T':
-				self.type = [[[NutronRuntimeType alloc] initWithTypeEncoding:rest] autorelease];
+				self.runtimeType = [[[NutronRuntimeType alloc] initWithTypeEncoding:rest] autorelease];
 				break;
 
 			case 'R':
@@ -813,7 +867,7 @@
 	if (_isWeakRef)
 		[x appendString:@" __weak"];
 
-	d = [NSString stringWithFormat:@"@property(%@) %@ %@;", a, [_type objcEncoding], _name];
+	d = [NSString stringWithFormat:@"@property(%@) %@ %@;", a, [_runtimeType objcEncoding], _name];
 	
 	return d;
 }
@@ -855,6 +909,11 @@
 
 - (id)initWithName:(NSString*)theName
 {
+    self = [super init];
+	
+	if (self == nil)
+		return nil;
+
 	self = [super init];
 	self.name = theName;
 	
@@ -873,7 +932,10 @@
 
 - (id)initWithCoder:(NSCoder *)coder
 {
-	self = [super init];
+    self = [super init];
+	
+	if (self == nil)
+		return nil;
 
 	self.name = [coder decodeObjectForKey:@"name"];
 
@@ -892,6 +954,11 @@
 
 - (id) initWithPlist:(NSMutableDictionary*) plist
 {
+    self = [super init];
+	
+	if (self == nil)
+		return nil;
+
 	NSString* theName = [plist objectForKey:@"name"];
 
 	return [self initWithName:theName];
@@ -974,7 +1041,10 @@
 
 - (id)initWithCoder:(NSCoder *)coder
 {
-	self = [super init];
+    self = [super init];
+	
+	if (self == nil)
+		return nil;
 
 	self.name = [coder decodeObjectForKey:@"name"];
 	self.superclassName = [coder decodeObjectForKey:@"superclassName"];
@@ -1010,10 +1080,13 @@
 
 - (id) initWithName:(NSString*) aName
 {
+    self = [super init];
+	
+	if (self == nil)
+		return nil;
+
 	int i;
 	
-	self = [super init];
-
 	self.name = aName;
 
 	const char* szClassName = [aName UTF8String];

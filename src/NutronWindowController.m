@@ -58,6 +58,7 @@
 
 	// Add a magic $$nutron symbol.
 	NuParser* parser = [[_viewController consoleViewer] parser];
+
 	NuSymbolTable* symbolTable = [[parser context] objectForKey:SYMBOLS_KEY];
 	[[symbolTable symbolWithString:@"$$nutron"] setValue:self];
 	

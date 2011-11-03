@@ -24,6 +24,7 @@
 @property (nonatomic, copy) NSString* className;
 @property (nonatomic, copy) NSString* format;
 
+- (id)initWithFrame:(NSRect)frame;
 - (void)setFonts;
 - (void)exportToFile:(NSString*)filename;
 
