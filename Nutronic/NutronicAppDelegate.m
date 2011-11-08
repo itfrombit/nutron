@@ -34,11 +34,14 @@
 - (void)openDocument:(id)sender
 {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
-    panel.allowedFileTypes = [NSArray arrayWithObjects:@"nu", nil];
+    panel.allowedFileTypes = [NSArray arrayWithObject:@"nu"];
+    panel.allowsMultipleSelection = YES;
 
     [panel beginSheetModalForWindow:_window completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
-            [_nutronViewController.consoleViewer loadFile:panel.filename];
+            for (NSURL *url in panel.URLs)
+                [_nutronViewController.consoleViewer loadFile:url.path];
+
             [_nutronViewController.objectViewer refresh];
             [_nutronViewController.classViewer refresh];
         }
