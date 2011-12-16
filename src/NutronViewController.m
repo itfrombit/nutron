@@ -21,7 +21,7 @@ const float kNutronSplitViewDividerThickness = 9.0;
 - (id)initWithFrame:(NSRect)frame object:(id)object name:(NSString*)name
 {
 	self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
@@ -36,7 +36,7 @@ const float kNutronSplitViewDividerThickness = 9.0;
 	float rightWidth = frame.size.width - leftWidth;
 	float topHeight = frame.size.height * tbSplitRatio - kNutronSplitViewDividerThickness;
 	float bottomHeight = frame.size.height - topHeight;
-	
+
 	// Create the splitter windows, first the left/right
 	_lrSplitView = [[NSSplitView alloc]
 					initWithFrame:NSMakeRect(0, 0, frame.size.width, frame.size.height)];
@@ -45,15 +45,15 @@ const float kNutronSplitViewDividerThickness = 9.0;
 
 	[_lrSplitView setDelegate:self];
 	[_lrSplitView setVertical:YES];
-	
-	_tbSplitView = [[NSSplitView alloc] 
+
+	_tbSplitView = [[NSSplitView alloc]
 					initWithFrame:NSMakeRect(0, 0, leftWidth, frame.size.height)];
 	[_tbSplitView setDelegate:self];
-	
+
 	_consoleViewer = [[NutronConsoleViewController alloc]
 					  initWithFrame:NSMakeRect(0, 0, leftWidth, bottomHeight)];
 	[_consoleViewer setDelegate:self];
-	
+
 	if (object == nil)
 	{
 		// Use the parser's context as default
@@ -65,25 +65,25 @@ const float kNutronSplitViewDividerThickness = 9.0;
 		_object = [object retain];
 		_objectName = [name copy];
 	}
-	
+
 	_objectViewer = [[NutronObjectViewController alloc]
 					 initWithFrame:NSMakeRect(0, 0, leftWidth, topHeight)
 						rootObject:_object
 						      name:_objectName];
 	[_objectViewer setDelegate:self];
-	
+
 	_classViewer = [[NutronClassOutlineViewController alloc]
 					initWithFrame:NSMakeRect(0, 0, rightWidth, frame.size.height)
 						className:[_object className]];
-	
+
 	[_tbSplitView addSubview:[_objectViewer scrollView]];
 	[_tbSplitView addSubview:[_consoleViewer scrollView]];
-	
+
 	[_lrSplitView addSubview:_tbSplitView];
 	[_lrSplitView addSubview:[_classViewer scrollView]];
-	
+
 	[_view addSubview:_lrSplitView];
-	
+
 	return self;
 }
 
@@ -101,14 +101,14 @@ const float kNutronSplitViewDividerThickness = 9.0;
 {
 	[_object release];
 	[_objectName release];
-	
+
 	[_classViewer release];
 	[_objectViewer release];
 	[_consoleViewer release];
 	[_tbSplitView release];
 	[_lrSplitView release];
 	[_view release];
-	
+
 	[super dealloc];
 }
 
@@ -136,7 +136,7 @@ const float kNutronSplitViewDividerThickness = 9.0;
 
 static const float kNutronSplitViewMinLHSWidth = 100.0;
 
-- (CGFloat)splitView:(NSSplitView *)sv 
+- (CGFloat)splitView:(NSSplitView *)sv
 constrainMinCoordinate:(CGFloat)coord
 		 ofSubviewAt:(NSInteger)index
 {
@@ -144,7 +144,7 @@ constrainMinCoordinate:(CGFloat)coord
 }
 
 
-- (CGFloat)splitView:(NSSplitView *)sv 
+- (CGFloat)splitView:(NSSplitView *)sv
 constrainMaxCoordinate:(CGFloat)coord
 		 ofSubviewAt:(NSInteger)index
 {

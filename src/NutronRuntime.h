@@ -28,7 +28,7 @@ typedef enum tagNutronRuntimeMethodType
 }
 
 - (NSString*) mapTypeEncodingToObjcEncoding:(NSString*)encoding;
-//- (NSString*) mapObjcEncodingToTypeEncoding:(NSString*)encoding withSuffix:(NSString*)suffix; 
+//- (NSString*) mapObjcEncodingToTypeEncoding:(NSString*)encoding withSuffix:(NSString*)suffix;
 
 - (id) initWithTypeEncoding:(NSString*)encoding;
 - (NSString*) className;
@@ -95,22 +95,22 @@ typedef enum tagNutronRuntimeMethodType
 {
 	NSString*			_name;
 	NSString*			_attributes;
-	
+
 	NSString*			_typeEncoding;
 	NutronRuntimeType*	_runtimeType;
-	
+
 	NSString*			_getter;
 	NSString*			_setter;
-	
+
 	BOOL				_isReadOnly;
 	BOOL				_isCopied;
 	BOOL				_isRetained;
-	
+
 	BOOL				_isNonatomic;
-	
+
 	BOOL				_isStrongRef;
 	BOOL				_isWeakRef;
-	
+
 	BOOL				_isDynamic;
 	BOOL				_isSynthesized;
 	NSString*			_synthesizedIvar;
@@ -155,7 +155,7 @@ typedef enum tagNutronRuntimeMethodType
 	NSString*			_name;
 	NSString*			_superclassName;
 	NutronRuntimeClass*	_superclass;
-	
+
 	NSMutableArray*		_ivars;
 	NSMutableArray*		_properties;
 	NSMutableArray*		_classMethods;

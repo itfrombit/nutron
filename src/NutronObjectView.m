@@ -15,7 +15,7 @@
 {
     self = [super initWithFrame:frame];
 
-    if (self) 
+    if (self)
 	{
 
     }

@@ -23,18 +23,18 @@
 														| NSUtilityWindowMask
 											  backing:NSBackingStoreBuffered
 												defer:NO]];
-	
+
 	if (!self)
 		return nil;
-	
+
 	NSWindow* w = [self window];
 	NSRect frame = [w frame];
-	
+
 	_objectViewer = [[NutronObjectViewController alloc]
-					 initWithFrame:frame 
+					 initWithFrame:frame
 						rootObject:object
 							  name:name];
-	
+
 	[w setContentView:[_objectViewer scrollView]];
 
 	[w center];
@@ -53,7 +53,7 @@
 {
 	[[self window] setDelegate:nil];
 	[_objectViewer release];
-	
+
 	[super dealloc];
 }
 

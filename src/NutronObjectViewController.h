@@ -22,7 +22,7 @@
 	NSScrollView*							_scrollView;
 
 	id										_rootObject;
-	
+
 	id<NutronObjectViewControllerDelegate>	_delegate;
 }
 

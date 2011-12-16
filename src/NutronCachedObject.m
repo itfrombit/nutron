@@ -27,9 +27,9 @@
 + (NutronCachedObject*)nutronCachedObjectForObject:(id)item withParent:(id)p key:(NSString*)k index:(int)i
 {
 	NutronDebug(@"cachedObjectForObject: %@", item);
-	
+
 	NutronCachedObject* object = nil;
-	
+
 	if ([item isKindOfClass:[NSDictionary class]])
 	{
 		object = [[[NutronCachedDictionary alloc] initWithObject:item parent:p key:k index:i] autorelease];
@@ -58,22 +58,22 @@
 	{
 		assert(0);
 	}
-	
+
 	return object;
 }
 
 - (id)initWithObject:(id)o parent:(id)p key:(NSString*)k index:(int)i
 {
 	self = [super init];
-	
+
 	if (self == nil)
 		return nil;
-	
+
 	_object = [o retain];
 	_parent = [p retain];
 	_key = [k copy];
 	_index = i;
-	
+
 	return self;
 }
 
@@ -85,14 +85,14 @@
 	[_children release];
 	[_ivar release];
 	[_key release];
-	
+
 	[super dealloc];
 }
 
 - (NSString*)name
 {
 	return _key;
-	
+
 	if (_ivar)
 	{
 		return [_ivar name];
@@ -116,7 +116,7 @@
 	if (_object)
 	{
 		NSString* className = [_object className];
-		
+
 		if (   _ivar
 			&& (   ([className isEqualToString:@"NSCFNumber"])
 			    || ([className isEqualToString:@"NSNull"])))
@@ -161,7 +161,7 @@
 
 - (BOOL)isAtomicTypeEncoding:(NSString*)typeEncoding
 {
-	if (   ([typeEncoding isEqualToString:@"@"]) 
+	if (   ([typeEncoding isEqualToString:@"@"])
 		|| ([typeEncoding length] > 1))
 	{
 		// typeEncoding length > 1 is a class name, so not atomic
@@ -188,7 +188,7 @@
 					[_ivar name],
 					typeEncoding,
 					[_ivar runtimeType]);
-		
+
 		return ![self isAtomicTypeEncoding:typeEncoding];
 	}
 	else if ([_object isKindOfClass:[NSObject class]])
@@ -205,7 +205,7 @@
 {
 	if (_children)
 		return _children;
-	
+
 	if (_object == nil)
 	{
 		return nil;
@@ -221,7 +221,7 @@
 	{
 		// We're an object. Return ivars by default
 		_children = [[NSMutableArray alloc] init];
-		
+
 		NutronRuntimeClass* objectClass = nil;
 
 		if (   [_object isKindOfClass:[NutronRuntimeClass class]]
@@ -234,13 +234,13 @@
 		{
 			objectClass = [[[NutronRuntimeClass alloc] initWithName:[_object className]] autorelease];
 		}
-		
+
 		NSArray* ivarArray = nil;
 
 		if (objectClass)
 		{
 			NSString* superclassName = [objectClass superclassName];
-	
+
 			// If we have a super class, insert an isa object for superclass' ivars
 			if (   superclassName
 				&& ![superclassName isEqualToString:@""]
@@ -250,14 +250,14 @@
 												   initWithName:superclassName]
 												  autorelease];
 
-				NutronCachedObject* isaChild = 
+				NutronCachedObject* isaChild =
                 [NutronCachedObject nutronCachedObjectForObject:superclass
                                                      withParent:self
                                                             key:kNutronCachedObjectKeyIsa
                                                           index:-1];
 				[_children addObject:isaChild];
 			}
-			
+
 			// Insert our ivars
 			id objectWithIvars = nil;
 			id ivarParent = nil;
@@ -269,7 +269,7 @@
 				// Link to the parent object, as it is the one
 				// we will query for ivar values.
 				ivarArray = [_object ivars];
-				
+
 				// Walk up the isa hierarchy until we find our root object
 				id ancestor = _parent;
 				while (   [[ancestor key] isKindOfClass:[NSString class]]
@@ -277,7 +277,7 @@
 				{
 					ancestor = [ancestor parent];
 				}
-				
+
 				objectWithIvars = [ancestor object];
 				ivarParent = _parent;
 			}
@@ -295,7 +295,7 @@
 			for (int i = 0; i < ivarCount; i++)
 			{
 				NutronRuntimeIvar* nutronIvar = [ivarArray objectAtIndex:i];
-				
+
 				id ivarValue;
 
 				NSString* ivarTypeEncoding = [nutronIvar typeEncoding];
@@ -311,7 +311,7 @@
 					else
 					{
 						// Otherwise, we have a struct that we don't map yet.
-						ivarValue = [NSNull null];						
+						ivarValue = [NSNull null];
 					}
 				}
 				else
@@ -319,15 +319,15 @@
 					ivarValue = [objectWithIvars valueForIvar:[nutronIvar name]];
 				}
 
-				NutronCachedObject* child = [NutronCachedObject nutronCachedObjectForObject:ivarValue 
+				NutronCachedObject* child = [NutronCachedObject nutronCachedObjectForObject:ivarValue
 																				 withParent:ivarParent
 																						key:[nutronIvar name]
 																					  index:i];
 				child.ivar = nutronIvar;
-				
+
 				[_children addObject:child];
 			}
-			
+
 			return _children;
 		}
 		else
@@ -339,7 +339,7 @@
 
 
 - (int)numberOfChildren
-{	
+{
 	return [[self children] count];
 }
 
@@ -356,10 +356,10 @@
 - (id)initWithObject:(id)o parent:(id)p key:(NSString*)k index:(int)i
 {
 	self = [super initWithObject:o parent:p key:k index:i];
-	
+
 	if (self == nil)
 		return nil;
-	
+
 	return self;
 }
 
@@ -391,12 +391,12 @@
 - (id)initWithObject:(id)symbolTable parent:(id)p key:(NSString*)k index:(int)i
 {
 	self = [super initWithObject:symbolTable parent:p key:k index:i];
-	
+
 	if (self == nil)
 		return nil;
-	
+
 	_cachedObject = [[[symbolTable all] sort] retain];
-	
+
 	return self;
 }
 
@@ -420,25 +420,25 @@
 {
 	if (_children)
 		return _children;
-	
+
 	int symbolCount = [_cachedObject count];
-	
+
 	if (symbolCount == 0)
 		return nil;
-	
+
 	_children = [[NSMutableArray alloc] initWithCapacity:symbolCount];
-	
+
 	for (int i = 0; i < symbolCount; i++)
 	{
 		NuSymbol* symbol = [_cachedObject objectAtIndex:i];
-		
+
 		NutronCachedObject* child = [NutronCachedObject nutronCachedObjectForObject:symbol
 																		 withParent:self
 																				key:[symbol description]
 																			  index:i];
 		[_children addObject:child];
 	}
-	
+
 	return _children;
 }
 
@@ -455,14 +455,14 @@
 - (id)initWithObject:(id)dictionary parent:(id)p key:(NSString*)k index:(int)i
 {
 	self = [super initWithObject:dictionary parent:p key:k index:i];
-	
+
 	if (self == nil)
 		return nil;
-	
+
 	_cachedObject = [[[dictionary allKeys] sortedArrayUsingComparator:^(id a, id b) {
 						return [[a stringValue] compare:[b stringValue]];
 					} ] retain];
-	
+
 	return self;
 }
 
@@ -485,19 +485,19 @@
 {
 	if (_children)
 		return _children;
-	
+
 	int keyCount = [_cachedObject count];
-	
+
 	if (keyCount == 0)
 		return nil;
-	
+
 	_children = [[NSMutableArray alloc] initWithCapacity:keyCount];
-	
+
 	for (int i = 0; i < keyCount; i++)
 	{
 		// itemKey could be a string or a NuSymbol so use an id
 		id itemKey = [_cachedObject objectAtIndex:i];
-		
+
 		id value = [_object objectForKey:itemKey];
 		NutronCachedObject* child = [NutronCachedObject nutronCachedObjectForObject:value
 																		 withParent:self
@@ -505,7 +505,7 @@
 																			  index:i];
 		[_children addObject:child];
 	}
-	
+
 	return _children;
 }
 
@@ -522,10 +522,10 @@
 - (id)initWithObject:(id)array parent:(id)p key:(NSString*)k index:(int)i
 {
 	self = [super initWithObject:array parent:p key:k index:i];
-	
+
 	if (self == nil)
 		return nil;
-	
+
 	return self;
 }
 
@@ -548,14 +548,14 @@
 {
 	if (_children)
 		return _children;
-	
+
 	int keyCount = [_object count];
-	
+
 	if (keyCount == 0)
 		return nil;
-	
+
 	_children = [[NSMutableArray alloc] initWithCapacity:keyCount];
-	
+
 	for (int i = 0; i < keyCount; i++)
 	{
 		id itemKey = [NSString stringWithFormat:@"%d", i];
@@ -566,7 +566,7 @@
 																			  index:i];
 		[_children addObject:child];
 	}
-	
+
 	return _children;
 }
 
@@ -583,10 +583,10 @@
 - (id)initWithObject:(id)runtimeClass parent:(id)p key:(NSString*)k index:(int)i
 {
 	self = [super initWithObject:runtimeClass parent:p key:k index:i];
-	
+
 	if (self == nil)
 		return nil;
-	
+
 	return self;
 }
 
@@ -618,7 +618,7 @@
 	if ([_object isKindOfClass:[NutronRuntimeClass class]])
 	{
 		return [_object name];
-	}	
+	}
 	else if (   [[_parent object] isKindOfClass:[NutronRuntimeClass class]]
 			 || [[_parent object] isKindOfClass:[NutronRuntimeIvar class]]
 			 || [[_parent object] isKindOfClass:[NutronRuntimeProperty class]])
@@ -644,7 +644,7 @@
 			return @"";
 		}
 	}
-	
+
 	return @"";
 }
 
@@ -664,11 +664,11 @@
 {
 	return (   [_object isKindOfClass:[NutronRuntimeClass class]]
 			|| [[_parent object] isKindOfClass:[NutronRuntimeClass class]]
-			|| (   [_object isKindOfClass:[NutronRuntimeIvar class]] 
+			|| (   [_object isKindOfClass:[NutronRuntimeIvar class]]
 				&& ![self isAtomicTypeEncoding:[_object typeEncoding]])
-			|| (   [_object isKindOfClass:[NutronRuntimeProperty class]] 
+			|| (   [_object isKindOfClass:[NutronRuntimeProperty class]]
 				&& ![self isAtomicTypeEncoding:[(NutronRuntimeType*)[_object runtimeType] typeEncoding]]));
-	
+
 	//	return (_object != nil) || ((_object == nil) && (_key != nil));
 }
 
@@ -710,13 +710,13 @@
 - (NSMutableArray*)childrenArrayForObjects:(NSArray*)array
 {
 	int count = [array count];
-	
+
 	NSMutableArray* childArray = [[NSMutableArray alloc] init];
 
 	for (int i = 0; i < count; i++)
 	{
 		id childObject = [array objectAtIndex:i];
-		
+
 		NSString* childKey;
 
 		if ([_key isEqualToString:kNutronCachedObjectKeyProtocols])
@@ -735,7 +735,7 @@
 											 index:i] autorelease];
 		[childArray addObject:child];
 	}
-	
+
 	return [childArray autorelease];
 }
 
@@ -743,7 +743,7 @@
 {
 	if (_children)
 		return _children;
-	
+
 	if (   [_object isKindOfClass:[NutronRuntimeClass class]]
 		|| [_object isKindOfClass:[NutronRuntimeIvar class]]
 		|| [_object isKindOfClass:[NutronRuntimeProperty class]])
@@ -754,7 +754,7 @@
 		id childObject = nil;
 		id parentObject = nil;
 		NSString* objectClassName;
-		
+
 		if ([_object isKindOfClass:[NutronRuntimeClass class]])
 		{
 			objectClassName = [_object name];
@@ -764,18 +764,18 @@
 		{
 			objectClassName = [[_object runtimeType] className];
 			NutronRuntimeClass* nrc = [[[NutronRuntimeClass alloc] initWithName:objectClassName] autorelease];
-			parentObject = [[[NutronCachedRuntimeObject alloc] initWithObject:nrc 
+			parentObject = [[[NutronCachedRuntimeObject alloc] initWithObject:nrc
                                                                        parent:self
                                                                           key:kNutronCachedObjectKeyObject
                                                                         index:-1] autorelease];
 		}
-		
+
 		// If this class has a superclass, add it as an 'isa'-type item
 		Class objectClass = NSClassFromString(objectClassName);
 		if (objectClass != nil)
 		{
 			Class objectSuperClass = class_getSuperclass(objectClass);
-			
+
 			if (objectSuperClass != nil)
 			{
 				const char* szSuperclassName = class_getName(objectSuperClass);
@@ -789,13 +789,13 @@
 				[_children addObject:child];
 			}
 		}
-		
-		child = [[[NutronCachedRuntimeObject alloc] initWithObject:childObject 
+
+		child = [[[NutronCachedRuntimeObject alloc] initWithObject:childObject
                                                             parent:parentObject
                                                                key:kNutronCachedObjectKeyIvars
                                                              index:-1] autorelease];
 		[_children addObject:child];
-		child = [[[NutronCachedRuntimeObject alloc] initWithObject:childObject 
+		child = [[[NutronCachedRuntimeObject alloc] initWithObject:childObject
                                                             parent:parentObject
                                                                key:kNutronCachedObjectKeyProperties
                                                              index:-1] autorelease];
@@ -835,7 +835,7 @@
 	else if ([_key isEqualToString:kNutronCachedObjectKeyProtocols])
 	{
 		_children = [[self childrenArrayForObjects:[[_parent object] protocols]] retain];
-	}	
+	}
 
 	return _children;
 }

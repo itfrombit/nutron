@@ -15,7 +15,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	NSRect frame = [_window frame];
-	
+
 	frame = [[_window contentView] frame];
 
 	_nutronViewController = [[NutronViewController alloc]

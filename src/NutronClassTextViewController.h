@@ -13,7 +13,7 @@
 {
 	NSTextView*			_textView;
 	NSScrollView*		_scrollView;
-	
+
 	NSString*			_className;
 	NSString*			_format;
 }

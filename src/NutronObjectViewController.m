@@ -31,7 +31,7 @@
 															withParent:nil
 																   key:name
 																 index:-1] retain];
-		
+
 		_outlineView = [[NutronObjectView alloc] initWithFrame:NSMakeRect(0,
 																		  0,
 																		  frame.size.width,
@@ -39,7 +39,7 @@
 		[_outlineView setAutoresizingMask:(NSViewHeightSizable | NSViewWidthSizable)];
 
 		_scrollView = [[NSScrollView scrollViewWrappedAroundView:_outlineView withFrame:frame] retain];
-		
+
 		[_outlineView setDelegate:self];
 		[_outlineView setDataSource:self];
 		[_outlineView setUsesAlternatingRowBackgroundColors:YES];
@@ -53,33 +53,33 @@
 												 selector:@selector(outlineViewItemDidExpand:)
 													 name:NSOutlineViewItemDidExpandNotification
 												   object:_outlineView];
-		
+
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												 selector:@selector(outlineViewItemDidCollapse:)
 													 name:NSOutlineViewItemDidCollapseNotification
 												   object:_outlineView];
 
 		NSTableColumn* tc;
-		
+
 		tc = [[NSTableColumn alloc] initWithIdentifier:@"Key"];
 		[[tc headerCell] setStringValue:@"Key"];
 		[tc setWidth:200.0];
 		[_outlineView addTableColumn:tc];
 		[_outlineView setOutlineTableColumn:tc];
 		[tc release];
-		
+
 		tc = [[NSTableColumn alloc] initWithIdentifier:@"Type"];
 		[[tc headerCell] setStringValue:@"Type"];
 		[tc setWidth:200.0];
 		[_outlineView addTableColumn:tc];
 		[tc release];
-		
+
 		tc = [[NSTableColumn alloc] initWithIdentifier:@"Value"];
 		[[tc headerCell] setStringValue:@"Value"];
 		[tc setWidth:300.0];
 		[_outlineView addTableColumn:tc];
 		[tc release];
-		
+
 		[_outlineView reloadData];
 		[_outlineView expandItem:_rootObject];
 	}
@@ -101,31 +101,31 @@
 {
 	id object = [_rootObject object];
 	id key = [_rootObject key];
-	
+
 	[_rootObject release];
-	
+
 	_rootObject = [[NutronCachedObject nutronCachedObjectForObject:object
 														withParent:nil
 															   key:key
 															 index:-1] retain];
-	
-	[_outlineView reloadData];	
+
+	[_outlineView reloadData];
 }
 
 - (NutronCachedObject*)searchArray:(NSArray*)array forKey:(id)key
 {
 	int count = [array count];
 	int i = 0;
-	
+
 	while (i < count)
 	{
 		NutronCachedObject* item = [array objectAtIndex:i];
-		
+
 		if ([[item key] isEqualTo:key])
 			return item;
 		++i;
 	}
-	
+
 	return nil;
 }
 
@@ -134,12 +134,12 @@
 					 selectedItem:(NutronCachedObject*)selectedItem
 {
 	NutronCachedObject* itemToSelect = nil;
-	
+
 	if (refNode == selectedItem)
 	{
 		itemToSelect = node;
 	}
-	
+
 	if (![refNode isExpanded])
 	{
 		return itemToSelect;
@@ -148,7 +148,7 @@
 	{
 		// Expand this node
 		[_outlineView expandItem:node];
-		
+
 		NSArray* nodeChildren = [node children];
 
 		// Expand each of the children
@@ -160,9 +160,9 @@
 			{
 				if ([refChild isExpanded])
 				{
-					NutronCachedObject* returnItem = 
+					NutronCachedObject* returnItem =
 						[self expandNode:nodeChild withReferenceNode:refChild selectedItem:selectedItem];
-					
+
 					if (returnItem)
 					{
 							itemToSelect = returnItem;
@@ -186,10 +186,10 @@
 	NutronCachedObject* selectedItem = [_outlineView itemAtRow:[_outlineView selectedRow]];
 
 	[self refreshNoExpand];
-	
+
 	// Restore the expansion state of the outline view
-	NutronCachedObject* itemToSelect = [self expandNode:_rootObject 
-									  withReferenceNode:oldRoot 
+	NutronCachedObject* itemToSelect = [self expandNode:_rootObject
+									  withReferenceNode:oldRoot
 										   selectedItem:selectedItem];
 
 	if (itemToSelect)
@@ -210,10 +210,10 @@
 {
 	if (newRoot == [_rootObject object])
 		return;
-	
+
 	[_rootObject setObject:newRoot];
 	[_rootObject setKey:newKey];
-	
+
 	[self refreshNoExpand];
 
 	[_outlineView expandItem:_rootObject];
@@ -225,13 +225,13 @@
 - (BOOL)outlineView:(NSOutlineView*)ov isItemExpandable:(id)item
 {
 	NutronCachedObject* object = (NutronCachedObject*)item;
-	
+
 	if (object == nil)
 	{
 		return YES;
 		//object = _rootObject;
 	}
-	
+
 	NutronDebug(@"isItemExpandable %@", [object description]);
 	return [object isExpandable];
 }
@@ -239,7 +239,7 @@
 - (NSInteger)outlineView:(NSOutlineView*)ov numberOfChildrenOfItem:(id)item
 {
 	NutronCachedObject* object = (NutronCachedObject*)item;
-	
+
 	if (object == nil)
 	{
 		//object = _rootObject;
@@ -259,7 +259,7 @@
 		return _rootObject;
 		//object = _rootObject;
 	}
-	
+
 	NutronDebug(@"child:%d ofItem:%@", index, object);
 	return [object childAtIndex:index];
 }
@@ -269,7 +269,7 @@
 	NutronDebug(@"objectValueForTableColumn:%@ byItem:%@", tableColumn, item);
 
 	NutronCachedObject* object = (NutronCachedObject*)item;
-	
+
 	if (object == nil)
 		object = _rootObject;
 
@@ -286,7 +286,7 @@
 	else
 	{
 		id value = [object value];
-			
+
 		if ([value respondsToSelector:@selector(description)])
 			return [value description];
 		else if ([value respondsToSelector:@selector(stringValue)])

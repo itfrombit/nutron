@@ -25,14 +25,14 @@
 - (id)init
 {
 	self = [super init];
-	
+
 	return self;
 }
 
 - (void)dealloc
 {
 	[_selectedView release];
-	
+
 	[super dealloc];
 }
 
@@ -49,7 +49,7 @@
 
 	NSEvent  *event;
 	id        view;
-	NSCursor *cursor = [NSCursor crosshairCursor];  
+	NSCursor *cursor = [NSCursor crosshairCursor];
 	NSDate   *distantFuture = [NSDate distantFuture];
 
 	NSRect infoRect = NSMakeRect(0, 0, 290, 100);
@@ -67,16 +67,16 @@
 	[paragraphStyle setLineBreakMode:NSLineBreakByTruncatingTail];
 	[infoView setDefaultParagraphStyle:paragraphStyle];
 
-	NSPanel *infoWindow = [[[NSPanel alloc] initWithContentRect:infoRect 
+	NSPanel *infoWindow = [[[NSPanel alloc] initWithContentRect:infoRect
 													  styleMask:NSHUDWindowMask | NSUtilityWindowMask /*| NSTitledWindowMask*/
-														backing:NSBackingStoreBuffered 
-														  defer:NO] autorelease];  
+														backing:NSBackingStoreBuffered
+														  defer:NO] autorelease];
 	[infoWindow setLevel:NSFloatingWindowLevel];
 	[infoWindow setContentView:infoView];
-	
-	NSWindow *focusWindow = [[NSWindow alloc] initWithContentRect:NSZeroRect 
-														styleMask:NSBorderlessWindowMask 
-														  backing:NSBackingStoreBuffered 
+
+	NSWindow *focusWindow = [[NSWindow alloc] initWithContentRect:NSZeroRect
+														styleMask:NSBorderlessWindowMask
+														  backing:NSBackingStoreBuffered
 															defer:NO] ;
 
 	[focusWindow setBackgroundColor:[NSColor redColor]]; // selectedTextBackgroundColor
@@ -84,19 +84,19 @@
 	[focusWindow setIgnoresMouseEvents:YES];
 
 	[cursor push];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(menuWillSendAction:) 
-												 name:NSMenuWillSendActionNotification 
+
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(menuWillSendAction:)
+												 name:NSMenuWillSendActionNotification
 											   object:nil];
 	do
-	{ 
-		[cursor push]; 
+	{
+		[cursor push];
 		event = [NSApp nextEventMatchingMask:~0 untilDate:distantFuture inMode:NSEventTrackingRunLoopMode dequeue:YES];
 		[cursor pop];
 		if ([event type] == NSMouseMoved)
-		{      
-			NSInteger  windowCount; 
+		{
+			NSInteger  windowCount;
 			NSInteger *windows;
 
 			view = nil;
@@ -108,11 +108,11 @@
 			for (unsigned i = 0; i < windowCount; i++)
 			{
 				NSWindow *window = [NSApp windowWithWindowNumber:windows[i]];
-				if (   window 
-					&& window != focusWindow 
+				if (   window
+					&& window != focusWindow
 					&& window != infoWindow)
 				{
-					view = [[[window contentView] superview] 
+					view = [[[window contentView] superview]
 							hitTest:[window convertScreenToBase:[NSEvent mouseLocation]]];
 
 					if (view)
@@ -174,8 +174,8 @@
 		     && !(   [event type] == NSKeyDown
 				  && [[event characters] characterAtIndex:0] == ESCAPE));
 
-	[[NSNotificationCenter defaultCenter] removeObserver:self 
-													name:NSMenuWillSendActionNotification 
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:NSMenuWillSendActionNotification
 												  object:nil];
 	[cursor pop];
 	[[focusWindow parentWindow] removeChildWindow:focusWindow];
@@ -193,7 +193,7 @@
 
 		//[[self window] performSelector:@selector(makeKeyAndOrderFront:) withObject:nil afterDelay:0];
 
-		[NSApp activateIgnoringOtherApps:YES];    
+		[NSApp activateIgnoringOtherApps:YES];
 	}
 
 	return _selectedView;

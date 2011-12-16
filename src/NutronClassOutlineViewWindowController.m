@@ -24,20 +24,20 @@
 								  | NSUtilityWindowMask
 								  backing:NSBackingStoreBuffered
 								  defer:NO]];
-	
+
 	if (!self)
 		return nil;
-	
+
 	_className = [aClassName copy];
 
 	NSWindow* w = [self window];
 	NSRect frame = [w frame];
-	
+
 	_classViewer = [[NutronClassOutlineViewController alloc]
 					initWithFrame:frame className:_className];
-	
+
 	[w setContentView:[_classViewer scrollView]];
-	
+
 	[w center];
 	[w setTitle:[NSString stringWithFormat:@"Nutron Class Viewer - %@", _className]];
 	[w setDelegate:self];
@@ -46,7 +46,7 @@
 	[w setFrameOrigin:NSMakePoint(frame.origin.x, 200)];
 	[w setMinSize:NSMakeSize(600, 100)];
 	[w makeKeyAndOrderFront:self];
-	
+
 	return self;
 }
 
@@ -55,7 +55,7 @@
 	[[self window] setDelegate:nil];
 	[_classViewer release];
 	[_className release];
-	
+
 	[super dealloc];
 }
 

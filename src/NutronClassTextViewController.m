@@ -25,7 +25,7 @@
 - (id)initWithFrame:(NSRect)frame
 {
 	self = [super init];
-	
+
 	if (self)
 	{
 		_textView = [[NutronClassTextView alloc] initWithFrame:NSMakeRect(0,
@@ -40,7 +40,7 @@
 
 		_scrollView = [[NSScrollView scrollViewWrappedAroundView:_textView withFrame:frame] retain];
 	}
-	
+
 	return self;
 }
 
@@ -58,12 +58,12 @@
 {
 	if ((_className == nil) || [_className isEqualToString:@""])
 		return;
-	
+
 	NutronRuntimeClass* nrc = [[[NutronRuntimeClass alloc] initWithName:_className] autorelease];
-	
+
 	NSString* dump = [nrc objcDeclaration];
 	NSLog(@"dumpClass: %@\n%@", _className, dump);
-	
+
 	[_textView setString:dump];
 //	[[_textView textStorage] replaceCharactersInRange:NSMakeRange(0, [[_textView string] length])
 //										   withString:dump];
@@ -103,7 +103,7 @@
 
 	[_format release];
 	_format = [newFormat copy];
-	
+
 	// Different format, regenerate the classdump
 }
 

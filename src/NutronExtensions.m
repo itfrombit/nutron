@@ -23,7 +23,7 @@
 	[sv setAutoresizingMask:(NSViewHeightSizable | NSViewWidthSizable)];
 	[sv setAutohidesScrollers:YES];
 	[sv setDocumentView:view];
-	
+
 	return [sv autorelease];
 }
 
@@ -32,10 +32,10 @@
 	// We'll use overlays in Lion
 	SInt32 major = 0;
 	(void)Gestalt(gestaltSystemVersionMajor, &major);
-	
+
 	SInt32 minor = 0;
 	(void)Gestalt(gestaltSystemVersionMinor, &minor);
-	
+
 	if ((major == 10) && (minor >= 7))
 		return 0;
 	else
@@ -51,9 +51,9 @@
 	int count = 0;
 	int	index = position;
 	BOOL found = NO;
-	
+
 	char c = 0;
-	
+
 	while ((index >= startOfInput) && !found)
 	{
 		c = [[self string] characterAtIndex:index];
@@ -62,15 +62,15 @@
 			case Nutron_LPAREN:
 				--count;
 				break;
-				
+
 			case Nutron_RPAREN:
 				++count;
 				break;
-				
+
 			default:
 				break;
 		}
-		
+
 		if (count == 0)
 		{
 			found = YES;
@@ -80,7 +80,7 @@
 			--index;
 		}
 	}
-	
+
 	if (found)
 		return index;
 	else
@@ -94,9 +94,9 @@
 	int index = position;
 	int maxIndex = [self length];
 	BOOL found = NO;
-	
+
 	char c = 0;
-	
+
 	while ((index < maxIndex) && !found)
 	{
 		c = [[self string] characterAtIndex:index];
@@ -106,15 +106,15 @@
 			case Nutron_LPAREN:
 				--count;
 				break;
-				
+
 			case Nutron_RPAREN:
 				++count;
 				break;
-				
+
 			default:
 				break;
 		}
-		
+
 		if (count == 0)
 		{
 			found = YES;
@@ -124,7 +124,7 @@
 			++index;
 		}
 	}
-	
+
 	if (found)
 		return index;
 	else

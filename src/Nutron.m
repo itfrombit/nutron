@@ -40,7 +40,7 @@
 
 + (NutronClassTextViewWindowController*)viewClass:(NSString*)className
 {
-	NutronClassTextViewWindowController* c = 
+	NutronClassTextViewWindowController* c =
 	[[[NutronClassTextViewWindowController alloc] initWithClassName:className] autorelease];
 
 	return c;
@@ -48,9 +48,9 @@
 
 + (NutronClassOutlineViewWindowController*)outlineClass:(NSString*)className
 {
-	NutronClassOutlineViewWindowController* c = 
+	NutronClassOutlineViewWindowController* c =
 	[[[NutronClassOutlineViewWindowController alloc] initWithClassName:className] autorelease];
-	
+
 	return c;
 }
 
@@ -74,11 +74,11 @@
 + (id)selectView
 {
 	NutronViewSelector* vs = [[NutronViewSelector alloc] init];
-	
+
 	id result = [vs selectView];
-	
+
 	[vs release];
-	
+
 	return result;
 }
 

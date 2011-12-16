@@ -14,7 +14,7 @@
 - (id)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
-	
+
 	[self setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
 	[self setAutoresizesSubviews:YES];
 
