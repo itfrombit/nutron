@@ -26,15 +26,15 @@
 	id					_cachedObject;
 	id					_parent;
 	NSMutableArray*		_children;
-	
+
 	NutronRuntimeIvar*	_ivar;
 	NSString*			_key;
 	int					_index;
-	
+
 	NSString*			_name;
 	NSString*			_type;
 	id					_value;
-	
+
 	BOOL				_isExpanded;
 }
 

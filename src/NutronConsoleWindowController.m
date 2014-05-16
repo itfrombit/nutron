@@ -17,7 +17,7 @@
 
 - (id)init
 {
-	self = [super initWithWindow:[[NSPanel alloc] 
+	self = [super initWithWindow:[[NSPanel alloc]
 								  initWithContentRect:NSMakeRect(0, 0, 600, 200)
 								  styleMask:NSTitledWindowMask
 											| NSClosableWindowMask
@@ -32,7 +32,7 @@
 	NSWindow* w = [self window];
 	NSRect frame = [w frame];
 
-	_console = [[NutronConsoleViewController alloc] 
+	_console = [[NutronConsoleViewController alloc]
 				initWithFrame:frame];
 
 	[w setContentView:[_console scrollView]];

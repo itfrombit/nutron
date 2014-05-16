@@ -23,7 +23,7 @@
 
 - (id)initWithObject:(id)object andName:(NSString*)name;
 {
-	self = [super initWithWindow:[[NSPanel alloc] 
+	self = [super initWithWindow:[[NSPanel alloc]
 								  initWithContentRect:NSMakeRect(0, 0, 1000, 600)
 								  styleMask:NSTitledWindowMask
 								  | NSClosableWindowMask
@@ -51,7 +51,7 @@
 	[w setFrameOrigin:NSMakePoint(frame.origin.x, 80)];
 	[w setMinSize:NSMakeSize(600, 100)];
 	[w makeKeyAndOrderFront:self];
-	
+
 	[_viewController postInitSetup];
 	[self addNutronMenu];
 	_isShowing = YES;
@@ -61,7 +61,7 @@
 
 	NuSymbolTable* symbolTable = [[parser context] objectForKey:SYMBOLS_KEY];
 	[[symbolTable symbolWithString:@"$$nutron"] setValue:self];
-	
+
 	return self;
 }
 
@@ -70,7 +70,7 @@
 {
 	self = [self initWithObject:[parser context] andName:@"parser context"];
 	[_viewController setParser:parser];
-	
+
 	return self;
 }
 
@@ -122,13 +122,13 @@
 		{
 			[windowMenu removeItem:_nutronMenuItem];
 		}
-		
+
 		[_nutronMenuItem release];
 	}
-	
+
 	[_viewController release];
 	[[self window] setDelegate:nil];
-	
+
 	[super dealloc];
 }
 

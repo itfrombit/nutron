@@ -33,13 +33,13 @@
 	{
 		return;
 	}
-	
+
 	[_rootObject release];
-	
+
 	if (newClassName)
-	{		
+	{
 		NutronRuntimeClass* nrc = [[[NutronRuntimeClass alloc] initWithName:newClassName] autorelease];
-	
+
 		_rootObject = [[[NutronCachedRuntimeObject alloc] initWithObject:nrc
 																  parent:nil
 																	 key:kNutronCachedObjectKeyObject
@@ -55,7 +55,7 @@
 - (id)initWithFrame:(NSRect)frame className:(NSString*)aClassName
 {
 	self = [super init];
-	
+
 	if (self)
 	{
 		if (aClassName)
@@ -67,12 +67,12 @@
 																		 key:kNutronCachedObjectKeyObject
 																	   index:-1] retain];
 		}
-		else 
+		else
 		{
 			_rootObject = nil;
 		}
 
-		_outlineView = [[NutronClassOutlineView alloc] 
+		_outlineView = [[NutronClassOutlineView alloc]
 						initWithFrame:NSMakeRect(0,
 												 0,
 												 frame.size.width,
@@ -111,7 +111,7 @@
 	[_scrollView release];
 	[_outlineView release];
 	[_rootObject release];
-	
+
 	[super dealloc];
 }
 
@@ -120,9 +120,9 @@
 {
 	[_outlineView reloadData];
 	[_outlineView expandItem:_rootObject];
-    
+
     NSArray* children = [_rootObject children];
-    
+
     for (NutronCachedObject* item in children)
     {
         if (![[item key] isEqualToString:kNutronCachedObjectKeyObject])
@@ -159,7 +159,7 @@
 		return 1;
 		//object = _rootObject;
 	}
-		
+
 	NutronDebug(@"# of children: item %@", object);
 	return [object numberOfChildren];
 }
@@ -167,7 +167,7 @@
 - (id)outlineView:(NSOutlineView *)ov child:(NSInteger)index ofItem:(id)item
 {
 	NutronCachedObject* object = (NutronCachedObject*)item;
-	
+
 	if (object == nil)
 	{
 		return _rootObject;
@@ -181,14 +181,14 @@
 - (id)outlineView:(NSOutlineView *)ov objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
 {
 	NutronDebug(@"objectValueForTableColumn:%@ byItem:%@", tableColumn, item);
-	
+
 	NutronCachedObject* object = (NutronCachedObject*)item;
-	
+
 	if (object == nil)
 		object = _rootObject;
-		
+
 	NSString* columnIdentifier = [tableColumn identifier];
-		
+
 	if ([columnIdentifier compare:@"Name"] == NSOrderedSame)
 	{
 		return [object name];

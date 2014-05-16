@@ -24,7 +24,7 @@
 
 	NSSplitView*						_lrSplitView;
 	NSSplitView*						_tbSplitView;
-	
+
 	NutronConsoleViewController*		_consoleViewer;
 	NutronObjectViewController*			_objectViewer;
 	NutronClassOutlineViewController*	_classViewer;

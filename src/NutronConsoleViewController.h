@@ -31,7 +31,7 @@
 	int										_index;
 	int										_count;
 	int										_chunk;
-	
+
 	int										_promptCounter;
 	id<NutronConsoleViewControllerDelegate>	_delegate;
 }

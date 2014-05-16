@@ -23,7 +23,7 @@
 	{
 		[a addObject:[item toPlist]];
 	}
-	
+
 	return a;
 }
 @end
@@ -40,9 +40,9 @@
 + (NSString*) mapNativeType:(NSString*)typeEncoding
 {
 	static NSDictionary*	typeDictionary = nil;
-	
+
 	if (typeDictionary == nil)
-	{		
+	{
 		// From Objective-C 2.0 Programming Language, pg. 123
 		typeDictionary = [[NSDictionary dictionaryWithObjectsAndKeys:
 		@"char",					@"c",
@@ -79,7 +79,7 @@
 	char		c = [encoding characterAtIndex:0];
 	int			idx;
 
-	switch (c) 
+	switch (c)
 	{
 		case '@':
 			if ([encoding length] == 1)
@@ -98,7 +98,7 @@
 				// by the objc runtime.
 				objcType = @"void (*functionPtr)()";
 			else
-				objcType = [NSString stringWithFormat:@"%@*", 
+				objcType = [NSString stringWithFormat:@"%@*",
 							[self mapTypeEncodingToObjcEncoding:
 							 [encoding substringFromIndex:1]]];
 			break;
@@ -117,7 +117,7 @@
 
 		case '{':	// struct: {tag="name1"type1"name2"type2}
 		case '(':	// union:  (tag="name1"type1"name2"type2)
-			range = [encoding rangeOfString:@"=" 
+			range = [encoding rangeOfString:@"="
 									options:NSLiteralSearch
 									  range:NSMakeRange(1, [encoding length] - 1)];
 			if (range.location == NSNotFound)
@@ -157,10 +157,10 @@
 - (id) initWithTypeEncoding:(NSString*)encoding
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
-	
+
 	self.typeEncoding = encoding; //[encoding copy];
 	[self mapTypeEncodingToObjcEncoding:encoding];
 
@@ -170,7 +170,7 @@
 - (NSString*) className
 {
 	NSString* typecode = [self typeEncoding];
-	
+
 	if ([typecode characterAtIndex:0] == '@')
 	{
 		if ([typecode length] == 1)
@@ -182,7 +182,7 @@
 	{
 		return nil;
 	}
-	
+
 }
 
 - (void) dealloc
@@ -199,7 +199,7 @@
 - (id)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
@@ -220,7 +220,7 @@
 - (id) initWithPlist:(NSMutableDictionary*) plist
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
@@ -243,7 +243,7 @@
 - (NSString*) description
 {
 	return [NSString stringWithFormat:@"%@  (%@)",
-				[self typeEncoding], 
+				[self typeEncoding],
 				[self objcEncoding]];
 }
 
@@ -263,17 +263,17 @@
 - (id) initWithName:(NSString*)aName typeEncoding:(NSString*)aTypeEncoding offset:(long)anOffset
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
 //	properties = [[NSMutableDictionary alloc] init];
-	
+
 //	[properties setValue:name forKey:@"name"];
 //	[properties setValue:typeEncoding forKey:@"typeEncoding"];
 //	[properties setValue:[NSNumber numberWithLong:offset] forKey:@"offset"];
-	
-//	[properties setValue:[[NutronRuntimeType alloc] initWithTypeEncoding:typeEncoding] 
+
+//	[properties setValue:[[NutronRuntimeType alloc] initWithTypeEncoding:typeEncoding]
 //				forKey:@"type"];
 
 	self.name = aName;
@@ -304,7 +304,7 @@
 - (id)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
@@ -318,11 +318,11 @@
 - (NSMutableDictionary*) toPlist
 {
 	NSMutableDictionary* d = [NSMutableDictionary dictionary];
-	
+
 	[d setObject:_name forKey:@"name"];
 	[d setObject:_typeEncoding forKey:@"typeEncoding"];
 	[d setObject:[NSNumber numberWithInt:_offset] forKey:@"offset"];
-	
+
 	return d;
 }
 
@@ -330,7 +330,7 @@
 - (id) initWithPlist:(NSMutableDictionary*) plist
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
@@ -344,14 +344,14 @@
 
 - (NSString*) description
 {
-	return [NSString stringWithFormat:@"  %@  %@  %@  %d", 
+	return [NSString stringWithFormat:@"  %@  %@  %@  %d",
 		_name,
 		_typeEncoding,
 		[_runtimeType description],
 		_offset];
-//		[properties valueForKey:@"name"], 
+//		[properties valueForKey:@"name"],
 //		[properties valueForKey:@"typeEncoding"],
-//		[properties valueForKey:@"type.description"], 
+//		[properties valueForKey:@"type.description"],
 //		[properties valueForKey:@"offset"]];
 }
 
@@ -366,9 +366,9 @@
 	{
 		[d appendString:[_runtimeType objcEncodingSuffix]];
 	}
-	
+
 	[d appendString:@";"];
-		
+
 	return d;
 }
 
@@ -383,8 +383,8 @@
 	{
 		[d appendString:[_runtimeType objcEncodingSuffix]];
 	}
-	
-	return d;	
+
+	return d;
 }
 
 @end
@@ -403,12 +403,12 @@
 - (id) init
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
 	_args = [[NSMutableArray alloc] init];
-	
+
 	return self;
 }
 
@@ -433,10 +433,10 @@
 - (id)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
-	
+
 	self.name = [coder decodeObjectForKey:@"name"];
 //  selector = [coder decodeObjectForKey:@"selector"];
 	self.returnType = [coder decodeObjectForKey:@"returnType"];
@@ -450,7 +450,7 @@
 - (NSMutableDictionary*) toPlist
 {
 	NSMutableDictionary* d = [NSMutableDictionary dictionary];
-	
+
 	[d setObject:_name forKey:@"name"];
 	[d setObject:[_returnType toPlist] forKey:@"returnType"];
 	[d setObject:[NSNumber numberWithInt:_methodType] forKey:@"methodType"];
@@ -463,7 +463,7 @@
 - (id) initWithPlist:(NSMutableDictionary*) plist
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
@@ -487,14 +487,14 @@
 - (NSString*) objcDeclarationRoot
 {
 	NSMutableString* d = [NSMutableString string];
-	
+
 	if (_methodType == NutronRuntimeMethodType_Instance)
 		[d appendString:@"- "];
 	else
 		[d appendString:@"+ "];
-	
+
 	[d appendFormat:@"(%@) ", [_returnType objcEncoding]];
-	
+
 	// Parse the method name to intersperse the arguments
 	int idx = 0;
 	int argIdx = 0;
@@ -502,7 +502,7 @@
 	int length = [_name length];
 
 	while (idx < length)
-	{	
+	{
 		NSString* fragment;
 
 		NSRange range= [_name rangeOfString:@":"
@@ -518,21 +518,21 @@
 			fragment = [_name substringWithRange:NSMakeRange(idx, range.location - idx)];
 			idx = range.location + 1;
 		}
-		
+
 		if (argIdx > 0)
 			[d appendFormat:@" "];
 
 		[d appendFormat:@"%@", fragment];
-		
+
 		if (range.location != NSNotFound)
 		{
 			[d appendFormat:@":(%@)arg%d", [[_args objectAtIndex:argIdx] objcEncoding], argIdx + 1];
 		}
-		
+
 		++argIdx;
 	}
 
-	return d;	
+	return d;
 }
 
 
@@ -553,14 +553,14 @@
 - (NSString*) nuDeclarationRoot
 {
 	NSMutableString* d = [NSMutableString string];
-	
+
 	if (_methodType == NutronRuntimeMethodType_Instance)
 		[d appendString:@"(- "];
 	else
 		[d appendString:@"(+ "];
-	
+
 	[d appendFormat:@"(%@) ", [_returnType objcEncoding]];
-	
+
 	// Parse the method name to intersperse the arguments
 	int idx = 0;
 	int argIdx = 0;
@@ -568,7 +568,7 @@
 	int length = [_name length];
 
 	while (idx < length)
-	{	
+	{
 		NSString* fragment;
 
 		NSRange range= [_name rangeOfString:@":"
@@ -584,17 +584,17 @@
 			fragment = [_name substringWithRange:NSMakeRange(idx, range.location - idx)];
 			idx = range.location + 1;
 		}
-		
+
 		if (argIdx > 0)
 			[d appendFormat:@" "];
 
 		[d appendFormat:@"%@", fragment];
-		
+
 		if (range.location != NSNotFound)
 		{
 			[d appendFormat:@":(%@)arg%d", [[_args objectAtIndex:argIdx] objcEncoding], argIdx + 1];
 		}
-		
+
 		++argIdx;
 	}
 
@@ -612,7 +612,7 @@
 
 	[d appendString:[self nuDeclarationRoot]];
 	[d appendString:@" is nil)"];
-	
+
 	return d;
 }
 
@@ -624,7 +624,7 @@
 
 	id numethod = [[[NuMethod alloc] initWithMethod:_method] autorelease];
 	id block = [numethod block];
-	
+
 	if (block == nil)
 	{
 		[d appendString:@" is nil)"];
@@ -641,15 +641,15 @@
 - (NSString*) description
 {
 	NSMutableString* d = [NSMutableString string];
-	
+
 	[d appendFormat:@"  (%@) %@", [_returnType objcEncoding], _name];
-	
+
 	int i;
 	for (i = 0; i < [_args count]; i++)
 	{
 		[d appendFormat:@" (%@)", [[_args objectAtIndex:i] objcEncoding]];
 	}
-	
+
 	return d;
 }
 
@@ -677,7 +677,7 @@
 - (id) init
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
@@ -703,7 +703,7 @@
 - (id)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
@@ -717,7 +717,7 @@
 - (NSMutableDictionary*) toPlist
 {
 	NSMutableDictionary* d = [NSMutableDictionary dictionary];
-	
+
 	[d setObject:_name forKey:@"name"];
 	[d setObject:_attributes forKey:@"attributes"];
 
@@ -743,21 +743,21 @@
 - (id) initWithName:(NSString*)aName attributes:(NSString*)theAttributes
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
 	int idx = 0;
 	int attrLength = [theAttributes length];
 	//NSLog(@"Property name = %@ attributes[%d] = %@", aName, attrLength, _attributes);
-	
+
 	self.name = aName;
 	self.attributes = theAttributes;
-	
+
 	while (idx < attrLength)
 	{
 		char attribute = [theAttributes characterAtIndex:idx];
-		
+
 		/* Get the rest of the attribute string, if there is any. */
 		NSRange range= [_attributes rangeOfString:@","
 										  options:NSLiteralSearch
@@ -769,11 +769,11 @@
 			range.location = attrLength;
 
 		NSString* rest = [theAttributes substringWithRange:NSMakeRange(idx + 1, range.location - idx - 1)];
-		
-		//NSLog(@"  idx = %d attribute = %c rest = %@ range = {%d, %d}", 
+
+		//NSLog(@"  idx = %d attribute = %c rest = %@ range = {%d, %d}",
 		//	  idx, attribute, rest, range.location, range.length);
-		
-		switch (attribute) 
+
+		switch (attribute)
 		{
 			case 'T':
 				self.runtimeType = [[[NutronRuntimeType alloc] initWithTypeEncoding:rest] autorelease];
@@ -802,11 +802,11 @@
 			case 'D':
 				_isDynamic = YES;
 				break;
-			
+
 			case '?':
 				_isNonatomic = YES;
 				break;
-				
+
 			case 'G':
 				self.getter = rest;
 				break;
@@ -814,20 +814,20 @@
 			case 'S':
 				self.setter = rest;
 				break;
-				
+
 			case 'V':	/* synthesized */
 				_isSynthesized = YES;
 				_isDynamic = NO;			/* properties default to Dynamic */
 				self.synthesizedIvar = rest;
 				break;
-				
+
 			default:
 				break;
 		}
-		
+
 		idx = range.location + 1;
 	}
-	
+
 
 	return self;
 }
@@ -840,42 +840,42 @@
 
 	if (_isCopied)
 		[a appendString:@"copy"];
-	
+
 	if (_isRetained)
 		[a appendString:@"retain"];
-	
+
 	if (!_isCopied && !_isRetained)
 		[a appendString:@"assign"];	// Default
-	
+
 	if (_isReadOnly)
 		[a appendString:@", readonly"];
 	else
 		[a appendString:@", readwrite"];
-	
+
 	if (_isNonatomic)
 		[a appendString:@", nonatomic"];
-	
+
 	if ([_getter length] > 0)
 		[a appendFormat:@", getter=%@", _getter];
-	
+
 	if ([_setter length] > 0)
 		[a appendFormat:@", setter=%@", _setter];
-	
+
 	if (_isStrongRef)
 		[x appendString:@" __strong"];
-	
+
 	if (_isWeakRef)
 		[x appendString:@" __weak"];
 
 	d = [NSString stringWithFormat:@"@property(%@) %@ %@;", a, [_runtimeType objcEncoding], _name];
-	
+
 	return d;
 }
 
 - (NSString*) objcImplementation
 {
 	NSMutableString* d = [[[NSMutableString alloc] init] autorelease];
-	
+
 	if (_isSynthesized)
 		[d appendString:@"@synthesize "];
 
@@ -883,14 +883,14 @@
 		[d appendString:@"@dynamic "];
 
 	[d appendString:_name];
-	
+
 	if (_isSynthesized && ![_synthesizedIvar isEqualToString:_name])
 	{
 		[d appendFormat:@" = %@", _synthesizedIvar];
 	}
-	
+
 	[d appendString:@";"];
-		
+
 	return d;
 }
 
@@ -910,13 +910,13 @@
 - (id)initWithName:(NSString*)theName
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
 	self = [super init];
 	self.name = theName;
-	
+
 	return self;
 }
 
@@ -933,7 +933,7 @@
 - (id)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
@@ -946,7 +946,7 @@
 - (NSMutableDictionary*) toPlist
 {
 	NSMutableDictionary* d = [NSMutableDictionary dictionary];
-	
+
 	[d setObject:_name forKey:@"name"];
 
 	return d;
@@ -955,7 +955,7 @@
 - (id) initWithPlist:(NSMutableDictionary*) plist
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
@@ -986,29 +986,29 @@
 @synthesize classMethods = _classMethods;
 @synthesize protocols = _protocols;
 
-- (void) buildMethodTable:(NSMutableArray*)table 
-			forMethodType:(NutronRuntimeMethodType)methodType 
-				 fromList:(Method*)methodList 
+- (void) buildMethodTable:(NSMutableArray*)table
+			forMethodType:(NutronRuntimeMethodType)methodType
+				 fromList:(Method*)methodList
 				withCount:(int)methodCount
 {
 	int i;
 	int j;
-	
+
 	for (i = 0; i < methodCount; i++)
 	{
 		NutronRuntimeMethod* method = [[[NutronRuntimeMethod alloc] init] autorelease];
-		
+
 		method.method = methodList[i];
 		method.name = [NSString stringWithCString:sel_getName(method_getName(methodList[i])) encoding:NSUTF8StringEncoding];
 		method.selector = method_getName(methodList[i]);
 		method.methodType = methodType;
-		
+
 		char* szReturnType = method_copyReturnType(methodList[i]);
 		method.returnType = [[[NutronRuntimeType alloc] initWithTypeEncoding:
 							 [NSString stringWithCString:szReturnType encoding:NSUTF8StringEncoding]] autorelease];
 		if (szReturnType)
 			free(szReturnType);
-		
+
 		unsigned int argCount = method_getNumberOfArguments(methodList[i]);
 		/* Arguments 0 and 1 are self and the selector number. Skip them. */
 		for (j = 2; j < argCount; j++)
@@ -1017,13 +1017,13 @@
 			NutronRuntimeType* argType = [[[NutronRuntimeType alloc] initWithTypeEncoding:
 										  [NSString stringWithCString:szArgType encoding:NSUTF8StringEncoding]] autorelease];
 			[method addArgument:argType];
-			
+
 			if (szArgType)
 				free(szArgType);
 		}
-		
+
 		[table addObject:method];
-	}	
+	}
 }
 
 
@@ -1042,7 +1042,7 @@
 - (id)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
@@ -1067,13 +1067,13 @@
 	[classMethods removeAllObjects];
 	[protocols removeAllObjects];
 	 */
-	
+
 	[_ivars release];
 	[_properties release];
 	[_instanceMethods release];
 	[_classMethods release];
 	[_protocols release];
-	
+
 	[super dealloc];
 }
 
@@ -1081,22 +1081,22 @@
 - (id) initWithName:(NSString*) aName
 {
     self = [super init];
-	
+
 	if (self == nil)
 		return nil;
 
 	int i;
-	
+
 	self.name = aName;
 
 	const char* szClassName = [aName UTF8String];
 	Class cls = objc_getClass(szClassName);
 
 	Class supercls = class_getSuperclass(cls);
-	_superclassName = [[NSString stringWithCString:class_getName(supercls) 
+	_superclassName = [[NSString stringWithCString:class_getName(supercls)
 										 encoding:NSUTF8StringEncoding] retain];
-	
-	
+
+
 	//////////////////////////////////////////////////////////////////////
 	Ivar *ivarList = NULL;
 	unsigned int ivarCount;
@@ -1111,7 +1111,7 @@
 														encoding:NSUTF8StringEncoding];
 		long ivarOffset = ivar_getOffset(ivarList[i]);
 
-		NutronRuntimeIvar*	ivar = [[[NutronRuntimeIvar alloc] 
+		NutronRuntimeIvar*	ivar = [[[NutronRuntimeIvar alloc]
 										initWithName:ivarName
 										typeEncoding:ivarTypeEncoding
 										offset:ivarOffset] autorelease];
@@ -1127,7 +1127,7 @@
 
 	_instanceMethods	= [[NSMutableArray alloc] init];
 	instanceMethodList = class_copyMethodList(cls, &instanceMethodCount);
-	
+
 	[self buildMethodTable:_instanceMethods
 			 forMethodType:NutronRuntimeMethodType_Instance
 				  fromList:instanceMethodList
@@ -1139,10 +1139,10 @@
 	//////////////////////////////////////////////////////////////////////
 	Method* classMethodList = NULL;
 	unsigned int classMethodCount;
-	
+
 	_classMethods = [[NSMutableArray alloc] init];
 	classMethodList = class_copyMethodList(object_getClass(cls), &classMethodCount);
-	
+
 	[self buildMethodTable:_classMethods
 			 forMethodType:NutronRuntimeMethodType_Class
 				  fromList:classMethodList
@@ -1150,55 +1150,55 @@
 
 	if (classMethodList)
 		free(classMethodList);
-	
+
 	//////////////////////////////////////////////////////////////////////
 	objc_property_t* propertyList = NULL;
 	unsigned int propertyCount;
-	
+
 	_properties	= [[NSMutableArray alloc] init];
 	propertyList = class_copyPropertyList(cls, &propertyCount);
-	
+
 	for (i = 0; i < propertyCount; i++)
 	{
 		NSString* propertyName = [NSString stringWithCString:property_getName(propertyList[i])
 													encoding:NSUTF8StringEncoding];
 		NSString* attributes = [NSString stringWithCString:property_getAttributes(propertyList[i])
 												  encoding:NSUTF8StringEncoding];
-		
-		NutronRuntimeProperty* property = 
+
+		NutronRuntimeProperty* property =
 			[[[NutronRuntimeProperty alloc] initWithName:propertyName
 										 attributes:attributes] autorelease];
 		[_properties addObject:property];
 	}
-	
+
 	if (propertyList)
 		free(propertyList);
 
 	//////////////////////////////////////////////////////////////////////
 	Protocol** protocolList = NULL;
 	unsigned int protocolCount;
-	
+
 	_protocols	= [[NSMutableArray alloc] init];
 	protocolList = class_copyProtocolList(cls, &protocolCount);
-	
+
 	for (i = 0; i < protocolCount; i++)
 	{
-		NSString* protocolName = 
+		NSString* protocolName =
 			[NSString stringWithCString:protocol_getName(protocolList[i])
 							   encoding:NSUTF8StringEncoding];
-		
+
 		/*
 		struct objc_method_description* protocolMethodList = NULL;
 		unsigned int protocolMethodCount;
-		
-		protocolMethodList = 
-			protocol_copyMethodDescriptionList(protocolList[i], 
+
+		protocolMethodList =
+			protocol_copyMethodDescriptionList(protocolList[i],
 											   YES,	// required
 											   YES,	// instance
 											   &protocolMethodCount);
-		
+
 		NSLog(@"protocol: %@ (%d)", protocolName, protocolMethodCount);
-		
+
 		for (j = 0; j < protocolMethodCount; j++)
 		{
 			NSLog(@"  Method[%d]: name = %s types = %s",
@@ -1206,20 +1206,20 @@
 				protocolMethodList[j].name,
 				  protocolMethodList[j].types);
 		}
-		
+
 		if (protocolMethodList)
 			free(protocolMethodList);
 		*/
-		
-		NutronRuntimeProtocol* protocol = 
+
+		NutronRuntimeProtocol* protocol =
 			[[[NutronRuntimeProtocol alloc] initWithName:protocolName] autorelease];
 
 		[_protocols addObject:protocol];
 	}
-		
+
 	if (protocolList)
 		free(protocolList);
-	
+
 	//jsbjsb
 //	[self dump];
 	return self;
@@ -1231,9 +1231,9 @@
 //	int j;
 
 	NSMutableString* d = [[[NSMutableString alloc] init] autorelease];
-	
+
 	[d appendFormat:@"@interface %@", _name];
-	
+
 	if ([_superclassName length] > 0)
 		[d appendFormat:@" : %@", _superclassName];
 
@@ -1245,13 +1245,13 @@
 		{
 			if (i > 0)
 				[d appendFormat:@","];
-			
+
 			[d appendFormat:@" %@", [[_protocols objectAtIndex:i] name]];
 		}
 
 		[d appendString:@" >"];
 	}
-	
+
 	[d appendString:@"\n{\n"];
 
 	for (i = 0; i < [_ivars count]; i++)
@@ -1260,28 +1260,28 @@
 	}
 
 	[d appendString:@"}\n\n"];
-	
+
 	for (i = 0; i < [_properties count]; i++)
 	{
 		[d appendFormat:@"%@\n", [[_properties objectAtIndex:i] objcDeclaration]];
 	}
-	
+
 	[d appendString:@"\n"];
-	
+
 	for (i = 0; i < [_classMethods count]; i++)
 	{
 		[d appendFormat:@"%@\n", [[_classMethods objectAtIndex:i] objcDeclaration]];
 	}
 
 	[d appendString:@"\n"];
-	
+
 	for (i = 0; i < [_instanceMethods count]; i++)
 	{
 		[d appendFormat:@"%@\n", [[_instanceMethods objectAtIndex:i] objcDeclaration]];
 	}
 
 	[d appendString:@"\n"];
-	
+
 	[d appendString:@"\n@end"];
 
 	return d;
@@ -1292,9 +1292,9 @@
 	int i;
 
 	NSMutableString* d = [[[NSMutableString alloc] init] autorelease];
-	
+
 	[d appendFormat:@"(class %@", _name];
-	
+
 	if ([_superclassName length] > 0)
 		[d appendFormat:@" is %@\n", _superclassName];
 
@@ -1305,21 +1305,21 @@
 	}
 
 	[d appendString:@"  )\n\n"];
-	
+
 	for (i = 0; i < [_classMethods count]; i++)
 	{
 		[d appendFormat:@"  %@\n", [[_classMethods objectAtIndex:i] nuDeclaration]];
 	}
 
 	[d appendString:@"\n"];
-	
+
 	for (i = 0; i < [_instanceMethods count]; i++)
 	{
 		[d appendFormat:@"  %@\n", [[_instanceMethods objectAtIndex:i] nuImplementation]];
 	}
 
 	[d appendString:@"\n"];
-	
+
 	[d appendString:@")\n"];
 
 	return d;
@@ -1337,7 +1337,7 @@
 	{
 		NSLog(@"    %@", [ivar description]);
 	}
-	
+
 	NSLog(@"  %lu Class Methods:", [_classMethods count]);
 	for (NutronRuntimeMethod* method in _classMethods)
 	{
@@ -1349,14 +1349,14 @@
 	{
 		NSLog(@"    %@", [method description]);
 	}
-	
+
 	NSLog(@"  %lu Properties:", [_properties count]);
 	for (NutronRuntimeProperty* property in _properties)
 	{
 		NSLog(@"    %@", [property objcDeclaration]);
 		NSLog(@"      %@", [property objcImplementation]);
 	}
-	
+
 	NSLog(@"  %lu Protocols:", [_protocols count]);
 	for (NutronRuntimeProtocol* protocol in _protocols)
 	{
@@ -1368,13 +1368,13 @@
 - (id)objectLookup:(NSMutableArray*)array withName:(NSString*)key
 {
 	int		i;
-	
+
 	for (i = 0; i < [array count]; i++)
 	{
 		if ([[[array objectAtIndex:i] name] isEqualToString:key])
 			return [array objectAtIndex:i];
 	}
-	
+
 	return nil;
 }
 
@@ -1411,7 +1411,7 @@
 - (NSMutableDictionary*) toPlist
 {
 	NSMutableDictionary* d = [NSMutableDictionary dictionary];
-	
+
 	[d setObject:_name forKey:@"classname"];
 	[d setObject:_superclassName forKey:@"superclassName"];
 	[d setObject:[_ivars toPlist] forKey:@"ivars"];
@@ -1419,7 +1419,7 @@
 	[d setObject:[_classMethods toPlist] forKey:@"classMethods"];
 	[d setObject:[_instanceMethods toPlist] forKey:@"instanceMethods"];
 	[d setObject:[_protocols toPlist] forKey:@"protocols"];
-	
+
 	return d;
 }
 

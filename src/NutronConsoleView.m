@@ -14,7 +14,7 @@
 - (id)initWithFrame:(NSRect)frame
 {
 	self = [super initWithFrame:frame];
-	
+
 	if (self == nil)
 		return nil;
 
@@ -28,7 +28,7 @@
 	if (([event modifierFlags] & NSControlKeyMask) != 0)
 	{
 		id<NutronConsoleViewDelegate> cvd = (id<NutronConsoleViewDelegate>)[self delegate];
-	
+
 		switch ([event keyCode])
 		{
 			case 0:
@@ -40,7 +40,7 @@
 				break;
 		}
 	}
-	
+
 	[super keyDown:event];
 }
 

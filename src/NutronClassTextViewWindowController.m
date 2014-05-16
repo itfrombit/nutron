@@ -16,7 +16,7 @@
 
 - (id)initWithClassName:(NSString*)aClassName
 {
-	self = [super initWithWindow:[[NSPanel alloc] 
+	self = [super initWithWindow:[[NSPanel alloc]
 								  initWithContentRect:NSMakeRect(0, 0, 600, 400)
 								  styleMask:NSTitledWindowMask
 								  | NSClosableWindowMask
@@ -33,7 +33,7 @@
 	NSWindow* w = [self window];
 	NSRect frame = [w frame];
 
-	_textViewController = [[NutronClassTextViewController alloc] 
+	_textViewController = [[NutronClassTextViewController alloc]
 						   initWithFrame:frame];
 
 	[w setContentView:[_textViewController scrollView]];
@@ -46,7 +46,7 @@
 	[w setFrameOrigin:NSMakePoint(frame.origin.x, 500)];
 	[w setMinSize:NSMakeSize(600, 100)];
 	[w makeKeyAndOrderFront:self];
-	
+
 	[_textViewController setFonts];
 	[_textViewController setClassName:_className];
 
@@ -56,7 +56,7 @@
 - (void)dealloc
 {
 	[[self window] setDelegate:nil];
-	
+
 	[_textViewController release];
 	[super dealloc];
 }

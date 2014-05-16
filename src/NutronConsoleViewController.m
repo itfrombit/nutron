@@ -50,7 +50,7 @@
 		[_textView setDelegate:self];
 
 		_scrollView = [[NSScrollView scrollViewWrappedAroundView:_textView withFrame:frame] retain];
-		
+
 		_startOfInput = 0;
 		_insertionPoint = 0;
 		_count = 0;
@@ -65,8 +65,8 @@
 		// Add the magic $$console symbole. print and puts depend on it being there
 		NuSymbolTable* symbolTable = [[_parser context] objectForKey:SYMBOLS_KEY];
 		[[symbolTable symbolWithString:@"$$console"] setValue:self];
-		
-		[self prompt];		
+
+		[self prompt];
 	}
 
 	return self;
@@ -78,7 +78,7 @@
 	[_history release];
 	[_textView release];
 	[_scrollView release];
-	
+
 	[super dealloc];
 }
 
@@ -86,9 +86,9 @@
 {
 	if (newParser == _parser)
 		return;
-	
+
 	[_parser release];
-	
+
 	_parser = [newParser retain];
 
 	// Add the magic $$console symbole. print and puts depend on it being there
@@ -119,16 +119,16 @@
 	int length = [string length];
 	_insertionPoint += length;
 	_startOfInput += length;
-	
+
 	[_textView scrollRangeToVisible:NSMakeRange([self lengthOfTextView], 0)];
-	
+
 	++_count;
-	
+
 	if ((_count % _chunk) == 0)
 	{
 		[[NSRunLoop currentRunLoop] runUntilDate:[NSDate date]];
 	}
-	
+
 	[self moveToEndOfInput];
 }
 
@@ -171,11 +171,11 @@
 	{
 		return;
 	}
-	
+
 	int textLength = [self lengthOfTextView];
-	
+
 	NSString* replacement;
-	
+
 	if (_index == (historyCount - 1))
 	{
 		replacement = @"";
@@ -184,9 +184,9 @@
 	{
 		replacement = [_history objectAtIndex:_index + 1];
 	}
-	
+
 	++_index;
-	
+
 	[[_textView textStorage] replaceCharactersInRange:NSMakeRange(_startOfInput,
 																  textLength - _startOfInput)
 										   withString:replacement];
@@ -195,12 +195,12 @@
 
 
 - (BOOL)textView:(NSTextView*)textView shouldChangeTextInRange:(NSRange)range replacementString:(NSString*)replacement
-{ 
+{
 	NSLayoutManager* layoutManager = [_textView layoutManager];
 	int textLength = [self lengthOfTextView];
 	int replacementLength = [replacement length];
 	NSTextStorage* textStorage = [_textView textStorage];
-	
+
 	[layoutManager removeTemporaryAttribute:@"NSColor" forCharacterRange:NSMakeRange(0, textLength)];
 	[layoutManager removeTemporaryAttribute:@"NSBackgroundColor" forCharacterRange:NSMakeRange(0, textLength)];
 	[layoutManager removeTemporaryAttribute:@"NSFont" forCharacterRange:NSMakeRange(0, textLength)];
@@ -267,7 +267,7 @@
 			[layoutManager setTemporaryAttributes:highlight
 								forCharacterRange:NSMakeRange(match, 1)];
 		}
-		
+
 		return NO;
 	}
 	else if (   (replacementLength > 0)
@@ -275,29 +275,29 @@
 	{
 		[textStorage replaceCharactersInRange:NSMakeRange(textLength, 0) withString:replacement];
 		[_textView setNeedsDisplay:YES];
-		
+
 		NSString* stringToEvaluate = [self currentLine];
 		_startOfInput = [self lengthOfTextView];
-		
+
 		int stringToEvaluateLength = [stringToEvaluate length];
-		
+
 		if (stringToEvaluateLength > 1)
 		{
 			[_history addObject:[stringToEvaluate substringToIndex:(stringToEvaluateLength - 1)]];
 			_index = [_history count];
-			
+
 			NSString* displayString;
-			
+
 			@try
 			{
 				id code = [_parser parse:stringToEvaluate];
-				
+
 				if (![_parser incomplete])
 				{
 					_insertionPoint = _startOfInput;
 					id result = [_parser eval:code];
 					[[[_parser symbolTable] symbolWithString:@"!!"] setValue:result];
-					
+
 					if ([result respondsToSelector:@selector(escapedStringRepresentation)])
 					{
 						displayString = [result escapedStringRepresentation];
@@ -309,7 +309,7 @@
 
 					[self write:displayString];
 					[self write:@"\n"];
-					
+
 					if (_delegate)
 					{
 						[_delegate commandProcessed:[stringToEvaluate substringToIndex:(stringToEvaluateLength - 1)]
@@ -340,7 +340,7 @@
 		{
 			_insertionPoint = _startOfInput;
 		}
-		
+
 		[self prompt];
 		return NO;	// we already inserted replacement
 	}
@@ -383,7 +383,7 @@
 - (void)prompt
 {
 	int savedInsertionPoint = _insertionPoint;
-	
+
 	if ([_parser incomplete])
 	{
 		_insertionPoint = _startOfInput;
@@ -393,7 +393,7 @@
 	{
 		[self write:[NSString stringWithFormat:@"%d > ", ++_promptCounter]];
 	}
-	
+
 	_insertionPoint = savedInsertionPoint;
 }
 
